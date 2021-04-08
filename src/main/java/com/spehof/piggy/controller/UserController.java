@@ -1,8 +1,11 @@
 package com.spehof.piggy.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.spehof.piggy.DAO.UserDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.exception.UserNotFoundException;
+import com.spehof.piggy.utils.AccountViews;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -56,13 +59,19 @@ public class UserController {
      */
     @GetMapping("{id}")
     public Client getOne(@PathVariable("id") Client client){
-        return client;
+        if (client.getId() != null) {
+            return client;
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
     @PostMapping
     public Client create(@RequestBody Client client){
         client.setRegistrationDate(LocalDateTime.now());
-        client.setAccount(new Account());
+        Account account = new Account();
+        account.setCurrency(2);
+        client.setAccount(account);
         return userDao.save(client);
     }
 

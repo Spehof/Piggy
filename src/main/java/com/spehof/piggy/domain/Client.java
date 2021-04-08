@@ -1,7 +1,6 @@
 package com.spehof.piggy.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;
 
@@ -16,12 +15,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "clients")
 @Data
-@EqualsAndHashCode(of = {"id"})
-//@AllArgsConstructor
-//@NoArgsConstructor
+@EqualsAndHashCode(of = {"id", "name", "registrationDate"})
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
     @JsonView(ClientViews.IdName.class)
     private Long id;
@@ -35,10 +32,10 @@ public class Client {
     @JsonView(ClientViews.IdNameCreationdate.class)
     private LocalDateTime registrationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @JsonBackReference
     private Account account;
-
 
 
 
