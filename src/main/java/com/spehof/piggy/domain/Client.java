@@ -45,6 +45,9 @@ public class Client {
     @OneToMany()
     private List<Friend> friends = new ArrayList<>();
 
+    @OneToMany()
+    private List<Budget> budgets = new ArrayList<>();
+
 
 
 //    private List<Notification> notifications;
