@@ -43,10 +43,19 @@ public class Client {
     private Account account;
 
     @OneToMany()
+    private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
+
+    @OneToMany()
     private List<Friend> friends = new ArrayList<>();
 
     @OneToMany()
     private List<Budget> budgets = new ArrayList<>();
+
+    @OneToMany()
+    private List<Notification> notifications = new ArrayList<>();
+
+    @OneToMany()
+    private List<Goal> goals = new ArrayList<>();
 
 
 

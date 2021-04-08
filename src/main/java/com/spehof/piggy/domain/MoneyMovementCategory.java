@@ -10,17 +10,14 @@ import javax.persistence.*;
  * @created 09/04/2021
  */
 @Entity
+@Table(name = "money_movement_categories")
 @Data
-@Table(name = "owes")
-@EqualsAndHashCode(of = {"id"})
-public class Owe {
+@EqualsAndHashCode(of = {"id", "name"})
+public class MoneyMovementCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne()
-    Friend friend;
-
-    Long amount;
+    String name;
 }

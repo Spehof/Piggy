@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "friends")
+@Table(name = "budgets")
 @EqualsAndHashCode(of = {"id", "value"})
 public class Budget {
 

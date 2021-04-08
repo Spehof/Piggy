@@ -10,17 +10,16 @@ import javax.persistence.*;
  * @created 09/04/2021
  */
 @Entity
+@Table(name = "goals")
 @Data
-@Table(name = "owes")
-@EqualsAndHashCode(of = {"id"})
-public class Owe {
+@EqualsAndHashCode(of = {"id", "text", "amount"})
+public class Goal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne()
-    Friend friend;
+    String text;
 
     Long amount;
 }
