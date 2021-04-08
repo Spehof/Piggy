@@ -61,13 +61,4 @@ public class Client {
     private List<Goal> goals = new ArrayList<>();
 
 
-
-//    private List<Notification> notifications;
-//    private List<Friend> friends;
-//    private List<Goal> goals;
-//    private List<Budget> budgets;
-//    private List<MoneyMovementCategory> moneyMovementCategories;
-//    private List<MoneyHolderType> moneyHolderTypes;
-
-
 }
