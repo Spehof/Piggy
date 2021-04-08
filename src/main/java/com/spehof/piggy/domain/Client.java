@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Spehof
@@ -19,7 +21,6 @@ import java.time.LocalDateTime;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
     @JsonView(ClientViews.IdName.class)
     private Long id;
 
@@ -33,9 +34,16 @@ public class Client {
     private LocalDateTime registrationDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    /**
+     * @JoinColumn
+     * referencedColumnName = "account_id" - need to be @Column(name = "account_id") in class account
+     * */
+    @JoinColumn(name = "id")
     @JsonBackReference
     private Account account;
+
+    @OneToMany()
+    private List<Friend> friends = new ArrayList<>();
 
 
 
