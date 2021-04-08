@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 @Data
 @EqualsAndHashCode(of = {"id"})
 //@AllArgsConstructor
@@ -35,9 +35,8 @@ public class Client {
     @JsonView(ClientViews.IdNameCreationdate.class)
     private LocalDateTime registrationDate;
 
-    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL
-    )
-//    @JoinColumn(name = "account_id",referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
 

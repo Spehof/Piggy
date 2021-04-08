@@ -10,7 +10,7 @@ import javax.persistence.*;
  * @created 08/04/2021
  */
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 @Data
 @EqualsAndHashCode(of = {"id"})
 public class Account {
@@ -19,7 +19,6 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @OneToOne(mappedBy = "account_id")
-    @JoinColumn(name = "client_id")
-    Client client;
+//    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    Client client;
 }
