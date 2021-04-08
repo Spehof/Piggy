@@ -46,6 +46,9 @@ public class Client {
     private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
 
     @OneToMany()
+    private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
+
+    @OneToMany()
     private List<Friend> friends = new ArrayList<>();
 
     @OneToMany()
