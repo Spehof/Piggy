@@ -1,14 +1,12 @@
 package com.spehof.piggy.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import com.spehof.piggy.DAO.AccountDao;
 import com.spehof.piggy.DAO.UserDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.exception.UserNotFoundException;
-import com.spehof.piggy.utils.AccountViews;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,20 +23,13 @@ import java.util.List;
 public class UserController {
 
     private final UserDao userDao;
+    private final AccountDao accountDao;
 
     @Autowired
-    public UserController(UserDao userDao){
+    public UserController(UserDao userDao, AccountDao accountDao){
         this.userDao = userDao;
+        this.accountDao = accountDao;
     }
-//    List<User> users = new ArrayList()
-//    {{
-//        add( new User("Mike"));
-//        add( new User(2L, "Jake"));
-//        add( new User(3L, "Simon"));
-//        add( new User(4L, "Fern"));
-//        add( new User(5L, "Nikolas"));
-//        add( new User(6L, "Billy"));
-//    }};
 
 
 //    private User getUserById(Long id) {
@@ -71,7 +62,9 @@ public class UserController {
         client.setRegistrationDate(LocalDateTime.now());
         Account account = new Account();
         account.setCurrency(2);
-        client.setAccount(account);
+        account.setClient(client);
+//        client.setAccount(account);
+        accountDao.save(account);
         return userDao.save(client);
     }
 

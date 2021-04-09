@@ -18,13 +18,14 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
     Long id;
 
-    Integer Currency;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
-    @JsonIgnore
+    @OneToOne()
+    @MapsId
+    @JoinColumn(name = "client_id")
     @JsonManagedReference
     Client client;
+
+    Integer Currency;
 }

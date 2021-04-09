@@ -21,6 +21,7 @@ import java.util.List;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @JsonView(ClientViews.IdName.class)
     private Long id;
 
@@ -33,16 +34,13 @@ public class Client {
     @JsonView(ClientViews.IdNameCreationdate.class)
     private LocalDateTime registrationDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    /**
-     * @JoinColumn
-     * referencedColumnName = "account_id" - need to be @Column(name = "account_id") in class account
-     * */
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
+    @PrimaryKeyJoinColumn
     @JsonBackReference
     private Account account;
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
 
     @OneToMany()
