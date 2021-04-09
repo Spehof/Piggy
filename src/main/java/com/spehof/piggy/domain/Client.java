@@ -82,5 +82,102 @@ public class Client extends BaseEntity {
         if (this.registrationDate == null) {
             this.registrationDate = registrationDate;
         }
+
+    }
+
+    public void setMoneyMovementCategories(List<MoneyMovementCategory> moneyMovementCategories){
+        for (MoneyMovementCategory moneyMovementCategory : moneyMovementCategories) {
+            this.setMoneyMovementCategory(moneyMovementCategory);
+        }
+    }
+
+    private void setMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
+        //prevent endless loop
+        if (this.moneyMovementCategories.contains(moneyMovementCategory))
+            return;
+        //add new earning
+        this.moneyMovementCategories.add(moneyMovementCategory);
+        //set myself into the cost account
+        moneyMovementCategory.setClient(this);
+    }
+
+    public void setMoneyHolderTypes(List<MoneyHolderType> moneyHolderTypes){
+        for (MoneyHolderType moneyHolderType : moneyHolderTypes) {
+            this.setMoneyHolderType(moneyHolderType);
+        }
+    }
+
+    private void setMoneyHolderType(MoneyHolderType moneyHolderType) {
+        //prevent endless loop
+        if (this.moneyHolderTypes.contains(moneyHolderType))
+            return ;
+        //add new earning
+        this.moneyHolderTypes.add(moneyHolderType);
+        //set myself into the cost account
+        moneyHolderType.setClient(this);
+    }
+
+    public void setFriends(List<Friend> friends){
+        for (Friend friend : friends) {
+            this.setFriend(friend);
+        }
+    }
+
+    private void setFriend(Friend friend) {
+        //prevent endless loop
+        if (this.friends.contains(friend))
+            return ;
+        //add new earning
+        this.friends.add(friend);
+        //set myself into the cost account
+        friend.setClient(this);
+    }
+
+    public void setBudgets(List<Budget> budgets){
+        for (Budget budget : budgets) {
+            this.setBudget(budget);
+        }
+    }
+
+    private void setBudget(Budget budget) {
+        //prevent endless loop
+        if (this.budgets.contains(budget))
+            return ;
+        //add new earning
+        this.budgets.add(budget);
+        //set myself into the cost account
+        budget.setClient(this);
+    }
+
+    public void setNotifications(List<Notification> notifications){
+        for (Notification notification : notifications) {
+            this.setNotification(notification);
+        }
+    }
+
+    private void setNotification(Notification notification) {
+        //prevent endless loop
+        if (this.notifications.contains(notification))
+            return ;
+        //add new earning
+        this.notifications.add(notification);
+        //set myself into the cost account
+        notification.setClient(this);
+    }
+
+    public void setGoals(List<Goal> goals){
+        for (Goal goal : goals) {
+            this.setGoal(goal);
+        }
+    }
+
+    private void setGoal(Goal goal) {
+        //prevent endless loop
+        if (this.goals.contains(goal))
+            return ;
+        //add new earning
+        this.goals.add(goal);
+        //set myself into the cost account
+        goal.setClient(this);
     }
 }
