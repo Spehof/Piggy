@@ -82,6 +82,7 @@ public class ClientService {
 
         return clientDao.save(client);
     }
+
     /**
      * Update existing client in system.
      * @param clientFromDb - client data from ClientController which will be changed

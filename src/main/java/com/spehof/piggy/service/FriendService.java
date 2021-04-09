@@ -3,7 +3,6 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.FriendDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Friend;
-import com.spehof.piggy.domain.MoneyHolderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +14,22 @@ import org.springframework.stereotype.Service;
 public class FriendService {
 
     private final FriendDao friendDao;
+    private final LoanService loanService;
 
     @Autowired
-    public FriendService(FriendDao friendDao) {
+    public FriendService(FriendDao friendDao,
+                         LoanService loanService) {
+
         this.friendDao = friendDao;
+        this.loanService = loanService;
     }
 
     public Friend create(Client client, String name){
         Friend friend = new Friend(client, name);
-        return friendDao.save(friend);
+        friendDao.save(friend);
+//        TODO for test!!
+        friend.setLoan(loanService.create(friend, 10000L));
+//        TODO see and refactor maybe
+        return friend;
     }
 }

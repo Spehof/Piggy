@@ -37,7 +37,6 @@ public class Friend extends BaseEntity {
     Client client;
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     List<Loan> loans = new  ArrayList<>();
 
     @OneToMany()
@@ -67,7 +66,7 @@ public class Friend extends BaseEntity {
         }
     }
 
-    private void setLoan(Loan loan) {
+    public void setLoan(Loan loan) {
         //prevent endless loop
         if (this.loans.contains(loan))
             return ;
@@ -93,7 +92,7 @@ public class Friend extends BaseEntity {
         }
     }
 
-    private void setOwe(Owe owe) {
+    public void setOwe(Owe owe) {
         //prevent endless loop
         if (this.owes.contains(owe))
             return ;
