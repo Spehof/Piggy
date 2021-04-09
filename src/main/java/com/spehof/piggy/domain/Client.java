@@ -43,7 +43,6 @@ public class Client extends BaseEntity {
     private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
 
     @OneToMany()

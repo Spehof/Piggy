@@ -1,7 +1,9 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -13,16 +15,22 @@ import java.util.Collections;
 @Data
 @Table(name = "money_holder_type")
 @EqualsAndHashCode(of = {"id", "name"})
+@NoArgsConstructor
 public class MoneyHolderType extends BaseEntity {
 
+     public MoneyHolderType(Client client, String name){
+         this.client = client;
+         this.name = name;
+     }
+
     @Id
-    @Column(name = "client_id")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_money_holder_type")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne()
-    @MapsId
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "id_client")
+    @JsonIgnore
     Client client;
 
     String name;
