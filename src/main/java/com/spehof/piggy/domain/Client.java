@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "clients")
 @Data
 @EqualsAndHashCode(of = {"id", "name", "registrationDate"})
-public class Client {
+public class Client extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -62,6 +62,21 @@ public class Client {
     @OneToMany()
     @PrimaryKeyJoinColumn
     private List<Goal> goals = new ArrayList<>();
+
+    public void setAccount(Account account) {
+        //prevent endless loop
+        if (this.account != null && sameAsFormer(this.account, account))
+            return;
+        //set new client account
+        Account oldAccount = this.account;
+        this.account = account;
+        //remove from the old client account
+        if (oldAccount!=null)
+            oldAccount.setClient(null);
+        //set myself into new client account
+        if (account!=null)
+            account.setClient(this);
+    }
 
 
 }

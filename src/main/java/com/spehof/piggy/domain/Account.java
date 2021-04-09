@@ -1,9 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import com.spehof.piggy.utils.AccountViews;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,9 +13,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "accounts")
-@Data
 @EqualsAndHashCode(of = {"id"})
-public class Account {
+@NoArgsConstructor
+@Getter
+public class Account extends BaseEntity {
+
+    public Account(Integer currency){
+        this.currency = currency;
+    }
 
     @Id
     @Column(name = "client_id")
@@ -37,5 +40,64 @@ public class Account {
     @PrimaryKeyJoinColumn
     private List<Cost> costs = new ArrayList<>();
 
-    Integer Currency;
+    Integer currency;
+
+    public void setCurrency(Integer currency) {
+//        if (this.currency.equals(currency))
+//            return ;
+        this.currency = currency;
+    }
+
+    public void setClient(Client client) {
+        //prevent endless loop
+        if (this.client != null && sameAsFormer(this.client, client))
+            return;
+//        set new client account
+        Client oldClient = this.client;
+        this.client = client;
+        //remove from the old client account
+        if (oldClient!=null)
+            oldClient.setAccount(null);
+        //set myself into new client account
+        if (client!=null)
+            client.setAccount(this);
+    }
+
+    public void setCosts(List<Cost> costs){
+        for (Cost cost : costs) {
+            this.setCost(cost);
+        }
+    }
+
+    public void setEarnings(List<Earning> earnings){
+        for (Earning earning : earnings) {
+            this.setEarning(earning);
+        }
+    }
+
+    private void setCost(Cost cost) {
+        //prevent endless loop
+        if (this.costs.contains(cost))
+            return ;
+        //add new cost
+        this.costs.add(cost);
+        //set myself into the cost account
+        cost.setAccount(this);
+    }
+
+
+    private void setEarning(Earning earning) {
+        //prevent endless loop
+        if (this.earnings.contains(earning))
+            return ;
+        //add new earning
+        this.earnings.add(earning);
+        //set myself into the cost account
+        earning.setAccount(this);
+    }
+
+//    private boolean sameAsFormer(Client newClient) {
+//        return this.client == null ?
+//                newClient == null : client.equals(newClient);
+//    }
 }

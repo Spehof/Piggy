@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author Spehof
  * @created 07/04/2021
  */
-public interface UserDao extends JpaRepository<Client, Long> {
+public interface ClientDao extends JpaRepository<Client, Long> {
 
     public Optional<Client> getByName(String name);
 }

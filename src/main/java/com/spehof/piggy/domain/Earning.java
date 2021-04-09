@@ -23,7 +23,7 @@ public class Earning {
     @ManyToOne()
     @MapsId
     @JoinColumn(name = "account_id")
-    Client client;
+    Account account;
 
     Long amount;
 }

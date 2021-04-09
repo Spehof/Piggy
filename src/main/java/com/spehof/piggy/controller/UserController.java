@@ -1,6 +1,6 @@
 package com.spehof.piggy.controller;
 
-import com.spehof.piggy.DAO.UserDao;
+import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 
-    private final UserDao userDao;
+    private final ClientDao clientDao;
     private final ClientService clientService;
 
     @Autowired
-    public UserController(UserDao userDao, ClientService clientService){
-        this.userDao = userDao;
+    public UserController(ClientDao clientDao, ClientService clientService){
+        this.clientDao = clientDao;
         this.clientService = clientService;
     }
 

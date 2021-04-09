@@ -5,6 +5,8 @@ import com.spehof.piggy.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author Spehof
  * @created 09/04/2021
@@ -18,6 +20,11 @@ public class AccountController {
     @Autowired
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @GetMapping("all")
+    public List<Account> getAll(){
+        return accountService.getAll();
     }
 
     @GetMapping("{id}")
