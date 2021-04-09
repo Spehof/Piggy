@@ -40,7 +40,6 @@ public class Friend extends BaseEntity {
     List<Loan> loans = new  ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     List<Owe> owes = new ArrayList<>();
 
     String name;

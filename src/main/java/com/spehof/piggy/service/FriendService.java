@@ -15,13 +15,16 @@ public class FriendService {
 
     private final FriendDao friendDao;
     private final LoanService loanService;
+    private final OweService oweService;
 
     @Autowired
     public FriendService(FriendDao friendDao,
-                         LoanService loanService) {
+                         LoanService loanService,
+                         OweService oweService) {
 
         this.friendDao = friendDao;
         this.loanService = loanService;
+        this.oweService = oweService;
     }
 
     public Friend create(Client client, String name){
@@ -29,6 +32,9 @@ public class FriendService {
         friendDao.save(friend);
 //        TODO for test!!
         friend.setLoan(loanService.create(friend, 10000L));
+//        TODO for test!!
+        friend.setOwe(oweService.create(friend, 5000L));
+
 //        TODO see and refactor maybe
         return friend;
     }
