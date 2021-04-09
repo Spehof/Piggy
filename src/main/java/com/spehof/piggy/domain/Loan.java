@@ -16,10 +16,13 @@ import javax.persistence.*;
 public class Loan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "friend_id")
     Long id;
 
     @ManyToOne()
+    @MapsId
+    @JoinColumn(name = "friend_id")
     Friend friend;
 
     Long amount;

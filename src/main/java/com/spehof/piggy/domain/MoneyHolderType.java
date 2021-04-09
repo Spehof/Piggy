@@ -15,8 +15,14 @@ import javax.persistence.*;
 public class MoneyHolderType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @ManyToOne()
+    @MapsId
+    @JoinColumn(name = "client_id")
+    Client client;
 
     String name;
 }

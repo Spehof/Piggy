@@ -17,8 +17,15 @@ import javax.persistence.*;
 public class Budget {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
     Long id;
+
+    @ManyToOne
+    @MapsId
+    @JoinColumn(name = "client_id")
+    Client client;
+
 
     Long value;
 }

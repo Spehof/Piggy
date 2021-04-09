@@ -44,18 +44,23 @@ public class Client {
     private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<Friend> friends = new ArrayList<>();
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<Budget> budgets = new ArrayList<>();
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany()
+    @PrimaryKeyJoinColumn
     private List<Goal> goals = new ArrayList<>();
 
 
