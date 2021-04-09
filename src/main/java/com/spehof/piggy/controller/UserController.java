@@ -1,17 +1,11 @@
 package com.spehof.piggy.controller;
 
-import com.spehof.piggy.DAO.AccountDao;
 import com.spehof.piggy.DAO.UserDao;
-import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
-import com.spehof.piggy.exception.UserNotFoundException;
-import org.springframework.beans.BeanUtils;
+import com.spehof.piggy.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,12 +17,12 @@ import java.util.List;
 public class UserController {
 
     private final UserDao userDao;
-    private final AccountDao accountDao;
+    private final ClientService clientService;
 
     @Autowired
-    public UserController(UserDao userDao, AccountDao accountDao){
+    public UserController(UserDao userDao, ClientService clientService){
         this.userDao = userDao;
-        this.accountDao = accountDao;
+        this.clientService = clientService;
     }
 
 
@@ -41,7 +35,7 @@ public class UserController {
 
     @GetMapping("all")
     public List<Client> getAll(){
-        return userDao.findAll();
+        return clientService.getAll();
     }
 
     /**
@@ -50,37 +44,25 @@ public class UserController {
      */
     @GetMapping("{id}")
     public Client getOne(@PathVariable("id") Client client){
-        if (client.getId() != null) {
             return client;
-        } else {
-            throw new UserNotFoundException();
-        }
     }
 
     @PostMapping
     public Client create(@RequestBody Client client){
-        client.setRegistrationDate(LocalDateTime.now());
-        Account account = new Account();
-        account.setCurrency(2);
-        account.setClient(client);
-//        client.setAccount(account);
-        accountDao.save(account);
-        return userDao.save(client);
+        return clientService.create(client);
     }
 
     @PutMapping("{id}")
     public Client update(
             @PathVariable("id") Client clientFromDb,
-            @RequestBody Client client){
+            @RequestBody Client clientFromApi){
+        return clientService.update(clientFromDb, clientFromApi);
 
-        BeanUtils.copyProperties(client, clientFromDb, "id");
-        return userDao.save(clientFromDb);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity delete(@PathVariable(name = "id") Client client){
-        userDao.delete(client);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+    public void delete(@PathVariable(name = "id") Client client){
+        clientService.delete(client);
     }
 
 
