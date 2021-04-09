@@ -34,7 +34,7 @@ public class AccountService {
 
 //        account.setCosts();
 //        TODO for test!!
-        for (long l : new long[]{22445L, 1265L, 4844L, 223L, 54654L}) {
+        for (long l : new long[]{22445L, 1265L}) {
             account.setEarning(earningService.create(account, l));
         }
     }

@@ -36,7 +36,6 @@ public class Account extends BaseEntity {
     private List<Earning> earnings = new ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<Cost> costs = new ArrayList<>();
 
     Integer currency;
