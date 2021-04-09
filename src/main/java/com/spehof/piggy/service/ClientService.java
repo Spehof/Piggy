@@ -16,7 +16,6 @@ import java.util.List;
  * This service for control Clients account. Create, update etc.
  * It work with clients account using ancillary services:
  *      * MoneyMovementCategoryService - for manage client MoneyMovementCategory (create etc).
- *
  *      * MoneyHolderTypeService - for manage client MoneyHolderType.
  *      * FriendService - for manage client Friend (create in system, delete, etc).
  *      * BudgetService - for manage client Budgets (create, change, calculate).
@@ -79,7 +78,7 @@ public class ClientService {
 //        TODO test data !!!
         client.setNotification(notificationService.create(client, "Alarm, it's test notification!"));
 //        TODO test data !!!
-        client.setGoal(goalService.create(client, 1000000L));
+        client.setGoal(goalService.create(client, 1000000L, "For my new car"));
 
         return clientDao.save(client);
     }

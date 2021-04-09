@@ -19,9 +19,10 @@ import java.util.Collections;
 @NoArgsConstructor
 public class Goal extends BaseEntity {
 
-    public Goal(Client client, Long amount){
+    public Goal(Client client, Long amount, String text){
         this.client = client;
         this.amount = amount;
+        this.text = text;
     }
 
     @Id

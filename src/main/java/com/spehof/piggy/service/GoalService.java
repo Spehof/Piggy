@@ -20,8 +20,8 @@ public class GoalService {
         this.goalDao = goalDao;
     }
 
-    public Goal create(Client client, Long amount){
-        Goal goal = new Goal(client, amount);
+    public Goal create(Client client, Long amount, String text){
+        Goal goal = new Goal(client, amount, text);
         return goalDao.save(goal);
     }
 }
