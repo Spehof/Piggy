@@ -18,17 +18,26 @@ public class ClientService {
 
     private final ClientDao clientDao;
     private final AccountService accountService;
+    private final MoneyMovementCategoryService moneyMovementCategoryService;
 
     @Autowired
-    public ClientService(ClientDao clientDao, AccountService accountService) {
+    public ClientService(ClientDao clientDao,
+                         AccountService accountService,
+                         MoneyMovementCategoryService moneyMovementCategoryService) {
+
         this.clientDao = clientDao;
         this.accountService = accountService;
+        this.moneyMovementCategoryService = moneyMovementCategoryService;
     }
 
     public Client create(Client client){
         client.setRegistrationDate(LocalDateTime.now());
 
         accountService.create(client);
+//        TODO test data !!!
+        for (String s : new String[]{"test category1", "test category2"}) {
+            client.setMoneyMovementCategory(moneyMovementCategoryService.create(client, s));
+        }
         return clientDao.save(client);
     }
 

@@ -90,7 +90,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
+    public void setMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
         //prevent endless loop
         if (this.moneyMovementCategories.contains(moneyMovementCategory))
             return;
@@ -106,7 +106,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setMoneyHolderType(MoneyHolderType moneyHolderType) {
+    public void setMoneyHolderType(MoneyHolderType moneyHolderType) {
         //prevent endless loop
         if (this.moneyHolderTypes.contains(moneyHolderType))
             return ;
@@ -122,7 +122,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setFriend(Friend friend) {
+    public void setFriend(Friend friend) {
         //prevent endless loop
         if (this.friends.contains(friend))
             return ;
@@ -138,7 +138,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setBudget(Budget budget) {
+    public void setBudget(Budget budget) {
         //prevent endless loop
         if (this.budgets.contains(budget))
             return ;
@@ -154,7 +154,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setNotification(Notification notification) {
+    public void setNotification(Notification notification) {
         //prevent endless loop
         if (this.notifications.contains(notification))
             return ;
@@ -170,7 +170,7 @@ public class Client extends BaseEntity {
         }
     }
 
-    private void setGoal(Goal goal) {
+    public void setGoal(Goal goal) {
         //prevent endless loop
         if (this.goals.contains(goal))
             return ;
