@@ -31,19 +31,22 @@ public class ClientService {
     private final MoneyMovementCategoryService moneyMovementCategoryService;
     private final MoneyHolderTypeService moneyHolderTypeService;
     private final FriendService friendService;
+    private final BudgetService budgetService;
 
     @Autowired
     public ClientService(ClientDao clientDao,
                          AccountService accountService,
                          MoneyMovementCategoryService moneyMovementCategoryService,
                          MoneyHolderTypeService moneyHolderTypeService,
-                         FriendService friendService) {
+                         FriendService friendService,
+                         BudgetService budgetService) {
 
         this.clientDao = clientDao;
         this.accountService = accountService;
         this.moneyMovementCategoryService = moneyMovementCategoryService;
         this.moneyHolderTypeService = moneyHolderTypeService;
         this.friendService = friendService;
+        this.budgetService = budgetService;
     }
 
     /**
@@ -63,7 +66,10 @@ public class ClientService {
         for (String s : new String[]{"Money Holder Test 1", "Money Holder Test 2"}) {
             client.setMoneyHolderType(moneyHolderTypeService.create(client, s));
         }
+//        TODO test data !!!
         client.setFriend(friendService.create(client, "Niko"));
+//        TODO test data !!!
+        client.setBudget(budgetService.create(client, 10000L));
 
         return clientDao.save(client);
     }
