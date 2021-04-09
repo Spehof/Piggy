@@ -113,6 +113,6 @@ public class Account extends BaseEntity {
         //remove the account
         costs.remove(cost);
         //remove myself from the twitter account
-        cost.setClient(null);
+        cost.setAccount(null);
     }
 }
