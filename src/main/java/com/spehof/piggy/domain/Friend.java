@@ -1,7 +1,9 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,16 +18,22 @@ import java.util.List;
 @Data
 @Table(name = "friends")
 @EqualsAndHashCode(of = {"id", "name"})
+@NoArgsConstructor
 public class Friend extends BaseEntity {
 
+    public Friend(Client client, String name){
+        this.client = client;
+        this.name = name;
+    }
+
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_friend")
     Long id;
 
-    @ManyToOne
-    @MapsId
-    @JoinColumn(name = "client_id")
+    @ManyToOne()
+    @JoinColumn(name = "id_client")
+    @JsonIgnore
     Client client;
 
     @OneToMany()

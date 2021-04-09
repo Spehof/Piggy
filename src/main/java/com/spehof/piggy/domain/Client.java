@@ -46,7 +46,6 @@ public class Client extends BaseEntity {
     private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<Friend> friends = new ArrayList<>();
 
     @OneToMany()
