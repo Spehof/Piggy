@@ -96,8 +96,23 @@ public class Account extends BaseEntity {
         earning.setAccount(this);
     }
 
-//    private boolean sameAsFormer(Client newClient) {
-//        return this.client == null ?
-//                newClient == null : client.equals(newClient);
-//    }
+    public void removeEarning(Earning earning) {
+        //prevent endless loop
+        if (!earnings.contains(earning))
+            return ;
+        //remove the account
+        earnings.remove(earning);
+        // myself from the twitter account
+        earning.setAccount(null);
+    }
+
+    public void removeCost(Cost cost) {
+        //prevent endless loop
+        if (!costs.contains(cost))
+            return ;
+        //remove the account
+        costs.remove(cost);
+        //remove myself from the twitter account
+        cost.setClient(null);
+    }
 }

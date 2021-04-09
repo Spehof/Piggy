@@ -40,6 +40,6 @@ public class Earning extends BaseEntity{
             oldAccount.removeEarning(this);
         //set myself into new owner
         if (account!=null)
-            account.setEarning(Collections.singletonList(this));
+            account.setEarnings(Collections.singletonList(this));
     }
 }
