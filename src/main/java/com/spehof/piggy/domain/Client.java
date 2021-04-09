@@ -78,5 +78,9 @@ public class Client extends BaseEntity {
             account.setClient(this);
     }
 
-
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        if (this.registrationDate == null) {
+            this.registrationDate = registrationDate;
+        }
+    }
 }
