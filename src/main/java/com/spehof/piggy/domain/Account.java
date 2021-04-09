@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Spehof
@@ -26,6 +28,10 @@ public class Account {
     @JoinColumn(name = "client_id")
     @JsonManagedReference
     Client client;
+
+    @OneToMany()
+    @PrimaryKeyJoinColumn
+    private List<Earning> earnings = new ArrayList<>();
 
     Integer Currency;
 }
