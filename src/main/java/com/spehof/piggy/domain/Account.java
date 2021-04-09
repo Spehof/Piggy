@@ -23,7 +23,7 @@ public class Account extends BaseEntity {
     }
 
     @Id
-    @Column(name = "client_id")
+    @Column(name = "id_client")
     Long id;
 
     @OneToOne()
@@ -33,7 +33,6 @@ public class Account extends BaseEntity {
     Client client;
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<Earning> earnings = new ArrayList<>();
 
     @OneToMany()
@@ -75,7 +74,7 @@ public class Account extends BaseEntity {
         }
     }
 
-    private void setCost(Cost cost) {
+    public void setCost(Cost cost) {
         //prevent endless loop
         if (this.costs.contains(cost))
             return ;
@@ -86,7 +85,7 @@ public class Account extends BaseEntity {
     }
 
 
-    private void setEarning(Earning earning) {
+    public void setEarning(Earning earning) {
         //prevent endless loop
         if (this.earnings.contains(earning))
             return ;
