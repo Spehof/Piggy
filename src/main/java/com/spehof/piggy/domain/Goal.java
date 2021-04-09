@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Collections;
 
 /**
  * @author Spehof
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "goals")
 @Data
 @EqualsAndHashCode(of = {"id", "text", "amount"})
-public class Goal {
+public class Goal extends BaseEntity {
 
     @Id
     @Column(name = "client_id")
@@ -27,4 +28,19 @@ public class Goal {
     String text;
 
     Long amount;
+
+    public void setClient(Client client) {
+        //prevent endless loop
+        if (this.client != null && sameAsFormer(this.client, client))
+            return;
+        // set new client account
+        Client oldClient = this.client;
+        this.client = client;
+        //remove from the old client account
+        if (oldClient!=null)
+            oldClient.setAccount(null);
+        //set myself into new client account
+        if (client!=null)
+            client.setGoals(Collections.singletonList(this));
+    }
 }

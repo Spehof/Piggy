@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Collections;
 
 /**
  * @author Spehof
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "notifications")
 @Data
 @EqualsAndHashCode(of = {"id", "message"})
-public class Notification {
+public class Notification extends BaseEntity {
 
     @Id
     @Column(name = "client_id")
@@ -25,4 +26,19 @@ public class Notification {
     Client client;
 
     String message;
+
+    public void setClient(Client client) {
+        //prevent endless loop
+        if (this.client != null && sameAsFormer(this.client, client))
+            return;
+        // set new client account
+        Client oldClient = this.client;
+        this.client = client;
+        //remove from the old client account
+        if (oldClient!=null)
+            oldClient.setAccount(null);
+        //set myself into new client account
+        if (client!=null)
+            client.setNotifications(Collections.singletonList(this));
+    }
 }

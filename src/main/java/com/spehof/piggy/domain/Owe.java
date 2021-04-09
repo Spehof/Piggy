@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Collections;
 
 /**
  * @author Spehof
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "owes")
 @EqualsAndHashCode(of = {"id"})
-public class Owe {
+public class Owe extends BaseEntity {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +27,20 @@ public class Owe {
     Friend friend;
 
     Long amount;
+
+    public void setFriend(Friend friend) {
+        //prevent endless loop
+        if (this.friend != null && sameAsFormer(this.friend, friend))
+            return;
+        // set new client account
+        Friend oldFriend = this.friend;
+        this.friend = friend;
+        //remove from the old client account
+        if (oldFriend!=null)
+//            TODO refactor all this fucking crap with null
+            oldFriend.setLoans(null);
+        //set myself into new client account
+        if (friend!=null)
+            friend.setOwes(Collections.singletonList(this));
+    }
 }

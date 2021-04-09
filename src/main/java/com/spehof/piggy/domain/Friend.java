@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 @Data
 @Table(name = "friends")
 @EqualsAndHashCode(of = {"id", "name"})
-public class Friend {
+public class Friend extends BaseEntity {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,21 @@ public class Friend {
     List<Owe> owes = new ArrayList<>();
 
     String name;
+//TODO refactor setClient to base entity
+    public void setClient(Client client) {
+        //prevent endless loop
+        if (this.client != null && sameAsFormer(this.client, client))
+            return;
+        // set new client account
+        Client oldClient = this.client;
+        this.client = client;
+        //remove from the old client account
+        if (oldClient!=null)
+            oldClient.setAccount(null);
+        //set myself into new client account
+        if (client!=null)
+            client.setFriends(Collections.singletonList(this));
+    }
 
     public void setLoans(List<Loan> loans){
         for (Loan loan : loans) {
