@@ -19,22 +19,18 @@ import java.util.List;
 public class ClientService {
 
     private final UserDao userDao;
-    private final AccountDao accountDao;
+    private final AccountService accountService;
 
     @Autowired
-    public ClientService(UserDao userDao, AccountDao accountDao) {
+    public ClientService(UserDao userDao, AccountService accountService) {
         this.userDao = userDao;
-        this.accountDao = accountDao;
+        this.accountService = accountService;
     }
 
     public Client create(Client client){
         client.setRegistrationDate(LocalDateTime.now());
 
-        Account account = new Account();
-
-        account.setCurrency(2);
-        account.setClient(client);
-        accountDao.save(account);
+        accountService.create(client);
         return userDao.save(client);
     }
 
