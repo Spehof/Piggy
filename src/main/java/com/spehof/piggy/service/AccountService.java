@@ -19,20 +19,28 @@ public class AccountService {
     private final AccountDao accountDao;
     private final ClientDao clientDao;
     private final EarningService earningService;
+    private final CostService costService;
 
     @Autowired
-    public AccountService(AccountDao accountDao, ClientDao clientDao, EarningService earningService) {
+    public AccountService(AccountDao accountDao,
+                          ClientDao clientDao,
+                          EarningService earningService,
+                          CostService costService) {
+
         this.accountDao = accountDao;
         this.clientDao = clientDao;
         this.earningService = earningService;
+        this.costService = costService;
     }
 
     public void create(Client client){
         Account account = new Account(2);
         account.setClient(client);
         accountDao.save(account);
-
-//        account.setCosts();
+//        TODO for test!!
+        for (long l : new long[]{124553L, 1234543L}) {
+            account.setCost(costService.create(account, l));
+        }
 //        TODO for test!!
         for (long l : new long[]{22445L, 1265L}) {
             account.setEarning(earningService.create(account, l));
