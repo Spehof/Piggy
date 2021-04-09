@@ -180,4 +180,64 @@ public class Client extends BaseEntity {
         //set myself into the cost account
         goal.setClient(this);
     }
+
+    public void removeMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
+        //prevent endless loop
+        if (!moneyMovementCategories.contains(moneyMovementCategory))
+            return ;
+        //remove the account
+        moneyMovementCategories.remove(moneyMovementCategory);
+        //remove myself from the twitter account
+        moneyMovementCategory.setClient(null);
+    }
+
+    public void removeMoneyHolderType(MoneyHolderType moneyHolderType) {
+        //prevent endless loop
+        if (!moneyHolderTypes.contains(moneyHolderType))
+            return ;
+        //remove the account
+        moneyHolderTypes.remove(moneyHolderType);
+        //remove myself from the twitter account
+        moneyHolderType.setClient(null);
+    }
+
+    public void removeFriend(Friend friend) {
+        //prevent endless loop
+        if (!friends.contains(friend))
+            return ;
+        //remove the account
+        friends.remove(friend);
+        //remove myself from the twitter account
+        friend.setClient(null);
+    }
+
+    public void removeBudget(Budget budget) {
+        //prevent endless loop
+        if (!budgets.contains(budget))
+            return ;
+        //remove the account
+        budgets.remove(budget);
+        //remove myself from the twitter account
+        budget.setClient(null);
+    }
+
+    public void removeNotification(Notification notification) {
+        //prevent endless loop
+        if (!notifications.contains(notification))
+            return ;
+        //remove the account
+        notifications.remove(notification);
+        //remove myself from the twitter account
+        notification.setClient(null);
+    }
+
+    public void removeGoal(Goal goal) {
+        //prevent endless loop
+        if (!goals.contains(goal))
+            return ;
+        //remove the account
+        budgets.remove(goal);
+        //remove myself from the twitter account
+        goal.setClient(null);
+    }
 }
