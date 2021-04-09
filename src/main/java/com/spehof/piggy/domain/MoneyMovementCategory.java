@@ -3,6 +3,7 @@ package com.spehof.piggy.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -15,7 +16,13 @@ import java.util.Collections;
 @Table(name = "money_movement_categories")
 @Data
 @EqualsAndHashCode(of = {"id", "name"})
+@NoArgsConstructor
 public class MoneyMovementCategory extends BaseEntity {
+
+    public MoneyMovementCategory(Client client, String name){
+        this.client = client;
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
