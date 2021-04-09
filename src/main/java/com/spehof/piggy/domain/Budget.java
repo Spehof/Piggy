@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Collections;
 
 /**
  * @author Spehof
@@ -38,10 +39,10 @@ public class Budget extends BaseEntity {
         this.client = client;
         //remove from the old owner
         if (oldClient!=null)
-            oldClient.removeTwitterAccount(this);
+            oldClient.removeBudget(this);
         //set myself into new owner
-        if (owner!=null)
-            owner.addTwitterAccount(this);
+        if (client!=null)
+            client.setBudgets(Collections.singletonList(this));
     }
-    }
+
 }
