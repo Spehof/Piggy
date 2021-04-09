@@ -1,5 +1,6 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,13 +18,13 @@ import java.util.Collections;
 public class MoneyMovementCategory extends BaseEntity {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_money_movement_category")
     Long id;
 
     @ManyToOne()
-    @MapsId
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "id_client")
+    @JsonIgnore
     Client client;
 
     String name;

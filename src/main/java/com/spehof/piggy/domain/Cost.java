@@ -30,7 +30,7 @@ public class Cost extends BaseEntity{
     Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "id_account")
     @JsonIgnore
     Account account;
 
