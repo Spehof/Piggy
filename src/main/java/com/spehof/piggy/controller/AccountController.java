@@ -1,8 +1,7 @@
 package com.spehof.piggy.controller;
 
-import com.spehof.piggy.DAO.AccountDao;
 import com.spehof.piggy.domain.Account;
-import org.springframework.beans.BeanUtils;
+import com.spehof.piggy.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,22 +13,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("account")
 public class AccountController {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
 
     @Autowired
-    public AccountController(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @GetMapping("{id}")
-    public Account getAccount(@PathVariable(name = "id") Account account){
+    public Account get(@PathVariable(name = "id") Account account) {
         return account;
     }
 
     @PutMapping("{id}")
-    public Account updateAccount(@PathVariable(name = "id") Account accountFromDb,
-                                 @RequestBody Account accountFromApi){
-        BeanUtils.copyProperties(accountFromApi, accountFromDb, "id");
-        return accountDao.save(accountFromDb);
+    public Account update(@PathVariable(name = "id") Account accountFromDb,
+                          @RequestBody Account accountFromApi) {
+        return accountService.update(accountFromDb, accountFromApi);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable(name = "id") Account account) {
+        accountService.delete(account);
+
     }
 }
