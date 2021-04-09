@@ -12,6 +12,16 @@ import java.util.List;
 /**
  * @author Spehof
  * @created 09/04/2021
+ *
+ * This service for control Clients account. Create, update etc.
+ * It work with clients account using ancillary services:
+ *      * MoneyMovementCategoryService - for manage client MoneyMovementCategory (create etc).
+ *
+ *      * MoneyHolderTypeService - for manage client MoneyHolderType.
+ *      * FriendService - for manage client Friend (create in system, delete, etc).
+ *      * BudgetService - for manage client Budgets (create, change, calculate).
+ *      * NotificationService - for create and setting some Notification for client.
+ *      * GoalService - for create, set or change client Goals in finance.
  */
 @Service
 public class ClientService {
@@ -30,6 +40,11 @@ public class ClientService {
         this.moneyMovementCategoryService = moneyMovementCategoryService;
     }
 
+    /**
+     * Create a new Client in system.
+     * @param client - minimal client data from ClientController
+     * @return A new minimalistic filled Client class and save it in database
+     * */
     public Client create(Client client){
         client.setRegistrationDate(LocalDateTime.now());
 
@@ -40,16 +55,29 @@ public class ClientService {
         }
         return clientDao.save(client);
     }
-
+    /**
+     * Update existing client in system.
+     * @param clientFromDb - client data from ClientController which will be changed
+     * @param clientFromApi - current client from database on which to write new data and save again,
+     *                     after validation and writing
+     * @return - save updated client class in database and return it
+     * */
     public Client update(Client clientFromDb, Client clientFromApi){
         BeanUtils.copyProperties(clientFromApi, clientFromDb, "id");
         return clientDao.save(clientFromDb);
     }
 
+    /**
+     * Delete existing client account.
+     * @param client - client which need to delete
+     * */
     public void delete(Client client){
         clientDao.delete(client);
     }
 
+    /**
+     * Get and return all client from database.
+     * */
     public List<Client> getAll(){
         return clientDao.findAll();
     }
