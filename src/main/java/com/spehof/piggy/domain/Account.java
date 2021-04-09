@@ -33,5 +33,9 @@ public class Account {
     @PrimaryKeyJoinColumn
     private List<Earning> earnings = new ArrayList<>();
 
+    @OneToMany()
+    @PrimaryKeyJoinColumn
+    private List<Cost> costs = new ArrayList<>();
+
     Integer Currency;
 }
