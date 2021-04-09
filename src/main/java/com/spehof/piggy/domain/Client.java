@@ -52,7 +52,6 @@ public class Client extends BaseEntity {
     private List<Budget> budgets = new ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany()

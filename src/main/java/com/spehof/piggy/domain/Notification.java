@@ -1,7 +1,9 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -14,15 +16,22 @@ import java.util.Collections;
 @Table(name = "notifications")
 @Data
 @EqualsAndHashCode(of = {"id", "message"})
+@NoArgsConstructor
 public class Notification extends BaseEntity {
 
+    public Notification(Client client, String message){
+        this.client = client;
+        this.message = message;
+    }
+
     @Id
-    @Column(name = "client_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_notification")
     Long id;
 
-    @ManyToOne
-    @MapsId
-    @JoinColumn(name = "client_id")
+    @ManyToOne()
+    @JoinColumn(name = "id_client")
+    @JsonIgnore
     Client client;
 
     String message;
