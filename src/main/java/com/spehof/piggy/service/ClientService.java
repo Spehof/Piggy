@@ -33,6 +33,7 @@ public class ClientService {
     private final FriendService friendService;
     private final BudgetService budgetService;
     private final NotificationService notificationService;
+    private final GoalService goalService;
 
     @Autowired
     public ClientService(ClientDao clientDao,
@@ -41,7 +42,8 @@ public class ClientService {
                          MoneyHolderTypeService moneyHolderTypeService,
                          FriendService friendService,
                          BudgetService budgetService,
-                         NotificationService notificationService) {
+                         NotificationService notificationService,
+                         GoalService goalService) {
 
         this.clientDao = clientDao;
         this.accountService = accountService;
@@ -50,6 +52,7 @@ public class ClientService {
         this.friendService = friendService;
         this.budgetService = budgetService;
         this.notificationService = notificationService;
+        this.goalService = goalService;
     }
 
     /**
@@ -75,6 +78,8 @@ public class ClientService {
         client.setBudget(budgetService.create(client, 10000L));
 //        TODO test data !!!
         client.setNotification(notificationService.create(client, "Alarm, it's test notification!"));
+//        TODO test data !!!
+        client.setGoal(goalService.create(client, 1000000L));
 
         return clientDao.save(client);
     }

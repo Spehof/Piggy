@@ -55,7 +55,6 @@ public class Client extends BaseEntity {
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany()
-    @PrimaryKeyJoinColumn
     private List<Goal> goals = new ArrayList<>();
 
     public void setAccount(Account account) {
