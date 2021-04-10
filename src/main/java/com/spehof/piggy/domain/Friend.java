@@ -31,6 +31,8 @@ public class Friend extends BaseEntity {
     @Column(name = "id_friend")
     Long id;
 
+    String name;
+
     @ManyToOne()
     @JoinColumn(name = "id_client")
     @JsonIgnore
@@ -42,7 +44,6 @@ public class Friend extends BaseEntity {
     @OneToMany()
     List<Owe> owes = new ArrayList<>();
 
-    String name;
 //TODO refactor setClient to base entity
     public void setClient(Client client) {
         //prevent endless loop
