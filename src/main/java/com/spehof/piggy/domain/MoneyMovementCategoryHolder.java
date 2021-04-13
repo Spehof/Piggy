@@ -44,19 +44,57 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
     @OneToMany()
     List<EarningCategory> earningCategories = new ArrayList<>();
 
-// TODO for draft
-//    public void setClient(Client client) {
-//        //prevent endless loop
-//        if (this.client != null && sameAsFormer(this.client, client))
-//            return;
-//        // set new client account
-//        Client oldClient = this.client;
-//        this.client = client;
-//        //remove from the old client account
-//        if (oldClient!=null)
-//            oldClient.setAccount(null);
-//        //set myself into new client account
-//        if (client!=null)
-//            client.setMoneyMovementCategories(Collections.singletonList(this));
-//    }
+    public void setCostCategories(List<CostCategory> costCategories) {
+        for (CostCategory costCategory : costCategories) {
+            this.setCostCategory(costCategory);
+        }
+
+    }
+
+    public void setCostCategory(CostCategory costCategory) {
+        //prevent endless loop
+        if (this.costCategories.contains(costCategory))
+            return ;
+        //add new earning
+        this.costCategories.add(costCategory);
+        //set myself into the cost account
+        costCategory.setMoneyMovementCategoryHolder(this);
+    }
+
+    public void setEarningCategories(List<EarningCategory> earningCategories) {
+        for (EarningCategory earningCategory : earningCategories) {
+            this.setEarningCategory(earningCategory);
+        }
+
+    }
+
+    public void setEarningCategory(EarningCategory earningCategory) {
+        //prevent endless loop
+        if (this.earningCategories.contains(earningCategory))
+            return ;
+        //add new earning
+        this.earningCategories.add(earningCategory);
+        //set myself into the cost account
+        earningCategory.setMoneyMovementCategoryHolder(this);
+    }
+
+    public void removeCostCategory(CostCategory costCategory) {
+        //prevent endless loop
+        if (!costCategories.contains(costCategory))
+            return ;
+        //remove the account
+        costCategories.remove(costCategory);
+        // myself from the twitter account
+        costCategory.setMoneyMovementCategoryHolder(null);
+    }
+
+    public void removeEarningCategory(EarningCategory earningCategory) {
+        //prevent endless loop
+        if (!earningCategories.contains(earningCategory))
+            return ;
+        //remove the account
+        earningCategories.remove(earningCategory);
+        // myself from the twitter account
+        earningCategory.setMoneyMovementCategoryHolder(null);
+    }
 }

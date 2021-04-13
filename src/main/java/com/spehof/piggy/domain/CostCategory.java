@@ -31,7 +31,9 @@ public class CostCategory extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "id_money_movement_category")
     @JsonIgnore
-    MoneyMovementCategoryHolder moneyMovementCategoryHolder;
+    private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
-    String costCategoryName;
+    private String costCategoryName;
+
+//    TODO add setters and getters
 }

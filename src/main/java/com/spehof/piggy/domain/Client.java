@@ -176,16 +176,6 @@ public class Client extends BaseEntity {
         //set myself into the cost account
         goal.setClient(this);
     }
-// TODO for draft
-//    public void removeMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
-//        //prevent endless loop
-//        if (!moneyMovementCategories.contains(moneyMovementCategory))
-//            return ;
-//        //remove the account
-//        moneyMovementCategories.remove(moneyMovementCategory);
-//        //remove myself from the twitter account
-//        moneyMovementCategory.setClient(null);
-//    }
 
     public void removeMoneyHolderType(MoneyHolderType moneyHolderType) {
         //prevent endless loop

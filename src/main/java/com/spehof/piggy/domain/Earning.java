@@ -33,9 +33,9 @@ public class Earning extends BaseEntity{
     @ManyToOne()
     @JoinColumn(name = "id_account")
     @JsonIgnore
-    Account account;
+    private Account account;
 
-    Long amount;
+    private Long amount;
 
     public void setAccount(Account account) {
         //prevent endless loop
