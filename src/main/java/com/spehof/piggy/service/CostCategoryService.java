@@ -3,6 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.CostCategoryDao;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
+import com.spehof.piggy.exception.CostCategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,12 @@ public class CostCategoryService {
     }
 
     public void remove(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
-// TODO write
+        CostCategory costCategoryForDelete = moneyMovementCategoryHolder.getCostCategories()
+                .stream()
+                .filter(costCategory -> costCategory.getCostCategoryName().equals(name))
+                .findFirst()
+                .orElseThrow(CostCategoryNotFoundException::new);
+
+        costCategoryDao.delete(costCategoryForDelete);
     }
 }

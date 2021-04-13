@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
  * @created 10/04/2021
  */
 @Service
-public class MoneyMovementCategoryService {
+public class MoneyMovementCategoryHolderService {
 
     private final MoneyMovementCategoryDao moneyMovementCategoryDao;
 
     @Autowired
-    public MoneyMovementCategoryService(MoneyMovementCategoryDao moneyMovementCategoryDao) {
+    public MoneyMovementCategoryHolderService(MoneyMovementCategoryDao moneyMovementCategoryDao) {
         this.moneyMovementCategoryDao = moneyMovementCategoryDao;
     }
 

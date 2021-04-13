@@ -1,6 +1,5 @@
 package com.spehof.piggy.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Spehof
@@ -36,15 +36,16 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
     @JsonManagedReference
     Client client;
 
-// TODO add and remove categories
-    @OneToMany()
-    List<CostCategory> costCategories = new ArrayList<>();
 
-// TODO add and remove categories
     @OneToMany()
-    List<EarningCategory> earningCategories = new ArrayList<>();
+    Set<CostCategory> costCategories = new HashSet<>();
 
-    public void setCostCategories(List<CostCategory> costCategories) {
+
+    @OneToMany()
+    Set<EarningCategory> earningCategories = new HashSet<>();
+
+
+    public void setCostCategories(Set<CostCategory> costCategories) {
         for (CostCategory costCategory : costCategories) {
             this.setCostCategory(costCategory);
         }
@@ -61,7 +62,7 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
         costCategory.setMoneyMovementCategoryHolder(this);
     }
 
-    public void setEarningCategories(List<EarningCategory> earningCategories) {
+    public void setEarningCategories(Set<EarningCategory> earningCategories) {
         for (EarningCategory earningCategory : earningCategories) {
             this.setEarningCategory(earningCategory);
         }

@@ -2,7 +2,6 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
-import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class ClientService {
 
     private final ClientDao clientDao;
     private final AccountService accountService;
-    private final MoneyMovementCategoryService moneyMovementCategoryService;
+    private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
     private final MoneyHolderTypeService moneyHolderTypeService;
     private final FriendService friendService;
     private final BudgetService budgetService;
@@ -38,7 +37,7 @@ public class ClientService {
     @Autowired
     public ClientService(ClientDao clientDao,
                          AccountService accountService,
-                         MoneyMovementCategoryService moneyMovementCategoryService,
+                         MoneyMovementCategoryHolderService moneyMovementCategoryHolderService,
                          MoneyHolderTypeService moneyHolderTypeService,
                          FriendService friendService,
                          BudgetService budgetService,
@@ -47,7 +46,7 @@ public class ClientService {
 
         this.clientDao = clientDao;
         this.accountService = accountService;
-        this.moneyMovementCategoryService = moneyMovementCategoryService;
+        this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
         this.moneyHolderTypeService = moneyHolderTypeService;
         this.friendService = friendService;
         this.budgetService = budgetService;
@@ -63,12 +62,14 @@ public class ClientService {
     public Client create(Client client){
         /** Set registration date when creating a new client */
         client.setRegistrationDate(LocalDateTime.now());
-        /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
-        client.setMoneyMovementCategoryHolder(new MoneyMovementCategoryHolder());
 
+        /** Create client account */
         accountService.create(client);
-//        TODO test data !!!
-            client.setMoneyMovementCategoryHolder(moneyMovementCategoryService.create(client));
+
+        /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
+        client.setMoneyMovementCategoryHolder(moneyMovementCategoryHolderService.create(client));
+
+
 //        TODO test data !!!
         for (String s : new String[]{"Money Holder Test 1", "Money Holder Test 2"}) {
             client.setMoneyHolderType(moneyHolderTypeService.create(client, s));

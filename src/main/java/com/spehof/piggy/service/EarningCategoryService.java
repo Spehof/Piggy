@@ -3,6 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.EarningCategoryDao;
 import com.spehof.piggy.domain.EarningCategory;
 import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
+import com.spehof.piggy.exception.EarningCategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,12 @@ public class EarningCategoryService {
     }
 
     public void remove(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
-        // TODO write
+        EarningCategory earningCategoryForDelete = moneyMovementCategoryHolder.getEarningCategories()
+                .stream()
+                .filter(earningCategory -> earningCategory.getEarningCategoryName().equals(name))
+                .findFirst()
+                .orElseThrow(EarningCategoryNotFoundException::new);
+
+        earningCategoryDao.delete(earningCategoryForDelete);
     }
 }
