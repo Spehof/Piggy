@@ -28,6 +28,8 @@ public class ClientService {
     private final ClientDao clientDao;
     private final AccountService accountService;
     private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
+    private final EarningCategoryService earningCategoryService;
+    private final CostCategoryService costCategoryService;
     private final MoneyHolderTypeService moneyHolderTypeService;
     private final FriendService friendService;
     private final BudgetService budgetService;
@@ -38,6 +40,8 @@ public class ClientService {
     public ClientService(ClientDao clientDao,
                          AccountService accountService,
                          MoneyMovementCategoryHolderService moneyMovementCategoryHolderService,
+                         EarningCategoryService earningCategoryService,
+                         CostCategoryService costCategoryService,
                          MoneyHolderTypeService moneyHolderTypeService,
                          FriendService friendService,
                          BudgetService budgetService,
@@ -47,6 +51,8 @@ public class ClientService {
         this.clientDao = clientDao;
         this.accountService = accountService;
         this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
+        this.earningCategoryService = earningCategoryService;
+        this.costCategoryService = costCategoryService;
         this.moneyHolderTypeService = moneyHolderTypeService;
         this.friendService = friendService;
         this.budgetService = budgetService;
@@ -68,6 +74,12 @@ public class ClientService {
 
         /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
         client.setMoneyMovementCategoryHolder(moneyMovementCategoryHolderService.create(client));
+
+
+//        TODO test data !!!
+        earningCategoryService.create(client, "Test Earning Category");
+//        TODO test data !!!
+        costCategoryService.create(client, "Test cost category");
 
 
 //        TODO test data !!!

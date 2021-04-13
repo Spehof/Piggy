@@ -1,11 +1,14 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.CostCategoryDao;
+import com.spehof.piggy.domain.Account;
+import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.CostCategory;
-import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
 import com.spehof.piggy.exception.CostCategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * @author Spehof
@@ -23,19 +26,26 @@ public class CostCategoryService {
         this.costCategoryDao = costCategoryDao;
     }
 
-    /** Create a new cost category*/
-    public CostCategory create(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
-        CostCategory costCategory = new CostCategory(moneyMovementCategoryHolder, name);
+    /** Create a new cost category
+     * @param client
+     * @param categoryName */
+    public CostCategory create(Client client, String categoryName){
+        CostCategory costCategory = new CostCategory(client.getMoneyMovementCategoryHolder(), categoryName);
         return costCategoryDao.save(costCategory);
     }
 
-    public void remove(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
-        CostCategory costCategoryForDelete = moneyMovementCategoryHolder.getCostCategories()
+    public void remove(Client client, String categoryName){
+        CostCategory costCategoryForDelete = client.getMoneyMovementCategoryHolder().getCostCategories()
                 .stream()
-                .filter(costCategory -> costCategory.getCostCategoryName().equals(name))
+                .filter(costCategory -> costCategory.getName().equals(categoryName))
                 .findFirst()
                 .orElseThrow(CostCategoryNotFoundException::new);
 
         costCategoryDao.delete(costCategoryForDelete);
+    }
+
+//    TODO refactor signature
+    public Set<CostCategory> getAll(Account account){
+        return account.getClient().getMoneyMovementCategoryHolder().getCostCategories();
     }
 }

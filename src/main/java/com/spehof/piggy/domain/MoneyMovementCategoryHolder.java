@@ -1,9 +1,8 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,9 +16,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "money_movement_categories")
-@Data
 @EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor
+@Setter
 public class MoneyMovementCategoryHolder extends BaseEntity {
 
     public MoneyMovementCategoryHolder(Client client){
@@ -33,16 +32,16 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
     @OneToOne()
     @MapsId
     @JoinColumn(name = "client_id")
-    @JsonManagedReference
-    Client client;
+    @JsonManagedReference(value = "client-moneyMovementCategoryHolder")
+    private Client client;
 
 
     @OneToMany()
-    Set<CostCategory> costCategories = new HashSet<>();
+    private Set<CostCategory> costCategories = new HashSet<>();
 
 
     @OneToMany()
-    Set<EarningCategory> earningCategories = new HashSet<>();
+    private Set<EarningCategory> earningCategories = new HashSet<>();
 
 
     public void setCostCategories(Set<CostCategory> costCategories) {
@@ -97,5 +96,13 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
         earningCategories.remove(earningCategory);
         // myself from the twitter account
         earningCategory.setMoneyMovementCategoryHolder(null);
+    }
+
+    public Set<EarningCategory> getEarningCategories() {
+        return earningCategories;
+    }
+
+    public Set<CostCategory> getCostCategories() {
+        return costCategories;
     }
 }

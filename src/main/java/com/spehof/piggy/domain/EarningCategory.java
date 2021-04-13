@@ -18,9 +18,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class EarningCategory extends BaseEntity {
 
-    public EarningCategory(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String earningCategoryName){
+    public EarningCategory(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
         this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
-        this.earningCategoryName = earningCategoryName;
+        this.name = name;
     }
 
     @Id
@@ -33,7 +33,5 @@ public class EarningCategory extends BaseEntity {
     @JsonIgnore
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
-    private String earningCategoryName;
-
-    //    TODO add setters and getters
+    private String name;
 }

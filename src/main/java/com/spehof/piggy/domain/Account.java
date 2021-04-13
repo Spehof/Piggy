@@ -16,6 +16,7 @@ import java.util.List;
 @EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 @Getter
+@Setter
 public class Account extends BaseEntity {
 
     public Account(Integer currency){
@@ -29,7 +30,7 @@ public class Account extends BaseEntity {
     @OneToOne()
     @MapsId
     @JoinColumn(name = "client_id")
-    @JsonManagedReference
+    @JsonManagedReference(value = "client-account")
     Client client;
 
     @OneToMany()

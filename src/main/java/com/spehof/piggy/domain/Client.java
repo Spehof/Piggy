@@ -16,9 +16,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "clients")
-@Data
 @EqualsAndHashCode(of = {"id", "name", "registrationDate"})
+@NoArgsConstructor
+@Getter
+@Setter
+//@ToString(exclude = "MoneyMovementCategoryHolder")
 public class Client extends BaseEntity {
+
+    public Client(String name, MoneyMovementCategoryHolder moneyMovementCategoryHolder){
+        this.name = name;
+        this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,12 +45,12 @@ public class Client extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
     @PrimaryKeyJoinColumn
-    @JsonBackReference
+    @JsonBackReference(value = "client-account")
     private Account account;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
     @PrimaryKeyJoinColumn
-    @JsonBackReference
+    @JsonBackReference(value = "client-moneyMovementCategoryHolder")
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
     @OneToMany()
@@ -83,7 +92,7 @@ public class Client extends BaseEntity {
 
     public void setMoneyMovementCategoryHolder(MoneyMovementCategoryHolder moneyMovementCategoryHolder) {
         //prevent endless loop
-        if (this.moneyMovementCategoryHolder != null && sameAsFormer(this.account, account))
+        if (this.moneyMovementCategoryHolder != null && sameAsFormer(this.moneyMovementCategoryHolder, moneyMovementCategoryHolder))
             return;
         //set new client account
         MoneyMovementCategoryHolder oldMoneyMovementCategoryHolder = this.moneyMovementCategoryHolder;
@@ -92,8 +101,8 @@ public class Client extends BaseEntity {
         if (oldMoneyMovementCategoryHolder !=null)
             oldMoneyMovementCategoryHolder.setClient(null);
         //set myself into new client account
-        if (account!=null)
-            account.setClient(this);
+        if (moneyMovementCategoryHolder!=null)
+            moneyMovementCategoryHolder.setClient(this);
     }
 
 
