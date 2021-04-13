@@ -3,7 +3,6 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.MoneyHolderTypeDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.MoneyHolderType;
-import com.spehof.piggy.domain.MoneyMovementCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

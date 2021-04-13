@@ -39,8 +39,10 @@ public class Client extends BaseEntity {
     @JsonBackReference
     private Account account;
 
-    @OneToMany()
-    private List<MoneyMovementCategory> moneyMovementCategories = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
+    @PrimaryKeyJoinColumn
+    @JsonBackReference
+    private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
     @OneToMany()
     private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
@@ -79,21 +81,21 @@ public class Client extends BaseEntity {
 
     }
 
-    public void setMoneyMovementCategories(List<MoneyMovementCategory> moneyMovementCategories){
-        for (MoneyMovementCategory moneyMovementCategory : moneyMovementCategories) {
-            this.setMoneyMovementCategory(moneyMovementCategory);
-        }
+    public void setMoneyMovementCategoryHolder(MoneyMovementCategoryHolder moneyMovementCategoryHolder) {
+        //prevent endless loop
+        if (this.moneyMovementCategoryHolder != null && sameAsFormer(this.account, account))
+            return;
+        //set new client account
+        MoneyMovementCategoryHolder oldMoneyMovementCategoryHolder = this.moneyMovementCategoryHolder;
+        this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
+        //remove from the old client account
+        if (oldMoneyMovementCategoryHolder !=null)
+            oldMoneyMovementCategoryHolder.setClient(null);
+        //set myself into new client account
+        if (account!=null)
+            account.setClient(this);
     }
 
-    public void setMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
-        //prevent endless loop
-        if (this.moneyMovementCategories.contains(moneyMovementCategory))
-            return;
-        //add new earning
-        this.moneyMovementCategories.add(moneyMovementCategory);
-        //set myself into the cost account
-        moneyMovementCategory.setClient(this);
-    }
 
     public void setMoneyHolderTypes(List<MoneyHolderType> moneyHolderTypes){
         for (MoneyHolderType moneyHolderType : moneyHolderTypes) {
@@ -174,16 +176,16 @@ public class Client extends BaseEntity {
         //set myself into the cost account
         goal.setClient(this);
     }
-
-    public void removeMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
-        //prevent endless loop
-        if (!moneyMovementCategories.contains(moneyMovementCategory))
-            return ;
-        //remove the account
-        moneyMovementCategories.remove(moneyMovementCategory);
-        //remove myself from the twitter account
-        moneyMovementCategory.setClient(null);
-    }
+// TODO for draft
+//    public void removeMoneyMovementCategory(MoneyMovementCategory moneyMovementCategory) {
+//        //prevent endless loop
+//        if (!moneyMovementCategories.contains(moneyMovementCategory))
+//            return ;
+//        //remove the account
+//        moneyMovementCategories.remove(moneyMovementCategory);
+//        //remove myself from the twitter account
+//        moneyMovementCategory.setClient(null);
+//    }
 
     public void removeMoneyHolderType(MoneyHolderType moneyHolderType) {
         //prevent endless loop

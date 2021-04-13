@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Spehof
- * @created 10/04/2021
+ * @created 13/04/2021
  */
-public interface CostDao extends JpaRepository<Cost, Long> {
+public interface CostCategoryDao extends JpaRepository<CostCategory, Long> {
 }

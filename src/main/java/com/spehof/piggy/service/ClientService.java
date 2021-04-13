@@ -2,6 +2,7 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,13 +61,14 @@ public class ClientService {
      * @return A new minimalistic filled Client class and save it in database
      * */
     public Client create(Client client){
+        /** Set registration date when creating a new client */
         client.setRegistrationDate(LocalDateTime.now());
+        /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
+        client.setMoneyMovementCategoryHolder(new MoneyMovementCategoryHolder());
 
         accountService.create(client);
 //        TODO test data !!!
-        for (String s : new String[]{"test category1", "test category2"}) {
-            client.setMoneyMovementCategory(moneyMovementCategoryService.create(client, s));
-        }
+            client.setMoneyMovementCategoryHolder(moneyMovementCategoryService.create(client));
 //        TODO test data !!!
         for (String s : new String[]{"Money Holder Test 1", "Money Holder Test 2"}) {
             client.setMoneyHolderType(moneyHolderTypeService.create(client, s));

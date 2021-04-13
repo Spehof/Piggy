@@ -1,9 +1,8 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.MoneyMovementCategoryDao;
-import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
-import com.spehof.piggy.domain.MoneyMovementCategory;
+import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,8 @@ public class MoneyMovementCategoryService {
         this.moneyMovementCategoryDao = moneyMovementCategoryDao;
     }
 
-    public MoneyMovementCategory create(Client client, String name){
-        MoneyMovementCategory moneyMovementCategory = new MoneyMovementCategory(client, name);
-        return moneyMovementCategoryDao.save(moneyMovementCategory);
+    public MoneyMovementCategoryHolder create(Client client){
+        MoneyMovementCategoryHolder moneyMovementCategoryHolder = new MoneyMovementCategoryHolder(client);
+        return moneyMovementCategoryDao.save(moneyMovementCategoryHolder);
     }
 }
