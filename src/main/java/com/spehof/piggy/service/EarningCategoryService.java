@@ -1,14 +1,10 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.EarningCategoryDao;
-import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.EarningCategory;
-import com.spehof.piggy.exception.EarningCategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 /**
  * @author Spehof

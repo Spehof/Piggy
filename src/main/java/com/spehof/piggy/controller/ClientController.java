@@ -12,7 +12,7 @@ import java.util.List;
  * @created 08/04/2021
  */
 @RestController
-@RequestMapping("client")
+@RequestMapping("/api/v1/client")
 public class ClientController {
 
 

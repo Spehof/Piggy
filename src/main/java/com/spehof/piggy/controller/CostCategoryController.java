@@ -14,7 +14,7 @@ import java.util.Set;
  * @created 13/04/2021
  */
 @RestController
-@RequestMapping("account/{id}/cost")
+@RequestMapping("/api/v1/account/{id}/cost")
 public class CostCategoryController {
 
     private final CostCategoryService costCategoryService;

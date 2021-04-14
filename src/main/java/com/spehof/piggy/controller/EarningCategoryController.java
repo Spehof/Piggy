@@ -14,7 +14,7 @@ import java.util.Set;
  * @created 13/04/2021
  */
 @RestController
-@RequestMapping("account/{id}/earning")
+@RequestMapping("/api/v1/account/{id}/earning")
 public class EarningCategoryController {
 
     private final EarningCategoryService earningCategoryService;

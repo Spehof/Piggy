@@ -12,7 +12,7 @@ import java.util.List;
  * @created 09/04/2021
  */
 @RestController
-@RequestMapping("account")
+@RequestMapping("/api/v1/account")
 public class AccountController {
 
     private final AccountService accountService;
