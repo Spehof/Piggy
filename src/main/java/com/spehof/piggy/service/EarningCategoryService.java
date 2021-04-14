@@ -27,9 +27,14 @@ public class EarningCategoryService {
         this.earningCategoryDao = earningCategoryDao;
     }
 
-    /** Create a new earning category
-     * @param client
-     * @param categoryName*/
+    /** Create a new earning category from name
+     * create (set it ID and binding with MoneyMovementCategoryHolder)
+     * but created category in this method for now - not binding with no one client
+     * just created entity with this category name
+     *
+     * @param client with MoneyMovementCategoryHolder will be binding this category
+     * @param categoryName - name of category
+     * */
     public EarningCategory create(Client client, String categoryName){
         EarningCategory earningCategory = new EarningCategory(client.getMoneyMovementCategoryHolder(), categoryName);
         return earningCategoryDao.save(earningCategory);
