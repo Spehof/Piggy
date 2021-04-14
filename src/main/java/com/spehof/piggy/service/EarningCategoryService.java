@@ -14,9 +14,8 @@ import java.util.Set;
  * @author Spehof
  * @created 13/04/2021
  *
- * Class for manage client earning category
+ * Creating new unbinding entity "category" from name
  */
-// TODO this class no need?
 @Service
 public class EarningCategoryService {
 

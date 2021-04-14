@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Spehof
  * @created 13/04/2021
  *
- * Class for manage client cost category
+ * Creating new unbinding entity "category" from name
  */
 
 // TODO this class no need?
