@@ -16,6 +16,7 @@ import java.util.Set;
  *
  * Class for manage client earning category
  */
+// TODO this class no need?
 @Service
 public class EarningCategoryService {
 

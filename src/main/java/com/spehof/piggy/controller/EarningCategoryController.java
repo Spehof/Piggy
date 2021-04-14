@@ -3,6 +3,7 @@ package com.spehof.piggy.controller;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.EarningCategory;
 import com.spehof.piggy.service.EarningCategoryService;
+import com.spehof.piggy.service.MoneyMovementCategoryHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,22 +18,25 @@ import java.util.Set;
 public class EarningCategoryController {
 
     private final EarningCategoryService earningCategoryService;
+    private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
 
     @Autowired
-    public EarningCategoryController(EarningCategoryService earningCategoryService) {
+    public EarningCategoryController(EarningCategoryService earningCategoryService,
+                                     MoneyMovementCategoryHolderService moneyMovementCategoryHolderService) {
         this.earningCategoryService = earningCategoryService;
+        this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
     }
 
     @GetMapping()
     public Set<EarningCategory> getAll(@PathVariable(name = "id") Account account){
-        return earningCategoryService.getAll(account);
+        return moneyMovementCategoryHolderService.getEarningCategories(account.getClient());
     }
 
     @PostMapping()
     public void createNewCategory(@PathVariable(name = "id") Account account,
                                   @RequestBody EarningCategory earningCategory){
-        earningCategoryService.create(account.getClient(),
-                earningCategory.getName());
+        EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategory.getName());
+        moneyMovementCategoryHolderService.addNewEarningCategory(account.getClient(), clientEarningCategory);
     }
 
     @DeleteMapping()
@@ -40,9 +44,6 @@ public class EarningCategoryController {
             @PathVariable(name = "id") Account account,
             @RequestBody EarningCategory earningCategory){
 
-//        TODO refactor sending params
-        earningCategoryService.remove(
-                account.getClient(),
-                earningCategory.getName());
+        moneyMovementCategoryHolderService.removeEarningCategory(account.getClient(), earningCategory);
     }
 }

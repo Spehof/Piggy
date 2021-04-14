@@ -2,11 +2,9 @@ package com.spehof.piggy.controller;
 
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.CostCategory;
-import com.spehof.piggy.domain.EarningCategory;
 import com.spehof.piggy.service.CostCategoryService;
-import com.spehof.piggy.service.CostService;
+import com.spehof.piggy.service.MoneyMovementCategoryHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -20,21 +18,25 @@ import java.util.Set;
 public class CostCategoryController {
 
     private final CostCategoryService costCategoryService;
+    private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
 
     @Autowired
-    public CostCategoryController(CostCategoryService costCategoryService) {
+    public CostCategoryController(CostCategoryService costCategoryService,
+                                  MoneyMovementCategoryHolderService moneyMovementCategoryHolderService) {
         this.costCategoryService = costCategoryService;
+        this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
     }
 
     @GetMapping()
     public Set<CostCategory> getAll(@PathVariable(name = "id") Account account){
-        return costCategoryService.getAll(account);
+        return moneyMovementCategoryHolderService.getCostCategories(account.getClient());
     }
 
     @PostMapping()
     public void createNewCategory(@PathVariable(name = "id") Account account,
                                   @RequestBody CostCategory costCategory){
-        costCategoryService.create(account.getClient(), costCategory.getName());
+        CostCategory clientCostCategory = costCategoryService.create(account.getClient(), costCategory.getName());
+        moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
     }
 
     @DeleteMapping()
@@ -42,9 +44,6 @@ public class CostCategoryController {
             @PathVariable(name = "id") Account account,
             @RequestBody CostCategory costCategory){
 
-//        TODO refactor sending params
-        costCategoryService.remove(
-                account.getClient(),
-                costCategory.getName());
+        moneyMovementCategoryHolderService.removeCostCategory(account.getClient(), costCategory);
     }
 }

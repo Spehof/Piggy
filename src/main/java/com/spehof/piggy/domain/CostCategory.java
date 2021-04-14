@@ -10,6 +10,8 @@ import javax.persistence.*;
 /**
  * @author Spehof
  * @created 13/04/2021
+ *
+ * Class represents entity client cost category
  */
 @Entity
 @Table(name = "cost_categories")

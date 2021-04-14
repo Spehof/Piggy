@@ -2,6 +2,9 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.CostCategory;
+import com.spehof.piggy.domain.EarningCategory;
+import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,13 +76,22 @@ public class ClientService {
         accountService.create(client);
 
         /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
+//        TODO refactor
         client.setMoneyMovementCategoryHolder(moneyMovementCategoryHolderService.create(client));
 
+        /** Creating new earning category */
+        EarningCategory clientEarningCategory = earningCategoryService.create(client, "Test Earning Category");
 
 //        TODO test data !!!
-        earningCategoryService.create(client, "Test Earning Category");
+        /** Set new earning category clients moneyMovementCategoryHolder */
+        moneyMovementCategoryHolderService.addNewEarningCategory(client, clientEarningCategory);
+
 //        TODO test data !!!
-        costCategoryService.create(client, "Test cost category");
+        /** Creating new cost category */
+        CostCategory clientCostCategory = costCategoryService.create(client, "Test cost category");
+
+        /** Set new cost category clients moneyMovementCategoryHolder */
+        moneyMovementCategoryHolderService.addNewCostCategory(client, clientCostCategory);
 
 
 //        TODO test data !!!
