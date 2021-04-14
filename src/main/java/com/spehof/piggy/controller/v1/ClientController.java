@@ -1,4 +1,4 @@
-package com.spehof.piggy.controller;
+package com.spehof.piggy.controller.v1;
 
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.service.ClientService;
