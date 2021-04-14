@@ -34,18 +34,4 @@ public class EarningCategoryService {
         EarningCategory earningCategory = new EarningCategory(client.getMoneyMovementCategoryHolder(), categoryName);
         return earningCategoryDao.save(earningCategory);
     }
-
-    public void remove(Client client, String categoryName){
-        EarningCategory earningCategoryForDelete = client.getMoneyMovementCategoryHolder().getEarningCategories()
-                .stream()
-                .filter(earningCategory -> earningCategory.getName().equals(categoryName))
-                .findFirst()
-                .orElseThrow(EarningCategoryNotFoundException::new);
-
-        earningCategoryDao.delete(earningCategoryForDelete);
-    }
-// TODO refactor signature
-    public Set<EarningCategory> getAll(Account account){
-        return account.getClient().getMoneyMovementCategoryHolder().getEarningCategories();
-    }
 }

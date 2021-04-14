@@ -35,19 +35,4 @@ public class CostCategoryService {
         CostCategory costCategory = new CostCategory(client.getMoneyMovementCategoryHolder(), categoryName);
         return costCategoryDao.save(costCategory);
     }
-
-    public void remove(Client client, String categoryName){
-        CostCategory costCategoryForDelete = client.getMoneyMovementCategoryHolder().getCostCategories()
-                .stream()
-                .filter(costCategory -> costCategory.getName().equals(categoryName))
-                .findFirst()
-                .orElseThrow(CostCategoryNotFoundException::new);
-
-        costCategoryDao.delete(costCategoryForDelete);
-    }
-
-//    TODO refactor signature
-    public Set<CostCategory> getAll(Account account){
-        return account.getClient().getMoneyMovementCategoryHolder().getCostCategories();
-    }
 }
