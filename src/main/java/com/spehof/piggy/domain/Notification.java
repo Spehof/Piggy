@@ -15,7 +15,8 @@ import java.util.Collections;
 @Entity
 @Table(name = "notifications")
 @Data
-@EqualsAndHashCode(of = {"id", "message"})
+// TODO add creating time etc. and add here
+@EqualsAndHashCode(of = {"message"})
 @NoArgsConstructor
 public class Notification extends BaseEntity {
 

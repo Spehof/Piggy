@@ -25,15 +25,18 @@ public class NotificationController {
 
     @GetMapping
     public List<Notification> getAll(@PathVariable(name = "id")Account account){
-//        TODO move to service
-        return account.getClient().getNotifications();
+        return notificationService.getAll(account.getClient());
     }
 
     @PostMapping
     public void createNewNotification(@PathVariable(name = "id")Account account,
                                       @RequestBody Notification notification){
-//        TODO save new in service method
-        Notification clientNotification = notificationService.create(account.getClient(), notification.getMessage());
-        account.getClient().setNotification(clientNotification);
+        notificationService.create(account.getClient(), notification.getMessage());
+    }
+
+    @DeleteMapping
+    public void deleteNotification(@PathVariable(name = "id") Account account,
+                                   @RequestBody Notification notification){
+        notificationService.delete(account.getClient(), notification);
     }
 }

@@ -1,10 +1,13 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.NotificationDao;
+import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Spehof
@@ -22,6 +25,16 @@ public class NotificationService {
 
     public Notification create(Client client, String message){
         Notification notification = new Notification(client, message);
+        client.setNotification(notification);
         return notificationDao.save(notification);
+    }
+
+    public List<Notification> getAll(Client client){
+        return client.getNotifications();
+    }
+
+    public void delete(Client client, Notification notification){
+        client.removeNotification(notification);
+        notificationDao.delete(notification);
     }
 }
