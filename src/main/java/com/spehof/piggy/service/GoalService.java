@@ -22,6 +22,7 @@ public class GoalService {
 
     public Goal create(Client client, Long amount, String text){
         Goal goal = new Goal(client, amount, text);
+        client.setGoal(goal);
         return goalDao.save(goal);
     }
 }

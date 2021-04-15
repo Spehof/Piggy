@@ -86,27 +86,27 @@ public class ClientService {
         /** Set new earning category clients moneyMovementCategoryHolder */
         moneyMovementCategoryHolderService.addNewEarningCategory(client, clientEarningCategory);
 
-//        TODO test data !!!
+
         /** Creating new cost category */
         CostCategory clientCostCategory = costCategoryService.create(client, "Test cost category");
 
         /** Set new cost category clients moneyMovementCategoryHolder */
         moneyMovementCategoryHolderService.addNewCostCategory(client, clientCostCategory);
 
-
-//        TODO test data !!!
         for (String s : new String[]{"Money Holder Test 1", "Money Holder Test 2"}) {
-            client.setMoneyHolderType(moneyHolderTypeService.create(client, s));
+            moneyHolderTypeService.create(client, s);
         }
-//        TODO test data !!!
-        friendService.create(client, "Niko");
-//        TODO test data !!!
-        client.setBudget(budgetService.create(client, 10000L));
-//        TODO test data !!!
-        client.setNotification(notificationService.create(client, "Alarm, it's test notification!"));
-//        TODO test data !!!
-        client.setGoal(goalService.create(client, 1000000L, "For my new car"));
 
+        friendService.create(client, "Niko");
+
+        budgetService.create(client, 10000L);
+
+        notificationService.create(client, "Alarm, it's test notification!");
+
+        goalService.create(client, 1000000L, "For my new car");
+//        TODO end of test data
+
+        /** Saving created client in DB */
         return clientDao.save(client);
     }
 

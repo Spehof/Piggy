@@ -22,6 +22,7 @@ public class BudgetService {
 
     public Budget create(Client client, Long value){
         Budget budget = new Budget(client, value);
+        client.setBudget(budget);
         return budgetDao.save(budget);
     }
 }

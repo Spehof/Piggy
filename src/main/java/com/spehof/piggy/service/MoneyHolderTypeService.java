@@ -22,6 +22,7 @@ public class MoneyHolderTypeService {
 
     public MoneyHolderType create(Client client, String name){
         MoneyHolderType moneyHolderType = new MoneyHolderType(client, name);
+        client.setMoneyHolderType(moneyHolderType);
         return moneyHolderTypeDao.save(moneyHolderType);
     }
 }
