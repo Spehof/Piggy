@@ -99,7 +99,7 @@ public class ClientService {
             client.setMoneyHolderType(moneyHolderTypeService.create(client, s));
         }
 //        TODO test data !!!
-        client.setFriend(friendService.create(client, "Niko"));
+        friendService.create(client, "Niko");
 //        TODO test data !!!
         client.setBudget(budgetService.create(client, 10000L));
 //        TODO test data !!!

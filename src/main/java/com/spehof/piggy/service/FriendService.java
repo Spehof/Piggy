@@ -38,8 +38,10 @@ public class FriendService {
 //        TODO for test!!
         friend.setOwe(oweService.create(friend, 5000L));
 
-//        TODO see and refactor maybe
-        return friend;
+
+//        TODO for testing saving friend
+        client.setFriend(friend);
+        return friendDao.save(friend);
     }
 
     public List<Friend> getAll(Client client) {

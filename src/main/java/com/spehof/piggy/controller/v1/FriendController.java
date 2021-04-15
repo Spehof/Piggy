@@ -4,10 +4,7 @@ import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Friend;
 import com.spehof.piggy.service.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +34,9 @@ public class FriendController {
         return friendService.getOne(account.getClient(), friendId);
     }
 
-
+    @PostMapping
+    public Friend createNewFriend(@PathVariable(name = "id")Account account,
+                                  @RequestBody Friend friend){
+        return friendService.create(account.getClient(), friend.getName());
+    }
 }
