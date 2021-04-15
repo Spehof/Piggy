@@ -6,6 +6,8 @@ import com.spehof.piggy.domain.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Spehof
  * @created 10/04/2021
@@ -37,5 +39,9 @@ public class FriendService {
 
 //        TODO see and refactor maybe
         return friend;
+    }
+
+    public List<Friend> getAll(Client client) {
+        return client.getFriends();
     }
 }
