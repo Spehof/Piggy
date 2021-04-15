@@ -34,9 +34,16 @@ public class NotificationController {
         notificationService.create(account.getClient(), notification.getMessage());
     }
 
-    @DeleteMapping
+    @DeleteMapping()
     public void deleteNotification(@PathVariable(name = "id") Account account,
                                    @RequestBody Notification notification){
         notificationService.delete(account.getClient(), notification);
+    }
+
+    @PutMapping("{notificationId}")
+    public void updateNotification(@PathVariable(name = "id") Account account,
+                                   @PathVariable(name = "notificationId") Long oldNotificationId,
+                                   @RequestBody Notification newNotification){
+        notificationService.update(account.getClient(), newNotification, oldNotificationId);
     }
 }

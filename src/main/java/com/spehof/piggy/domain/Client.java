@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.exception.NotificationNotFoundException;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;
 
@@ -234,5 +235,12 @@ public class Client extends BaseEntity {
         budgets.remove(goal);
         //remove myself from the twitter account
         goal.setClient(null);
+    }
+
+    public Notification getNotification(Long notificationId){
+        return this.notifications.stream()
+                .filter(notification -> notification.id.equals(notificationId))
+                .findFirst()
+                .orElseThrow(NotificationNotFoundException::new);
     }
 }

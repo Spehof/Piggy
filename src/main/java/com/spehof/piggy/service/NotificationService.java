@@ -1,9 +1,9 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.NotificationDao;
-import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Notification;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +36,13 @@ public class NotificationService {
     public void delete(Client client, Notification notification){
         client.removeNotification(notification);
         notificationDao.delete(notification);
+    }
+
+    public Notification update(Client client,
+                               Notification newNotification,
+                               Long changingNotificationId){
+        Notification notificationFromDb = client.getNotification(changingNotificationId);
+        BeanUtils.copyProperties(newNotification, notificationFromDb, "id");
+        return notificationDao.save(notificationFromDb);
     }
 }
