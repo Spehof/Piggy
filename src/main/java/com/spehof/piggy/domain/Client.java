@@ -2,6 +2,7 @@ package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
 import com.spehof.piggy.exception.FriendNotFoundException;
+import com.spehof.piggy.exception.MoneyHolderTypeNotFoundException;
 import com.spehof.piggy.exception.NotificationNotFoundException;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;
@@ -250,5 +251,12 @@ public class Client extends BaseEntity {
                 .filter(friend -> friend.id.equals(friendId))
                 .findFirst()
                 .orElseThrow(FriendNotFoundException::new);
+    }
+
+    public MoneyHolderType getMoneyHolderType(Long moneyHolderTypeId){
+        return this.moneyHolderTypes.stream()
+                .filter(moneyHolderType -> moneyHolderType.id.equals(moneyHolderTypeId))
+                .findFirst()
+                .orElseThrow(MoneyHolderTypeNotFoundException::new);
     }
 }

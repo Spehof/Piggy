@@ -6,6 +6,8 @@ import com.spehof.piggy.domain.MoneyHolderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Spehof
  * @created 10/04/2021
@@ -24,5 +26,13 @@ public class MoneyHolderTypeService {
         MoneyHolderType moneyHolderType = new MoneyHolderType(client, name);
         client.setMoneyHolderType(moneyHolderType);
         return moneyHolderTypeDao.save(moneyHolderType);
+    }
+
+    public List<MoneyHolderType> getAll(Client client) {
+        return client.getMoneyHolderTypes();
+    }
+
+    public MoneyHolderType getOne(Client client, Long moneyHolderTypeId) {
+        return client.getMoneyHolderType(moneyHolderTypeId);
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @created 14/04/2021
  */
 @RestController()
-@RequestMapping("/api/v1/account/{id}/notification")
+@RequestMapping("/api/v1/account/{id}/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
