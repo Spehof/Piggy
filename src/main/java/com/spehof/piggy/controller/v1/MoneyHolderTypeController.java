@@ -46,5 +46,12 @@ public class MoneyHolderTypeController {
         moneyHolderTypeService.delete(account.getClient(), moneyHolderType);
     }
 
+    @PutMapping("{MoneyHolderTypeId}")
+    public MoneyHolderType updateMoneyHolderType(@PathVariable(name = "id") Account account,
+                                                 @PathVariable(name = "MoneyHolderTypeId") Long oldMoneyHolderTypeId,
+                                                 @RequestBody MoneyHolderType newMoneyHolderType){
+        return moneyHolderTypeService.update(account.getClient(), newMoneyHolderType, oldMoneyHolderTypeId);
+    }
+
 
 }
