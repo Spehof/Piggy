@@ -40,5 +40,11 @@ public class MoneyHolderTypeController {
         return moneyHolderTypeService.create(account.getClient(), moneyHolderType.getName());
     }
 
+    @DeleteMapping
+    public void deleteMoneyHolderType(@PathVariable(name = "id") Account account,
+                                      @RequestBody MoneyHolderType moneyHolderType){
+        moneyHolderTypeService.delete(account.getClient(), moneyHolderType);
+    }
+
 
 }

@@ -46,4 +46,5 @@ public class FriendController {
                                @RequestBody Friend friend){
         return friendService.update(account.getClient(), friend, oldFriendId);
     }
+//    TODO delete mapping
 }

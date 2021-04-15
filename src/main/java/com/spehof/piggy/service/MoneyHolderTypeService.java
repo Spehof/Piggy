@@ -35,4 +35,9 @@ public class MoneyHolderTypeService {
     public MoneyHolderType getOne(Client client, Long moneyHolderTypeId) {
         return client.getMoneyHolderType(moneyHolderTypeId);
     }
+
+    public void delete(Client client, MoneyHolderType moneyHolderType) {
+        client.removeMoneyHolderType(moneyHolderType);
+        moneyHolderTypeDao.delete(moneyHolderType);
+    }
 }

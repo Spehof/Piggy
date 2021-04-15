@@ -14,7 +14,8 @@ import java.util.Collections;
  */@Entity
 @Data
 @Table(name = "money_holder_type")
-@EqualsAndHashCode(of = {"id", "name"})
+// TODO add creating time etc. and add here
+@EqualsAndHashCode(of = {"name"})
 @NoArgsConstructor
 public class MoneyHolderType extends BaseEntity {
 
