@@ -30,4 +30,12 @@ public class FriendController {
     public List<Friend> getAll(@PathVariable(name = "id")Account account){
         return friendService.getAll(account.getClient());
     }
+
+    @GetMapping("{friendId}")
+    public Friend getOne(@PathVariable(name = "id")Account account,
+                         @PathVariable(name = "friendId") Long friendId){
+        return friendService.getOne(account.getClient(), friendId);
+    }
+
+
 }

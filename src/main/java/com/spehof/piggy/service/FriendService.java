@@ -1,6 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.FriendDao;
+import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,9 @@ public class FriendService {
 
     public List<Friend> getAll(Client client) {
         return client.getFriends();
+    }
+
+    public Friend getOne(Client client, Long friendId) {
+        return client.getFriend(friendId);
     }
 }

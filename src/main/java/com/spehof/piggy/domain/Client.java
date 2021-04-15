@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.exception.FriendNotFoundException;
 import com.spehof.piggy.exception.NotificationNotFoundException;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;
@@ -242,5 +243,12 @@ public class Client extends BaseEntity {
                 .filter(notification -> notification.id.equals(notificationId))
                 .findFirst()
                 .orElseThrow(NotificationNotFoundException::new);
+    }
+
+    public Friend getFriend(Long friendId){
+        return this.friends.stream()
+                .filter(friend -> friend.id.equals(friendId))
+                .findFirst()
+                .orElseThrow(FriendNotFoundException::new);
     }
 }
