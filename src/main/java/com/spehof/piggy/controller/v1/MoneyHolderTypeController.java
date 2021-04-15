@@ -4,10 +4,7 @@ import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.MoneyHolderType;
 import com.spehof.piggy.service.MoneyHolderTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,12 @@ public class MoneyHolderTypeController {
     public MoneyHolderType getOne(@PathVariable(name = "id") Account account,
                                   @PathVariable(name = "moneyholdertypeId") Long moneyHolderTypeId){
         return moneyHolderTypeService.getOne(account.getClient(), moneyHolderTypeId);
+    }
+
+    @PostMapping
+    public MoneyHolderType createNewMoneyHolderType(@PathVariable(name = "id") Account account,
+                                                    @RequestBody MoneyHolderType moneyHolderType){
+        return moneyHolderTypeService.create(account.getClient(), moneyHolderType.getName());
     }
 
 
