@@ -39,4 +39,11 @@ public class FriendController {
                                   @RequestBody Friend friend){
         return friendService.create(account.getClient(), friend.getName());
     }
+
+    @PutMapping("{clientId}")
+    public Friend updateFriend(@PathVariable(name = "id")Account account,
+                               @PathVariable(name = "clientId") Long oldFriendId,
+                               @RequestBody Friend friend){
+        return friendService.update(account.getClient(), friend, oldFriendId);
+    }
 }

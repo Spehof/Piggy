@@ -46,4 +46,5 @@ public class EarningCategoryController {
 
         moneyMovementCategoryHolderService.removeEarningCategory(account.getClient(), earningCategory);
     }
+//    TODO update method
 }

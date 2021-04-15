@@ -41,9 +41,10 @@ public class NotificationController {
     }
 
     @PutMapping("{notificationId}")
-    public void updateNotification(@PathVariable(name = "id") Account account,
+    public Notification updateNotification(@PathVariable(name = "id") Account account,
                                    @PathVariable(name = "notificationId") Long oldNotificationId,
                                    @RequestBody Notification newNotification){
-        notificationService.update(account.getClient(), newNotification, oldNotificationId);
+//        TODO refactor: create a sending new notification if all right
+        return notificationService.update(account.getClient(), newNotification, oldNotificationId);
     }
 }

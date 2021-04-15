@@ -4,6 +4,7 @@ import com.spehof.piggy.DAO.FriendDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Friend;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,11 @@ public class FriendService {
 
     public Friend getOne(Client client, Long friendId) {
         return client.getFriend(friendId);
+    }
+
+    public Friend update(Client client, Friend friend, Long oldFriendId) {
+        Friend friendFromDb = client.getFriend(oldFriendId);
+        BeanUtils.copyProperties(friend, friendFromDb, "id");
+        return friendDao.save(friendFromDb);
     }
 }
