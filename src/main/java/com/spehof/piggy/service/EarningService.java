@@ -24,6 +24,7 @@ public class EarningService {
 
     public Earning create(Account account, Long amount){
         Earning earning = new Earning(account, amount);
+        account.setEarning(earning);
         return earningDao.save(earning);
     }
 

@@ -43,7 +43,7 @@ public class AccountService {
         }
 //        TODO for test!!
         for (long l : new long[]{22445L, 1265L}) {
-            account.setEarning(earningService.create(account, l));
+            earningService.create(account, l);
         }
     }
 

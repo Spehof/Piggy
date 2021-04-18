@@ -4,10 +4,7 @@ import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Earning;
 import com.spehof.piggy.service.EarningService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,11 @@ public class EarningController {
     @GetMapping
     public List<Earning> getAll(@PathVariable(name = "id") Account account){
         return earningService.getAll(account);
+    }
+
+    @PostMapping
+    public void createEarning(@PathVariable(name = "id") Account account,
+                              @RequestBody Earning earning){
+        earningService.create(account, earning.getAmount());
     }
 }
