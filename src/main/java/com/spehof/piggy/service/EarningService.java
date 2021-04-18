@@ -3,6 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.EarningDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Earning;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,16 @@ public class EarningService {
 
     public List<Earning> getAll(Account account) {
         return account.getEarnings();
+    }
+
+    public void delete(Account account, Earning earning) {
+        account.removeEarning(earning);
+        earningDao.delete(earning);
+    }
+
+    public Earning update(Account account, Earning earning, Long oldEarningId) {
+        Earning earningFromDb = account.getEarning(oldEarningId);
+        BeanUtils.copyProperties(earning, earningFromDb, "id", "account");
+        return earningDao.save(earningFromDb);
     }
 }

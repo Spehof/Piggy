@@ -29,8 +29,22 @@ public class EarningController {
     }
 
     @PostMapping
-    public void createEarning(@PathVariable(name = "id") Account account,
+    public Earning createEarning(@PathVariable(name = "id") Account account,
                               @RequestBody Earning earning){
-        earningService.create(account, earning.getAmount());
+        return earningService.create(account, earning.getAmount());
+    }
+
+//    TODO deleting across ID or something else
+    @DeleteMapping
+    public void deleteEarning(@PathVariable(name = "id") Account account,
+                              @RequestBody Earning earning){
+        earningService.delete(account, earning);
+    }
+
+    @PutMapping("{earningId}")
+    public Earning updateEarning(@PathVariable(name = "id") Account account,
+                              @PathVariable(name = "earningId") Long oldEarningId,
+                              @RequestBody Earning earning){
+        return earningService.update(account, earning ,oldEarningId);
     }
 }

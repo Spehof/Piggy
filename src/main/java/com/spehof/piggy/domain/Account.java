@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.exception.EarningNotFoundException;
 import lombok.*;
 
 import javax.persistence.*;
@@ -113,5 +114,12 @@ public class Account extends BaseEntity {
         costs.remove(cost);
         //remove myself from the twitter account
         cost.setAccount(null);
+    }
+
+    public Earning getEarning(Long oldEarningId) {
+        return this.earnings.stream()
+                .filter(earning -> earning.id.equals(oldEarningId))
+                .findFirst()
+                .orElseThrow(EarningNotFoundException::new);
     }
 }

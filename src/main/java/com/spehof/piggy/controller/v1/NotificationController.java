@@ -40,6 +40,7 @@ public class NotificationController {
         notificationService.delete(account.getClient(), notification);
     }
 
+    //    TODO deleting across ID or something else
     @PutMapping("{notificationId}")
     public Notification updateNotification(@PathVariable(name = "id") Account account,
                                    @PathVariable(name = "notificationId") Long oldNotificationId,
