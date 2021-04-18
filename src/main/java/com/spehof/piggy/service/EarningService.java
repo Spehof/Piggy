@@ -6,6 +6,8 @@ import com.spehof.piggy.domain.Earning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Spehof
  * @created 09/04/2021
@@ -23,5 +25,9 @@ public class EarningService {
     public Earning create(Account account, Long amount){
         Earning earning = new Earning(account, amount);
         return earningDao.save(earning);
+    }
+
+    public List<Earning> getAll(Account account) {
+        return account.getEarnings();
     }
 }
