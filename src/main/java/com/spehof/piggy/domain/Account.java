@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.exception.CostNotFoundException;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import lombok.*;
 
@@ -121,5 +122,12 @@ public class Account extends BaseEntity {
                 .filter(earning -> earning.id.equals(oldEarningId))
                 .findFirst()
                 .orElseThrow(EarningNotFoundException::new);
+    }
+
+    public Cost getCost(Long oldCostId) {
+        return this.costs.stream()
+                .filter(cost -> cost.id.equals(oldCostId))
+                .findFirst()
+                .orElseThrow(CostNotFoundException::new);
     }
 }
