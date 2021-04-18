@@ -964,6 +964,836 @@
 				}
 			],
 			"description": "\n"
+		},
+		{
+			"name": "Earnings",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/earnings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"earnings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create earning",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 2244554\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/earnings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"earnings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete earning",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 10000\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/earnings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"earnings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change earning",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"amount\": 66666\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/earnings/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"earnings",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Costs",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/costs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"costs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create cost",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1466\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/costs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"costs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cost",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1466\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/costs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"costs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change cost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1466\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/costs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"costs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Goals",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/goals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"goals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create goal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"created test goal\",\n    \"amount\": 124553\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/goals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"goals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete goal",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"created test goal\",\n    \"amount\": 124553\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/goals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"goals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change goal",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Changed!\",\n    \"amount\": 99\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/goals/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"goals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Budget",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/budgets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"budgets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create budget",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 999\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/budgets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"budgets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete budget",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 999\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/budgets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"budgets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change budget",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 555\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/budgets/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"budgets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loan",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/loans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"loans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create loan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/loans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"loans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete loan",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/loans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"loans"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change loan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"amount\": 555    \n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/loans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"loans"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Owe",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/owes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"owes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create owe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"amount\": 999\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/owes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"owes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete owe",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"amount\": 999\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/owes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"owes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change owe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"amount\": 3434343\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/1/friends/1/owes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"1",
+								"friends",
+								"1",
+								"owes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
