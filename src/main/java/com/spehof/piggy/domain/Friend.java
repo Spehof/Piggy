@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spehof.piggy.exception.LoanNotFoundException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -110,6 +111,13 @@ public class Friend extends BaseEntity {
         owes.remove(owe);
         // myself from the twitter account
         owe.setFriend(null);
+    }
+
+    public Loan getLoan(Long id) {
+        return this.loans.stream()
+                .filter(loan -> loan.id.equals(id))
+                .findFirst()
+                .orElseThrow(LoanNotFoundException::new);
     }
 }
 

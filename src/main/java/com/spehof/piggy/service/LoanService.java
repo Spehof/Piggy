@@ -1,10 +1,14 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.LoanDao;
+import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Friend;
 import com.spehof.piggy.domain.Loan;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Spehof
@@ -22,6 +26,22 @@ public class LoanService {
 
     public Loan create(Friend friend, Long amount){
         Loan loan = new Loan(friend, amount);
+        friend.setLoan(loan);
         return loanDao.save(loan);
+    }
+
+    public List<Loan> getAll(Client client, Friend friend) {
+        return friend.getLoans();
+    }
+
+    public void delete(Client client, Friend friend, Loan loan) {
+        client.getFriend(friend.getId()).removeLoan(loan);
+        loanDao.delete(loan);
+    }
+
+    public Loan update(Client client, Friend friend, Loan loan) {
+        Loan loanFromDb = client.getFriend(friend.getId()).getLoan(loan.getId());
+        BeanUtils.copyProperties(loan, loanFromDb, "id", "friend");
+        return loanDao.save(loanFromDb);
     }
 }
