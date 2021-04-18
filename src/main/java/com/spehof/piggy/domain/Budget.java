@@ -16,7 +16,7 @@ import java.util.Collections;
 @Entity
 @Data
 @Table(name = "budgets")
-@EqualsAndHashCode(of = {"id", "value"})
+@EqualsAndHashCode(of = {"value"})
 @NoArgsConstructor
 public class Budget extends BaseEntity {
 
