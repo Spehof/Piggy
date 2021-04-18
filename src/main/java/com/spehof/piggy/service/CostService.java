@@ -22,6 +22,7 @@ public class CostService {
 
     public Cost create(Account account, Long amount){
         Cost cost = new Cost(account, amount);
+        account.setCost(cost);
         return costDao.save(cost);
     }
 }
