@@ -3,8 +3,11 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.GoalDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Goal;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Spehof
@@ -24,5 +27,20 @@ public class GoalService {
         Goal goal = new Goal(client, amount, text);
         client.setGoal(goal);
         return goalDao.save(goal);
+    }
+
+    public List<Goal> getAll(Client client) {
+        return client.getGoals();
+    }
+
+    public void delete(Client client, Goal goal) {
+        client.removeGoal(goal);
+        goalDao.delete(goal);
+    }
+
+    public Goal update(Client client, Goal goal, Long oldGoalId) {
+        Goal goalFromDb = client.getGoal(oldGoalId);
+        BeanUtils.copyProperties(goal, goalFromDb, "id", "client");
+        return goalDao.save(goalFromDb);
     }
 }

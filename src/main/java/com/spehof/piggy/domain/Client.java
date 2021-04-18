@@ -2,6 +2,7 @@ package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
 import com.spehof.piggy.exception.FriendNotFoundException;
+import com.spehof.piggy.exception.GoalNotFoundException;
 import com.spehof.piggy.exception.MoneyHolderTypeNotFoundException;
 import com.spehof.piggy.exception.NotificationNotFoundException;
 import com.spehof.piggy.utils.ClientViews;
@@ -234,7 +235,7 @@ public class Client extends BaseEntity {
         if (!goals.contains(goal))
             return ;
         //remove the account
-        budgets.remove(goal);
+        goals.remove(goal);
         //remove myself from the twitter account
         goal.setClient(null);
     }
@@ -258,5 +259,12 @@ public class Client extends BaseEntity {
                 .filter(moneyHolderType -> moneyHolderType.id.equals(moneyHolderTypeId))
                 .findFirst()
                 .orElseThrow(MoneyHolderTypeNotFoundException::new);
+    }
+
+    public Goal getGoal(Long oldGoalId) {
+        return this.goals.stream()
+                .filter(goal -> goal.id.equals(oldGoalId))
+                .findFirst()
+                .orElseThrow(GoalNotFoundException::new);
     }
 }
