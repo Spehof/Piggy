@@ -42,8 +42,8 @@ public class MoneyHolderTypeService {
         moneyHolderTypeDao.delete(moneyHolderType);
     }
 
-    public MoneyHolderType update(Client client, MoneyHolderType newMoneyHolderType, Long oldMoneyHolderTypeId) {
-        MoneyHolderType moneyHolderTypeFromDb = client.getMoneyHolderType(oldMoneyHolderTypeId);
+    public MoneyHolderType update(Client client, MoneyHolderType newMoneyHolderType) {
+        MoneyHolderType moneyHolderTypeFromDb = client.getMoneyHolderType(newMoneyHolderType.getId());
         BeanUtils.copyProperties(newMoneyHolderType, moneyHolderTypeFromDb, "id");
         return moneyHolderTypeDao.save(moneyHolderTypeFromDb);
     }
