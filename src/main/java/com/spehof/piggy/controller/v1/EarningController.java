@@ -41,10 +41,9 @@ public class EarningController {
         earningService.delete(account, earning);
     }
 
-    @PutMapping("{earningId}")
+    @PutMapping()
     public Earning updateEarning(@PathVariable(name = "id") Account account,
-                              @PathVariable(name = "earningId") Long oldEarningId,
-                              @RequestBody Earning earning){
-        return earningService.update(account, earning ,oldEarningId);
+                              @RequestBody Earning newEarning){
+        return earningService.update(account, newEarning);
     }
 }

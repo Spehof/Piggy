@@ -38,9 +38,9 @@ public class EarningService {
         earningDao.delete(earning);
     }
 
-    public Earning update(Account account, Earning earning, Long oldEarningId) {
-        Earning earningFromDb = account.getEarning(oldEarningId);
-        BeanUtils.copyProperties(earning, earningFromDb, "id", "account");
+    public Earning update(Account account, Earning newEarning) {
+        Earning earningFromDb = account.getEarning(newEarning.getId());
+        BeanUtils.copyProperties(newEarning, earningFromDb, "id", "account");
         return earningDao.save(earningFromDb);
     }
 }
