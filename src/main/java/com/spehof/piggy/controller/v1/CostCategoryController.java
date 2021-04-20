@@ -34,16 +34,20 @@ public class CostCategoryController {
 
     @PostMapping()
     public CostCategory createNewCategory(@PathVariable(name = "id") Account account,
-                                  @RequestBody CostCategory costCategory){
-        CostCategory clientCostCategory = costCategoryService.create(account.getClient(), costCategory.getName());
+                                          @RequestBody CostCategory costCategoryFromApi){
+        CostCategory clientCostCategory = costCategoryService.create(account.getClient(), costCategoryFromApi.getName());
         return moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
     }
 
     @DeleteMapping()
     public void deleteCategory(@PathVariable(name = "id") Account account,
-                               @RequestBody CostCategory costCategory){
-        moneyMovementCategoryHolderService.removeCostCategory(account.getClient(), costCategory);
+                               @RequestBody CostCategory costCategoryFromApi){
+        moneyMovementCategoryHolderService.removeCostCategory(account.getClient(), costCategoryFromApi);
     }
 
-    //    TODO update method
+    @PutMapping
+    public CostCategory updateCategory(@PathVariable(name = "id") Account account,
+                                       @RequestBody CostCategory costCategoryFromApi){
+        return moneyMovementCategoryHolderService.updateCostCategory(account.getClient(), costCategoryFromApi);
+    }
 }

@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cost_categories")
 @Data
-@EqualsAndHashCode(of = {"name"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 public class CostCategory extends BaseEntity {
 

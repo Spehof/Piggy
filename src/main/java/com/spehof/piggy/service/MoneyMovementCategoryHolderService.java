@@ -6,6 +6,7 @@ import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.EarningCategory;
 import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +75,13 @@ public class MoneyMovementCategoryHolderService {
 
     public Set<EarningCategory> getEarningCategories(Client client){
         return client.getMoneyMovementCategoryHolder().getEarningCategories();
+    }
+
+    public CostCategory updateCostCategory(Client client, CostCategory costCategoryFromApi) {
+        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
+        BeanUtils.copyProperties(costCategoryFromApi, costCategoryFromDb, "id", "moneyMovementCategoryHolder");
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        return costCategoryFromApi;
     }
 }
