@@ -69,6 +69,9 @@ public class Client extends BaseEntity {
     @OneToMany()
     private List<Goal> goals = new ArrayList<>();
 
+    @OneToMany
+    private List<Portfolio> portfolios = new ArrayList<>();
+
     public void setAccount(Account account) {
         //prevent endless loop
         if (this.account != null && sameAsFormer(this.account, account))
@@ -235,37 +238,64 @@ public class Client extends BaseEntity {
         goal.setClient(null);
     }
 
+    public void setPortfolio(Portfolio portfolio) {
+        //prevent endless loop
+        if (this.portfolios.contains(portfolio))
+            return ;
+        //add new earning
+        this.portfolios.add(portfolio);
+        //set myself into the cost account
+        portfolio.setClient(this);
+    }
+
+    public void removePortfolio(Portfolio portfolio) {
+        //prevent endless loop
+        if (!portfolios.contains(portfolio))
+            return ;
+        //remove the account
+        portfolios.remove(portfolio);
+        //remove myself from the twitter account
+        portfolio.setClient(null);
+    }
+
+    public Portfolio getPortfolio(Long portfolioId){
+        return this.portfolios.stream()
+                .filter(portfolio -> portfolio.getId().equals(portfolioId))
+                .findFirst()
+                .orElseThrow(PortfolioNotFoundException::new);
+    }
+
     public Notification getNotification(Long notificationId){
         return this.notifications.stream()
-                .filter(notification -> notification.id.equals(notificationId))
+                .filter(notification -> notification.getId().equals(notificationId))
                 .findFirst()
                 .orElseThrow(NotificationNotFoundException::new);
     }
 
     public Friend getFriend(Long friendId){
         return this.friends.stream()
-                .filter(friend -> friend.id.equals(friendId))
+                .filter(friend -> friend.getId().equals(friendId))
                 .findFirst()
                 .orElseThrow(FriendNotFoundException::new);
     }
 
     public MoneyHolderType getMoneyHolderType(Long moneyHolderTypeId){
         return this.moneyHolderTypes.stream()
-                .filter(moneyHolderType -> moneyHolderType.id.equals(moneyHolderTypeId))
+                .filter(moneyHolderType -> moneyHolderType.getId().equals(moneyHolderTypeId))
                 .findFirst()
                 .orElseThrow(MoneyHolderTypeNotFoundException::new);
     }
 
     public Goal getGoal(Long oldGoalId) {
         return this.goals.stream()
-                .filter(goal -> goal.id.equals(oldGoalId))
+                .filter(goal -> goal.getId().equals(oldGoalId))
                 .findFirst()
                 .orElseThrow(GoalNotFoundException::new);
     }
 
     public Budget getBudget(Long oldBudgetId) {
         return this.budgets.stream()
-                .filter(budget -> budget.id.equals(oldBudgetId))
+                .filter(budget -> budget.getId().equals(oldBudgetId))
                 .findFirst()
                 .orElseThrow(BudgetNotFoundException::new);
     }

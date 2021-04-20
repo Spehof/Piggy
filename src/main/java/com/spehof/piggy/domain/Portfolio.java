@@ -1,5 +1,6 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import lombok.EqualsAndHashCode;
@@ -23,7 +24,8 @@ import java.util.List;
 @Setter
 public class Portfolio {
 
-    public Portfolio(String title){
+    public Portfolio(Client client, String title){
+        this.client = client;
         this.title = title;
     }
 
@@ -31,6 +33,11 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_portfolio")
     Long id;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_client")
+    @JsonIgnore
+    Client client;
 
     @ManyToMany
     List<BrokerSubAccount> brokerSubAccounts = new ArrayList<>();
