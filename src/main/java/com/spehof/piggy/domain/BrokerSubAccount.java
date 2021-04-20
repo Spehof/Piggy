@@ -1,12 +1,16 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spehof.piggy.exception.EarningNotFoundException;
+import com.spehof.piggy.exception.PortfolioNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Spehof
@@ -35,5 +39,35 @@ public class BrokerSubAccount extends BaseEntity {
     @JsonIgnore
     Broker broker;
 
+    @ManyToMany
+    List<Portfolio> portfolios = new ArrayList<>();
+
     String title;
+
+    public void setPortfolio(Portfolio portfolio) {
+        //prevent endless loop
+        if (this.portfolios.contains(portfolio))
+            return ;
+        //add new earning
+        this.portfolios.add(portfolio);
+        //set myself into the cost account
+        portfolio.setBrokerSubAccount(this);
+    }
+
+    public void removePortfolio(Portfolio portfolio) {
+        //prevent endless loop
+        if (!portfolios.contains(portfolio))
+            return ;
+        //remove the account
+        portfolios.remove(portfolio);
+        //remove myself from the twitter account
+        portfolio.setBrokerSubAccounts(null);
+    }
+
+    public Portfolio getPortfolio(Long portfolioId) {
+        return this.portfolios.stream()
+                .filter(portfolio -> portfolio.getId().equals(portfolioId))
+                .findFirst()
+                .orElseThrow(PortfolioNotFoundException::new);
+    }
 }
