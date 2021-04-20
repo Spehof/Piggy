@@ -33,18 +33,31 @@ public class AssetService {
         return portfolio.getAssets();
     }
 
+    public Asset addToPortfolio(Portfolio portfolio, Asset assetFromApi){
+        Asset assetFromDb = assetDao.getByName(assetFromApi.getName());
+//        TODO maybe will be problem with saving new portfolio
+        portfolio.setAsset(assetFromDb);
+
+        return assetDao.save(assetFromDb);
+    }
+
     public List<Asset> getAll(){
         return assetDao.findAll();
     }
 
     public void deleteFromPortfolio(Portfolio portfolio, Asset assetFromApi){
-        portfolio.removeAsset(assetFromApi);
-        assetDao.delete(assetFromApi);
+        Asset assetFromDb = portfolio.getAsset(assetFromApi.getId());
+        portfolio.removeAsset(assetFromDb);
+        assetDao.delete(assetFromDb);
     }
 
     public Asset update(Asset assetFromApi){
         Asset assetFromDb =  assetDao.findById(assetFromApi.getId()).orElseThrow(AssetNotFoundException::new);
         BeanUtils.copyProperties(assetFromApi, assetFromDb, "id");
         return assetDao.save(assetFromDb);
+    }
+
+    public void delete(Asset asset) {
+        assetDao.delete(asset);
     }
 }

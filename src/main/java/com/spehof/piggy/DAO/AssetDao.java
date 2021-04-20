@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @created 20/04/2021
  */
 public interface AssetDao extends JpaRepository<Asset, Long> {
+
+    Asset getByName(String name);
 }

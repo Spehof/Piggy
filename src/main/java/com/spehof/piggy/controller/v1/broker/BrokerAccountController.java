@@ -1,4 +1,4 @@
-package com.spehof.piggy.controller.v1;
+package com.spehof.piggy.controller.v1.broker;
 
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Broker;
@@ -14,12 +14,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/account/{id}/brokers")
-public class BrokerController {
+public class BrokerAccountController {
 
     private final BrokerService brokerService;
 
     @Autowired
-    public BrokerController(BrokerService brokerService) {
+    public BrokerAccountController(BrokerService brokerService) {
         this.brokerService = brokerService;
     }
 

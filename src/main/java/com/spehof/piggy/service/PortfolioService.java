@@ -1,6 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.PortfolioDao;
+import com.spehof.piggy.domain.Asset;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.Portfolio;
 import org.springframework.beans.BeanUtils;
@@ -36,6 +37,11 @@ public class PortfolioService {
 
     public Portfolio getOne(Client client, Portfolio portfolioFromApi){
         return client.getPortfolio(portfolioFromApi.getId());
+    }
+
+    public Portfolio addToPortfolio(Portfolio portfolio, Asset asset){
+        portfolio.setAsset(asset);
+        return portfolioDao.save(portfolio);
     }
 
     public void delete(Client client, Portfolio portfolioFromApi){

@@ -1,6 +1,8 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
 import lombok.EqualsAndHashCode;
@@ -40,6 +42,7 @@ public class BrokerSubAccount extends BaseEntity {
     Broker broker;
 
     @ManyToMany
+    @JsonIgnore
     List<Portfolio> portfolios = new ArrayList<>();
 
     String title;

@@ -1,5 +1,6 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
 import lombok.EqualsAndHashCode;
@@ -37,9 +38,13 @@ public class Asset {
     String price;
 
     @ManyToMany
+    @JsonIgnore
     List<Portfolio> portfolios = new ArrayList<>();
 
     public void setPortfolio(Portfolio portfolio) {
+        if (portfolio == null) {
+
+        }
         //prevent endless loop
         if (this.portfolios.contains(portfolio))
             return ;
@@ -56,7 +61,7 @@ public class Asset {
         //remove the account
         portfolios.remove(portfolio);
         //remove myself from the twitter account
-        portfolio.setAsset(null);
+        portfolio.setNullAssetById(this.getId());
     }
 
     public Portfolio getPortfolio(Long portfolioId) {
@@ -64,5 +69,13 @@ public class Asset {
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))
                 .findFirst()
                 .orElseThrow(PortfolioNotFoundException::new);
+    }
+
+    public void setNullPortfolioById(Long portfolioId){
+        Portfolio portfolioForChange = this.portfolios.stream()
+                .filter(portfolio -> portfolio.getId().equals(portfolioId))
+                .findFirst()
+                .orElseThrow(PortfolioNotFoundException::new);
+        portfolioForChange = null;
     }
 }
