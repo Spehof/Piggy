@@ -118,7 +118,17 @@ public class ClientService {
      * @return - save updated client class in database and return it
      * */
     public Client update(Client clientFromDb, Client clientFromApi){
-        BeanUtils.copyProperties(clientFromApi, clientFromDb, "id");
+        BeanUtils.copyProperties(clientFromApi, clientFromDb,
+                "id",
+                "registrationDate",
+                "account",
+                "moneyMovementCategoryHolder",
+                "moneyHolderTypes",
+                "friends",
+                "budgets",
+                "notifications",
+                "goals");
+
         return clientDao.save(clientFromDb);
     }
 

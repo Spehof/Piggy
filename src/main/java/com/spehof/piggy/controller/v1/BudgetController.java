@@ -40,10 +40,9 @@ public class BudgetController {
         budgetService.delete(account.getClient(), budget);
     }
 
-    @PutMapping("{oldBudgetId}")
+    @PutMapping()
     public Budget updateBudget(@PathVariable(name = "id") Account account,
-                               @PathVariable(name = "oldBudgetId") Long oldBudgetId,
-                               @RequestBody Budget budget){
-        return budgetService.update(account.getClient(), budget, oldBudgetId);
+                               @RequestBody Budget newBudget){
+        return budgetService.update(account.getClient(), newBudget);
     }
 }

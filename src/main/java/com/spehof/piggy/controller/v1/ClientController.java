@@ -24,13 +24,6 @@ public class ClientController {
     }
 
 
-//    private User getUserById(Long id) {
-//        return users.stream()
-//                .filter(user -> user.getId().equals(id))
-//                .findFirst()
-//                .orElseThrow(UserNotFoundException::new);
-//    }
-
     @GetMapping("all")
     public List<Client> getAll(){
         return clientService.getAll();

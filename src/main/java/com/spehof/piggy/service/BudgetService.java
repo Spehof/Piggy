@@ -38,8 +38,8 @@ public class BudgetService {
         budgetDao.delete(budget);
     }
 
-    public Budget update(Client client, Budget budget, Long oldBudgetId) {
-        Budget budgetFromDb = client.getBudget(oldBudgetId);
+    public Budget update(Client client, Budget budget) {
+        Budget budgetFromDb = client.getBudget(budget.getId());
         BeanUtils.copyProperties(budget, budgetFromDb, "id", "client");
         return budgetDao.save(budgetFromDb);
     }
