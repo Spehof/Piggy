@@ -21,17 +21,20 @@ public class AccountService {
     private final ClientDao clientDao;
     private final EarningService earningService;
     private final CostService costService;
+    private final BrokerService brokerService;
 
     @Autowired
     public AccountService(AccountDao accountDao,
                           ClientDao clientDao,
                           EarningService earningService,
-                          CostService costService) {
+                          CostService costService,
+                          BrokerService brokerService) {
 
         this.accountDao = accountDao;
         this.clientDao = clientDao;
         this.earningService = earningService;
         this.costService = costService;
+        this.brokerService = brokerService;
     }
 
     public void create(Client client){
@@ -46,6 +49,9 @@ public class AccountService {
         for (long l : new long[]{22445L, 1265L}) {
             earningService.create(account, l);
         }
+
+        brokerService.create(account, "My broker type 1");
+        brokerService.create(account, "My broker type 2");
     }
 
     public Account update(Account accountFromDb, Account accountFromApi){

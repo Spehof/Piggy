@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.exception.BrokerNotFoundException;
 import com.spehof.piggy.exception.CostNotFoundException;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import lombok.*;
@@ -40,6 +41,9 @@ public class Account extends BaseEntity {
 
     @OneToMany()
     private List<Cost> costs = new ArrayList<>();
+
+    @OneToMany()
+    private List<Broker> brokers = new ArrayList<>();
 
     Integer currency;
 
@@ -117,6 +121,27 @@ public class Account extends BaseEntity {
         cost.setAccount(null);
     }
 
+    public void removeBroker(Broker broker) {
+        //prevent endless loop
+        if (!brokers.contains(broker))
+            return ;
+        //remove the account
+        brokers.remove(broker);
+        //remove myself from the twitter account
+        broker.setAccount(null);
+    }
+
+    public void setBroker(Broker broker) {
+        //prevent endless loop
+        if (this.brokers.contains(broker))
+            return ;
+        //add new earning
+        this.brokers.add(broker);
+        //set myself into the cost account
+        broker.setAccount(this);
+    }
+
+
     public Earning getEarning(Long oldEarningId) {
         return this.earnings.stream()
                 .filter(earning -> earning.id.equals(oldEarningId))
@@ -129,5 +154,12 @@ public class Account extends BaseEntity {
                 .filter(cost -> cost.id.equals(oldCostId))
                 .findFirst()
                 .orElseThrow(CostNotFoundException::new);
+    }
+
+    public Broker getBroker(Long id) {
+        return this.brokers.stream()
+                .filter(broker -> broker.getId().equals(id))
+                .findFirst()
+                .orElseThrow(BrokerNotFoundException::new);
     }
 }
