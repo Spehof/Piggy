@@ -13,7 +13,7 @@ import java.util.List;
  * @created 15/04/2021
  */
 @RestController
-@RequestMapping("/api/v1/account/{id}/moneyholdertypes")
+@RequestMapping("/api/v1/account/{id}/types/moneyholders")
 public class MoneyHolderTypeController {
 
     private  final MoneyHolderTypeService moneyHolderTypeService;

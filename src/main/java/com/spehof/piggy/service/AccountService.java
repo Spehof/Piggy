@@ -49,8 +49,6 @@ public class AccountService {
     }
 
     public Account update(Account accountFromDb, Account newAccount){
-
-//        this.setAllFields(accountFromApi, accountFromDb);
         BeanUtils.copyProperties(newAccount, accountFromDb,
                 "id",
                 "client",
@@ -65,13 +63,5 @@ public class AccountService {
 
     public List<Account> getAll(){
         return accountDao.findAll();
-    }
-
-    private void setAllFields(Account source, Account target){
-        target.setClient(source.getClient());
-        target.setEarnings(source.getEarnings());
-        target.setCosts(source.getCosts());
-        target.setCurrency(source.getCurrency());
-
     }
 }

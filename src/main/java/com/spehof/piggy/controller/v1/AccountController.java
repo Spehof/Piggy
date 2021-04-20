@@ -12,7 +12,7 @@ import java.util.List;
  * @created 09/04/2021
  */
 @RestController
-@RequestMapping("/api/v1/account")
+@RequestMapping("/api/v1/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -22,7 +22,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("all")
+    @GetMapping()
     public List<Account> getAll(){
         return accountService.getAll();
     }
