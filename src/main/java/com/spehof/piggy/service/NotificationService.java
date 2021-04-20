@@ -33,15 +33,15 @@ public class NotificationService {
         return client.getNotifications();
     }
 
-    public void delete(Client client, Notification notification){
-        client.removeNotification(notification);
-        notificationDao.delete(notification);
+    public void delete(Client client, Notification notificationFromApi){
+        client.removeNotification(notificationFromApi);
+        notificationDao.delete(notificationFromApi);
     }
 
     public Notification update(Client client,
-                               Notification newNotification){
-        Notification notificationFromDb = client.getNotification(newNotification.getId());
-        BeanUtils.copyProperties(newNotification, notificationFromDb, "id", "client");
+                               Notification notificationFromApi){
+        Notification notificationFromDb = client.getNotification(notificationFromApi.getId());
+        BeanUtils.copyProperties(notificationFromApi, notificationFromDb, "id", "client");
         return notificationDao.save(notificationFromDb);
     }
 }

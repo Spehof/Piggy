@@ -34,14 +34,14 @@ public class LoanService {
         return friend.getLoans();
     }
 
-    public void delete(Client client, Friend friend, Loan loan) {
-        client.getFriend(friend.getId()).removeLoan(loan);
-        loanDao.delete(loan);
+    public void delete(Client client, Friend friend, Loan loanFromApi) {
+        client.getFriend(friend.getId()).removeLoan(loanFromApi);
+        loanDao.delete(loanFromApi);
     }
 
-    public Loan update(Client client, Friend friend, Loan loan) {
-        Loan loanFromDb = client.getFriend(friend.getId()).getLoan(loan.getId());
-        BeanUtils.copyProperties(loan, loanFromDb, "id", "friend");
+    public Loan update(Client client, Friend friend, Loan loanFromApi) {
+        Loan loanFromDb = client.getFriend(friend.getId()).getLoan(loanFromApi.getId());
+        BeanUtils.copyProperties(loanFromApi, loanFromDb, "id", "friend");
         return loanDao.save(loanFromDb);
     }
 }

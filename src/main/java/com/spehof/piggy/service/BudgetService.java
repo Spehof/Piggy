@@ -33,14 +33,14 @@ public class BudgetService {
         return client.getBudgets();
     }
 
-    public void delete(Client client, Budget budget) {
-        client.removeBudget(budget);
-        budgetDao.delete(budget);
+    public void delete(Client client, Budget budgetFromApi) {
+        client.removeBudget(budgetFromApi);
+        budgetDao.delete(budgetFromApi);
     }
 
-    public Budget update(Client client, Budget budget) {
-        Budget budgetFromDb = client.getBudget(budget.getId());
-        BeanUtils.copyProperties(budget, budgetFromDb, "id", "client");
+    public Budget update(Client client, Budget budgetFromApi) {
+        Budget budgetFromDb = client.getBudget(budgetFromApi.getId());
+        BeanUtils.copyProperties(budgetFromApi, budgetFromDb, "id", "client");
         return budgetDao.save(budgetFromDb);
     }
 }

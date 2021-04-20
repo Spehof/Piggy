@@ -33,14 +33,14 @@ public class EarningService {
         return account.getEarnings();
     }
 
-    public void delete(Account account, Earning earning) {
-        account.removeEarning(earning);
-        earningDao.delete(earning);
+    public void delete(Account account, Earning earningFromApi) {
+        account.removeEarning(earningFromApi);
+        earningDao.delete(earningFromApi);
     }
 
-    public Earning update(Account account, Earning newEarning) {
-        Earning earningFromDb = account.getEarning(newEarning.getId());
-        BeanUtils.copyProperties(newEarning, earningFromDb, "id", "account");
+    public Earning update(Account account, Earning earningFromApi) {
+        Earning earningFromDb = account.getEarning(earningFromApi.getId());
+        BeanUtils.copyProperties(earningFromApi, earningFromDb, "id", "account");
         return earningDao.save(earningFromDb);
     }
 }

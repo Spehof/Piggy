@@ -51,14 +51,14 @@ public class FriendService {
         return client.getFriend(friendId);
     }
 
-    public Friend update(Client client, Friend newFriend) {
-        Friend friendFromDb = client.getFriend(newFriend.getId());
-        BeanUtils.copyProperties(newFriend, friendFromDb, "id", "client", "loans", "owes");
+    public Friend update(Client client, Friend friendFromApi) {
+        Friend friendFromDb = client.getFriend(friendFromApi.getId());
+        BeanUtils.copyProperties(friendFromApi, friendFromDb, "id", "client", "loans", "owes");
         return friendDao.save(friendFromDb);
     }
 
-    public void delete(Client client, Friend friend) {
-        Friend friendFromDb = client.getFriend((friend.getId()));
+    public void delete(Client client, Friend friendFromApi) {
+        Friend friendFromDb = client.getFriend((friendFromApi.getId()));
         client.removeFriend(friendFromDb);
         friendDao.delete(friendFromDb);
     }

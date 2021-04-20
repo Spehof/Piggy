@@ -30,19 +30,19 @@ public class CostController {
 
     @PostMapping
     public Cost createCost(@PathVariable(name = "id") Account account,
-                           @RequestBody Cost cost){
-        return costService.create(account, cost.getAmount());
+                           @RequestBody Cost costFromApi){
+        return costService.create(account, costFromApi.getAmount());
     }
 
     @DeleteMapping
     public void deleteCost(@PathVariable(name = "id") Account account,
-                           @RequestBody Cost cost){
-        costService.delete(account, cost);
+                           @RequestBody Cost costFromApi){
+        costService.delete(account, costFromApi);
     }
 
     @PutMapping()
     public Cost updateCost(@PathVariable(name = "id") Account account,
-                           @RequestBody Cost newCost){
-        return costService.update(account, newCost);
+                           @RequestBody Cost costFromApi){
+        return costService.update(account, costFromApi);
     }
 }

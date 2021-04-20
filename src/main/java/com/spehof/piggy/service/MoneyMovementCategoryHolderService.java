@@ -54,16 +54,16 @@ public class MoneyMovementCategoryHolderService {
         return newEarningCategory;
     }
 
-    public void removeEarningCategory(Client client, EarningCategory earningCategory){
+    public void removeEarningCategory(Client client, EarningCategory earningCategoryFromApi){
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        EarningCategory earningCategoryFromDb = clientMoneyMovementCategoryHolder.getEarningCategory(earningCategory.getId());
+        EarningCategory earningCategoryFromDb = clientMoneyMovementCategoryHolder.getEarningCategory(earningCategoryFromApi.getId());
         clientMoneyMovementCategoryHolder.removeEarningCategory(earningCategoryFromDb);
         earningCategoryDao.delete(earningCategoryFromDb);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
     }
 
-    public void removeCostCategory(Client client, CostCategory costCategory){
-        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategory.getId());
+    public void removeCostCategory(Client client, CostCategory costCategoryFromApi){
+        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
         clientMoneyMovementCategoryHolder.removeCostCategory(costCategoryFromDb);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);

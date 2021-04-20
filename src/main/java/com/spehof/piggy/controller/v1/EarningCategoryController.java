@@ -34,17 +34,17 @@ public class EarningCategoryController {
 
     @PostMapping()
     public EarningCategory createNewCategory(@PathVariable(name = "id") Account account,
-                                  @RequestBody EarningCategory earningCategory){
-        EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategory.getName());
+                                  @RequestBody EarningCategory earningCategoryFromApi){
+        EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategoryFromApi.getName());
         return moneyMovementCategoryHolderService.addNewEarningCategory(account.getClient(), clientEarningCategory);
     }
 
     @DeleteMapping()
     public void deleteCategory(
             @PathVariable(name = "id") Account account,
-            @RequestBody EarningCategory earningCategory){
+            @RequestBody EarningCategory earningCategoryFromApi){
 
-        moneyMovementCategoryHolderService.removeEarningCategory(account.getClient(), earningCategory);
+        moneyMovementCategoryHolderService.removeEarningCategory(account.getClient(), earningCategoryFromApi);
     }
 
     @PutMapping()

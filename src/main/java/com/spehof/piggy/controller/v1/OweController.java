@@ -34,21 +34,21 @@ public class OweController {
     @PostMapping
     public Owe creteOwe(@PathVariable(name = "idAccount") Account account,
                         @PathVariable(name = "idFriend") Friend friend,
-                        @RequestBody Owe owe){
-        return oweService.create(account.getClient().getFriend(friend.getId()), owe.getAmount());
+                        @RequestBody Owe oweFromApi){
+        return oweService.create(account.getClient().getFriend(friend.getId()), oweFromApi.getAmount());
     }
 
     @DeleteMapping
     public void deleteOwe(@PathVariable(name = "idAccount") Account account,
                           @PathVariable(name = "idFriend") Friend friend,
-                          @RequestBody Owe owe){
-        oweService.delete(account.getClient(), friend, owe);
+                          @RequestBody Owe oweFromApi){
+        oweService.delete(account.getClient(), friend, oweFromApi);
     }
 
     @PutMapping
     public Owe updateOwe(@PathVariable(name = "idAccount") Account account,
                          @PathVariable(name = "idFriend") Friend friend,
-                         @RequestBody Owe owe){
-        return oweService.update(account.getClient(), friend, owe);
+                         @RequestBody Owe oweFromApi){
+        return oweService.update(account.getClient(), friend, oweFromApi);
     }
 }

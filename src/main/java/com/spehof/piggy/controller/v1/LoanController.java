@@ -34,21 +34,21 @@ public class LoanController {
     @PostMapping
     public Loan createLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
-                           @RequestBody Loan loan){
-        return loanService.create(account.getClient().getFriend(friend.getId()), loan.getAmount());
+                           @RequestBody Loan loanFromApi){
+        return loanService.create(account.getClient().getFriend(friend.getId()), loanFromApi.getAmount());
     }
 
     @DeleteMapping
     public void deleteLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
-                           @RequestBody Loan loan) {
-        loanService.delete(account.getClient(), friend, loan);
+                           @RequestBody Loan loanFromApi) {
+        loanService.delete(account.getClient(), friend, loanFromApi);
     }
 
     @PutMapping
     public Loan updateLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
-                           @RequestBody Loan loan){
-        return loanService.update(account.getClient(), friend, loan);
+                           @RequestBody Loan loanFromApi){
+        return loanService.update(account.getClient(), friend, loanFromApi);
     }
 }

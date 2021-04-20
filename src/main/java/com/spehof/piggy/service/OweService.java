@@ -34,14 +34,14 @@ public class OweService {
         return client.getFriend(friend.getId()).getOwes();
     }
 
-    public void delete(Client client, Friend friend, Owe owe) {
-        client.getFriend(friend.getId()).removeOwe(owe);
-        oweDao.delete(owe);
+    public void delete(Client client, Friend friend, Owe oweFromApi) {
+        client.getFriend(friend.getId()).removeOwe(oweFromApi);
+        oweDao.delete(oweFromApi);
     }
 
-    public Owe update(Client client, Friend friend, Owe owe) {
-        Owe oweFromDb = client.getFriend(friend.getId()).getOwe(owe.getId());
-        BeanUtils.copyProperties(owe, oweFromDb, "id", "friend");
+    public Owe update(Client client, Friend friend, Owe oweFromApi) {
+        Owe oweFromDb = client.getFriend(friend.getId()).getOwe(oweFromApi.getId());
+        BeanUtils.copyProperties(oweFromApi, oweFromDb, "id", "friend");
         return oweDao.save(oweFromDb);
     }
 }

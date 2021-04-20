@@ -33,14 +33,14 @@ public class CostService {
         return account.getCosts();
     }
 
-    public void delete(Account account, Cost cost) {
-        account.removeCost(cost);
-        costDao.delete(cost);
+    public void delete(Account account, Cost costFromApi) {
+        account.removeCost(costFromApi);
+        costDao.delete(costFromApi);
     }
 
-    public Cost update(Account account, Cost cost) {
-        Cost costFromDb = account.getCost(cost.getId());
-        BeanUtils.copyProperties(cost, costFromDb, "id", "account");
+    public Cost update(Account account, Cost costFromApi) {
+        Cost costFromDb = account.getCost(costFromApi.getId());
+        BeanUtils.copyProperties(costFromApi, costFromDb, "id", "account");
         return costDao.save(costFromDb);
     }
 }

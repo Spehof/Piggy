@@ -48,8 +48,8 @@ public class AccountService {
         }
     }
 
-    public Account update(Account accountFromDb, Account newAccount){
-        BeanUtils.copyProperties(newAccount, accountFromDb,
+    public Account update(Account accountFromDb, Account accountFromApi){
+        BeanUtils.copyProperties(accountFromApi, accountFromDb,
                 "id",
                 "client",
                 "earnings",

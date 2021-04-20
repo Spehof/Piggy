@@ -37,14 +37,14 @@ public class MoneyHolderTypeService {
         return client.getMoneyHolderType(moneyHolderTypeId);
     }
 
-    public void delete(Client client, MoneyHolderType moneyHolderType) {
-        client.removeMoneyHolderType(moneyHolderType);
-        moneyHolderTypeDao.delete(moneyHolderType);
+    public void delete(Client client, MoneyHolderType moneyHolderTypeFromApi) {
+        client.removeMoneyHolderType(moneyHolderTypeFromApi);
+        moneyHolderTypeDao.delete(moneyHolderTypeFromApi);
     }
 
-    public MoneyHolderType update(Client client, MoneyHolderType newMoneyHolderType) {
-        MoneyHolderType moneyHolderTypeFromDb = client.getMoneyHolderType(newMoneyHolderType.getId());
-        BeanUtils.copyProperties(newMoneyHolderType, moneyHolderTypeFromDb, "id", "client");
+    public MoneyHolderType update(Client client, MoneyHolderType moneyHolderTypeFromApi) {
+        MoneyHolderType moneyHolderTypeFromDb = client.getMoneyHolderType(moneyHolderTypeFromApi.getId());
+        BeanUtils.copyProperties(moneyHolderTypeFromApi, moneyHolderTypeFromDb, "id", "client");
         return moneyHolderTypeDao.save(moneyHolderTypeFromDb);
     }
 }

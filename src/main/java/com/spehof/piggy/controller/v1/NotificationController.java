@@ -30,21 +30,19 @@ public class NotificationController {
 
     @PostMapping
     public Notification createNewNotification(@PathVariable(name = "id")Account account,
-                                              @RequestBody Notification notification){
-        return notificationService.create(account.getClient(), notification.getMessage());
+                                              @RequestBody Notification notificationFromApi){
+        return notificationService.create(account.getClient(), notificationFromApi.getMessage());
     }
 
     @DeleteMapping()
     public void deleteNotification(@PathVariable(name = "id") Account account,
-                                   @RequestBody Notification notification){
-        notificationService.delete(account.getClient(), notification);
+                                   @RequestBody Notification notificationFromApi){
+        notificationService.delete(account.getClient(), notificationFromApi);
     }
 
-    //    TODO deleting across ID or something else
     @PutMapping()
     public Notification updateNotification(@PathVariable(name = "id") Account account,
-                                   @RequestBody Notification newNotification){
-//        TODO refactor: create a sending new notification if all right
-        return notificationService.update(account.getClient(), newNotification);
+                                           @RequestBody Notification notificationFromApi){
+        return notificationService.update(account.getClient(), notificationFromApi);
     }
 }

@@ -30,20 +30,20 @@ public class EarningController {
 
     @PostMapping
     public Earning createEarning(@PathVariable(name = "id") Account account,
-                              @RequestBody Earning earning){
-        return earningService.create(account, earning.getAmount());
+                                 @RequestBody Earning earningFromApi){
+        return earningService.create(account, earningFromApi.getAmount());
     }
 
 //    TODO deleting across ID or something else
     @DeleteMapping
     public void deleteEarning(@PathVariable(name = "id") Account account,
-                              @RequestBody Earning earning){
-        earningService.delete(account, earning);
+                              @RequestBody Earning earningFromApi){
+        earningService.delete(account, earningFromApi);
     }
 
     @PutMapping()
     public Earning updateEarning(@PathVariable(name = "id") Account account,
-                              @RequestBody Earning newEarning){
-        return earningService.update(account, newEarning);
+                                 @RequestBody Earning earningFromApi){
+        return earningService.update(account, earningFromApi);
     }
 }

@@ -30,14 +30,14 @@ public class BudgetController {
 
     @PostMapping
     public Budget createBudget(@PathVariable(name = "id") Account account,
-                               @RequestBody Budget budget){
-        return budgetService.create(account.getClient(), budget.getValue());
+                               @RequestBody Budget budgetFromApi){
+        return budgetService.create(account.getClient(), budgetFromApi.getValue());
     }
 
     @DeleteMapping
     public void deleteBudget(@PathVariable(name = "id") Account account,
-                             @RequestBody Budget budget){
-        budgetService.delete(account.getClient(), budget);
+                             @RequestBody Budget budgetFromApi){
+        budgetService.delete(account.getClient(), budgetFromApi);
     }
 
     @PutMapping()

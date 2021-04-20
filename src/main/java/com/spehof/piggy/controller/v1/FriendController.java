@@ -36,19 +36,19 @@ public class FriendController {
 
     @PostMapping
     public Friend createNewFriend(@PathVariable(name = "id")Account account,
-                                  @RequestBody Friend friend){
-        return friendService.create(account.getClient(), friend.getName());
+                                  @RequestBody Friend friendFromApi){
+        return friendService.create(account.getClient(), friendFromApi.getName());
     }
 
     @PutMapping()
     public Friend updateFriend(@PathVariable(name = "id")Account account,
-                               @RequestBody Friend newFriend){
-        return friendService.update(account.getClient(), newFriend);
+                               @RequestBody Friend friendFromApi){
+        return friendService.update(account.getClient(), friendFromApi);
     }
 //    TODO rewrite equals and hash code
     @DeleteMapping
     public void deleteFriend(@PathVariable(name = "id")Account account,
-                             @RequestBody Friend friend){
-        friendService.delete(account.getClient(), friend);
+                             @RequestBody Friend friendFromApi){
+        friendService.delete(account.getClient(), friendFromApi);
     }
 }

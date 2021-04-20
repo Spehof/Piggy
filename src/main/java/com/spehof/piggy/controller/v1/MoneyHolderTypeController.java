@@ -36,20 +36,20 @@ public class MoneyHolderTypeController {
 
     @PostMapping
     public MoneyHolderType createNewMoneyHolderType(@PathVariable(name = "id") Account account,
-                                                    @RequestBody MoneyHolderType moneyHolderType){
-        return moneyHolderTypeService.create(account.getClient(), moneyHolderType.getName());
+                                                    @RequestBody MoneyHolderType moneyHolderTypeFromApi){
+        return moneyHolderTypeService.create(account.getClient(), moneyHolderTypeFromApi.getName());
     }
 
     @DeleteMapping
     public void deleteMoneyHolderType(@PathVariable(name = "id") Account account,
-                                      @RequestBody MoneyHolderType moneyHolderType){
-        moneyHolderTypeService.delete(account.getClient(), moneyHolderType);
+                                      @RequestBody MoneyHolderType moneyHolderTypeFromApi){
+        moneyHolderTypeService.delete(account.getClient(), moneyHolderTypeFromApi);
     }
 
     @PutMapping()
     public MoneyHolderType updateMoneyHolderType(@PathVariable(name = "id") Account account,
-                                                 @RequestBody MoneyHolderType newMoneyHolderType){
-        return moneyHolderTypeService.update(account.getClient(), newMoneyHolderType);
+                                                 @RequestBody MoneyHolderType moneyHolderTypeFromApi){
+        return moneyHolderTypeService.update(account.getClient(), moneyHolderTypeFromApi);
     }
 
 

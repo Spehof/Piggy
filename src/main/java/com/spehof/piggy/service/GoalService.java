@@ -33,14 +33,14 @@ public class GoalService {
         return client.getGoals();
     }
 
-    public void delete(Client client, Goal goal) {
-        client.removeGoal(goal);
-        goalDao.delete(goal);
+    public void delete(Client client, Goal goalFromApi) {
+        client.removeGoal(goalFromApi);
+        goalDao.delete(goalFromApi);
     }
 
-    public Goal update(Client client, Goal newGoal) {
-        Goal goalFromDb = client.getGoal(newGoal.getId());
-        BeanUtils.copyProperties(newGoal, goalFromDb, "id", "client");
+    public Goal update(Client client, Goal goalFromApi) {
+        Goal goalFromDb = client.getGoal(goalFromApi.getId());
+        BeanUtils.copyProperties(goalFromApi, goalFromDb, "id", "client");
         return goalDao.save(goalFromDb);
     }
 }

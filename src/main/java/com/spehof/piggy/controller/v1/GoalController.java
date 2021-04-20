@@ -30,19 +30,19 @@ public class GoalController {
 
     @PostMapping
     public Goal createGoal(@PathVariable(name = "id") Account account,
-                           @RequestBody Goal goal){
-        return goalService.create(account.getClient(), goal.getAmount(), goal.getText());
+                           @RequestBody Goal goalFromApi){
+        return goalService.create(account.getClient(), goalFromApi.getAmount(), goalFromApi.getText());
     }
 
     @DeleteMapping
     public void deleteGoal(@PathVariable(name = "id") Account account,
-                           @RequestBody Goal goal){
-        goalService.delete(account.getClient(), goal);
+                           @RequestBody Goal goalFromApi){
+        goalService.delete(account.getClient(), goalFromApi);
     }
 
     @PutMapping()
     public Goal update(@PathVariable(name = "id") Account account,
-                       @RequestBody Goal newGoal){
-        return goalService.update(account.getClient(), newGoal);
+                       @RequestBody Goal goalFromApi){
+        return goalService.update(account.getClient(), goalFromApi);
     }
 }
