@@ -50,8 +50,8 @@ public class AccountService {
             earningService.create(account, l);
         }
 
-        brokerService.create(account, "My broker type 1");
-        brokerService.create(account, "My broker type 2");
+        brokerService.create(account, "My broker name 1");
+        brokerService.create(account, "My broker name 2");
     }
 
     public Account update(Account accountFromDb, Account accountFromApi){

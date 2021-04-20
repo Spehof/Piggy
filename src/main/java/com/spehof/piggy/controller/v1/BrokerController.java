@@ -37,7 +37,7 @@ public class BrokerController {
     @PostMapping
     public Broker create(@PathVariable(name = "id") Account account,
                          @RequestBody Broker brokerFromApi){
-        return brokerService.create(account, brokerFromApi.getBrokerType());
+        return brokerService.create(account, brokerFromApi.getBrokerName());
     }
 
     @DeleteMapping
