@@ -29,9 +29,9 @@ public class NotificationController {
     }
 
     @PostMapping
-    public void createNewNotification(@PathVariable(name = "id")Account account,
-                                      @RequestBody Notification notification){
-        notificationService.create(account.getClient(), notification.getMessage());
+    public Notification createNewNotification(@PathVariable(name = "id")Account account,
+                                              @RequestBody Notification notification){
+        return notificationService.create(account.getClient(), notification.getMessage());
     }
 
     @DeleteMapping()
@@ -41,11 +41,10 @@ public class NotificationController {
     }
 
     //    TODO deleting across ID or something else
-    @PutMapping("{notificationId}")
+    @PutMapping()
     public Notification updateNotification(@PathVariable(name = "id") Account account,
-                                   @PathVariable(name = "notificationId") Long oldNotificationId,
                                    @RequestBody Notification newNotification){
 //        TODO refactor: create a sending new notification if all right
-        return notificationService.update(account.getClient(), newNotification, oldNotificationId);
+        return notificationService.update(account.getClient(), newNotification);
     }
 }

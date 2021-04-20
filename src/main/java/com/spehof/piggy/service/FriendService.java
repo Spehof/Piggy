@@ -58,4 +58,9 @@ public class FriendService {
         BeanUtils.copyProperties(friend, friendFromDb, "id");
         return friendDao.save(friendFromDb);
     }
+
+    public void delete(Client client, Friend friend) {
+        client.removeFriend(friend);
+        friendDao.delete(friend);
+    }
 }

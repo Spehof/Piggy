@@ -46,5 +46,10 @@ public class FriendController {
                                @RequestBody Friend friend){
         return friendService.update(account.getClient(), friend, oldFriendId);
     }
-//    TODO delete mapping
+//    TODO rewrite equals and hash code
+    @DeleteMapping
+    public void deleteFriend(@PathVariable(name = "id")Account account,
+                             @RequestBody Friend friend){
+        friendService.delete(account.getClient(), friend);
+    }
 }

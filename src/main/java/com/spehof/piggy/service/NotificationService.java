@@ -39,10 +39,9 @@ public class NotificationService {
     }
 
     public Notification update(Client client,
-                               Notification newNotification,
-                               Long changingNotificationId){
-        Notification notificationFromDb = client.getNotification(changingNotificationId);
-        BeanUtils.copyProperties(newNotification, notificationFromDb, "id");
+                               Notification newNotification){
+        Notification notificationFromDb = client.getNotification(newNotification.getId());
+        BeanUtils.copyProperties(newNotification, notificationFromDb, "id", "client");
         return notificationDao.save(notificationFromDb);
     }
 }
