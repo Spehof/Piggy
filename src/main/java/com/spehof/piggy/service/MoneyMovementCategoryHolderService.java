@@ -37,11 +37,12 @@ public class MoneyMovementCategoryHolderService {
         return moneyMovementCategoryDao.save(moneyMovementCategoryHolder);
     }
 
-    public void addNewCostCategory(Client client, CostCategory costCategory){
+    public CostCategory addNewCostCategory(Client client, CostCategory costCategory){
 //        TODO refactor same row
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
         clientMoneyMovementCategoryHolder.setCostCategory(costCategory);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        return costCategory;
 
     }
 
@@ -61,8 +62,9 @@ public class MoneyMovementCategoryHolderService {
     }
 
     public void removeCostCategory(Client client, CostCategory costCategory){
+        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategory.getId());
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        clientMoneyMovementCategoryHolder.removeCostCategory(costCategory);
+        clientMoneyMovementCategoryHolder.removeCostCategory(costCategoryFromDb);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
     }
 

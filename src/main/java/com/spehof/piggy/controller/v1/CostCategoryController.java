@@ -14,7 +14,7 @@ import java.util.Set;
  * @created 13/04/2021
  */
 @RestController
-@RequestMapping("/api/v1/account/{id}/cost")
+@RequestMapping("/api/v1/account/{id}/category/costs")
 public class CostCategoryController {
 
     private final CostCategoryService costCategoryService;
@@ -33,17 +33,15 @@ public class CostCategoryController {
     }
 
     @PostMapping()
-    public void createNewCategory(@PathVariable(name = "id") Account account,
+    public CostCategory createNewCategory(@PathVariable(name = "id") Account account,
                                   @RequestBody CostCategory costCategory){
         CostCategory clientCostCategory = costCategoryService.create(account.getClient(), costCategory.getName());
-        moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
+        return moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
     }
 
     @DeleteMapping()
-    public void deleteCategory(
-            @PathVariable(name = "id") Account account,
-            @RequestBody CostCategory costCategory){
-
+    public void deleteCategory(@PathVariable(name = "id") Account account,
+                               @RequestBody CostCategory costCategory){
         moneyMovementCategoryHolderService.removeCostCategory(account.getClient(), costCategory);
     }
 

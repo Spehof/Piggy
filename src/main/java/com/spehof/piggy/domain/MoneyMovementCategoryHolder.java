@@ -2,6 +2,7 @@ package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spehof.piggy.exception.CostCategoryNotFoundException;
 import com.spehof.piggy.exception.EarningCategoryNotFoundException;
 import lombok.*;
 
@@ -112,5 +113,12 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
                 .filter(earningCategory -> earningCategory.getId().equals(id))
                 .findFirst()
                 .orElseThrow(EarningCategoryNotFoundException::new);
+    }
+
+    public CostCategory getCostCategory(Long id) {
+        return this.costCategories.stream()
+                .filter(costCategory -> costCategory.getId().equals(id))
+                .findFirst()
+                .orElseThrow(CostCategoryNotFoundException::new);
     }
 }
