@@ -40,10 +40,9 @@ public class GoalController {
         goalService.delete(account.getClient(), goal);
     }
 
-    @PutMapping("{goalId}")
+    @PutMapping()
     public Goal update(@PathVariable(name = "id") Account account,
-                       @PathVariable(name = "goalId") Long oldGoalId,
-                       @RequestBody Goal goal){
-        return goalService.update(account.getClient(), goal, oldGoalId);
+                       @RequestBody Goal newGoal){
+        return goalService.update(account.getClient(), newGoal);
     }
 }

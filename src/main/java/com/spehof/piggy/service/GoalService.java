@@ -38,9 +38,9 @@ public class GoalService {
         goalDao.delete(goal);
     }
 
-    public Goal update(Client client, Goal goal, Long oldGoalId) {
-        Goal goalFromDb = client.getGoal(oldGoalId);
-        BeanUtils.copyProperties(goal, goalFromDb, "id", "client");
+    public Goal update(Client client, Goal newGoal) {
+        Goal goalFromDb = client.getGoal(newGoal.getId());
+        BeanUtils.copyProperties(newGoal, goalFromDb, "id", "client");
         return goalDao.save(goalFromDb);
     }
 }
