@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spehof.piggy.exception.AssetNotFoundException;
 import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import lombok.EqualsAndHashCode;
@@ -42,6 +43,9 @@ public class Portfolio {
     @ManyToMany
     List<BrokerSubAccount> brokerSubAccounts = new ArrayList<>();
 
+    @ManyToMany
+    List<Asset> assets = new ArrayList<>();
+
     String title;
 
     public void setBrokerSubAccount(BrokerSubAccount brokerSubAccount) {
@@ -69,5 +73,32 @@ public class Portfolio {
                 .filter(brokerSubAccount -> brokerSubAccount.getId().equals(brokerSubAccountId))
                 .findFirst()
                 .orElseThrow(BrokerSubAccountNotFoundException::new);
+    }
+
+    public void setAsset(Asset asset) {
+        //prevent endless loop
+        if (this.assets.contains(asset))
+            return ;
+        //add new earning
+        this.assets.add(asset);
+        //set myself into the cost account
+        asset.setPortfolio(this);
+    }
+
+    public void removeAsset(Asset asset) {
+        //prevent endless loop
+        if (!assets.contains(asset))
+            return ;
+        //remove the account
+        assets.remove(asset);
+        //remove myself from the twitter account
+        asset.setPortfolio(null);
+    }
+
+    public Asset getAsset(Long assetId) {
+        return this.assets.stream()
+                .filter(asset -> asset.getId().equals(assetId))
+                .findFirst()
+                .orElseThrow(AssetNotFoundException::new);
     }
 }
