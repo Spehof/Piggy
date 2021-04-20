@@ -4,6 +4,7 @@ import com.spehof.piggy.DAO.AccountDao;
 import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +48,14 @@ public class AccountService {
         }
     }
 
-    public Account update(Account accountFromDb, Account accountFromApi){
+    public Account update(Account accountFromDb, Account newAccount){
 
-        this.setAllFields(accountFromApi, accountFromDb);
+//        this.setAllFields(accountFromApi, accountFromDb);
+        BeanUtils.copyProperties(newAccount, accountFromDb,
+                "id",
+                "client",
+                "earnings",
+                "costs");
         return accountDao.save(accountFromDb);
     }
 
