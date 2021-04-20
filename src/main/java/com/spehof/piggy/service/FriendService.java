@@ -1,9 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.FriendDao;
-import com.spehof.piggy.domain.Account;
-import com.spehof.piggy.domain.Client;
-import com.spehof.piggy.domain.Friend;
+import com.spehof.piggy.domain.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,14 +51,15 @@ public class FriendService {
         return client.getFriend(friendId);
     }
 
-    public Friend update(Client client, Friend friend, Long oldFriendId) {
-        Friend friendFromDb = client.getFriend(oldFriendId);
-        BeanUtils.copyProperties(friend, friendFromDb, "id");
+    public Friend update(Client client, Friend newFriend) {
+        Friend friendFromDb = client.getFriend(newFriend.getId());
+        BeanUtils.copyProperties(newFriend, friendFromDb, "id", "client");
         return friendDao.save(friendFromDb);
     }
 
     public void delete(Client client, Friend friend) {
-        client.removeFriend(friend);
-        friendDao.delete(friend);
+        Friend friendFromDb = client.getFriend((friend.getId()));
+        client.removeFriend(friendFromDb);
+        friendDao.delete(friendFromDb);
     }
 }

@@ -6,6 +6,9 @@ import com.spehof.piggy.exception.OweNotFoundException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,8 +22,9 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "friends")
-@EqualsAndHashCode(of = {"id", "name"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
+@ToString(of = "name, loans, owes")
 public class Friend extends BaseEntity {
 
     public Friend(Client client, String name){
@@ -40,10 +44,10 @@ public class Friend extends BaseEntity {
     @JsonIgnore
     Client client;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
     List<Loan> loans = new  ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
     List<Owe> owes = new ArrayList<>();
 
 //TODO refactor setClient to base entity
@@ -60,12 +64,6 @@ public class Friend extends BaseEntity {
         //set myself into new client account
         if (client!=null)
             client.setFriends(Collections.singletonList(this));
-    }
-
-    public void setLoans(List<Loan> loans){
-        for (Loan loan : loans) {
-            this.setLoan(loan);
-        }
     }
 
     public void setLoan(Loan loan) {
@@ -86,12 +84,6 @@ public class Friend extends BaseEntity {
         loans.remove(loan);
         // myself from the twitter account
         loan.setFriend(null);
-    }
-
-    public void setOwes(List<Owe> owes){
-        for (Owe owe : owes) {
-            this.setOwe(owe);
-        }
     }
 
     public void setOwe(Owe owe) {

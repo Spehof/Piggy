@@ -27,28 +27,29 @@ public class Loan extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_loan")
-    Long id;
+    private Long id;
 
     @ManyToOne()
     @JoinColumn(name = "id_friend")
     @JsonIgnore
-    Friend friend;
+    private Friend friend;
 
-    Long amount;
+    private Long amount;
 
     public void setFriend(Friend friend) {
-        //prevent endless loop
-        if (this.friend != null && sameAsFormer(this.friend, friend))
-            return;
-        // set new client account
-        Friend oldFriend = this.friend;
+//        //prevent endless loop
+//        if (this.friend != null && sameAsFormer(this.friend, friend))
+//            return;
+//        // set new client account
+//        Friend oldFriend = this.friend;
+//        this.friend = friend;
+//        //remove from the old client account
+//        if (oldFriend!=null)
+////            TODO refactor all this fucking crap with null
+//            oldFriend.setLoans(null);
+//        //set myself into new client account
+//        if (friend!=null)
+//            friend.setLoans(Collections.singletonList(this));
         this.friend = friend;
-        //remove from the old client account
-        if (oldFriend!=null)
-//            TODO refactor all this fucking crap with null
-            oldFriend.setLoans(null);
-        //set myself into new client account
-        if (friend!=null)
-            friend.setLoans(Collections.singletonList(this));
     }
 }

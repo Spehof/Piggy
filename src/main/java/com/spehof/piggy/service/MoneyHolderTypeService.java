@@ -44,7 +44,7 @@ public class MoneyHolderTypeService {
 
     public MoneyHolderType update(Client client, MoneyHolderType newMoneyHolderType) {
         MoneyHolderType moneyHolderTypeFromDb = client.getMoneyHolderType(newMoneyHolderType.getId());
-        BeanUtils.copyProperties(newMoneyHolderType, moneyHolderTypeFromDb, "id");
+        BeanUtils.copyProperties(newMoneyHolderType, moneyHolderTypeFromDb, "id", "client");
         return moneyHolderTypeDao.save(moneyHolderTypeFromDb);
     }
 }

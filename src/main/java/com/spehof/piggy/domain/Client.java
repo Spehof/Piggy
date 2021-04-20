@@ -201,9 +201,7 @@ public class Client extends BaseEntity {
         //prevent endless loop
         if (!friends.contains(friend))
             return ;
-        //remove the account
         friends.remove(friend);
-        //remove myself from the twitter account
         friend.setClient(null);
     }
 

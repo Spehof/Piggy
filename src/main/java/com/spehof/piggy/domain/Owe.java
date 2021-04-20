@@ -37,18 +37,19 @@ public class Owe extends BaseEntity {
     Long amount;
 
     public void setFriend(Friend friend) {
-        //prevent endless loop
-        if (this.friend != null && sameAsFormer(this.friend, friend))
-            return;
-        // set new client account
-        Friend oldFriend = this.friend;
+//        //prevent endless loop
+//        if (this.friend != null && sameAsFormer(this.friend, friend))
+//            return;
+//        // set new client account
+//        Friend oldFriend = this.friend;
+//        this.friend = friend;
+//        //remove from the old client account
+//        if (oldFriend!=null)
+////            TODO refactor all this fucking crap with null
+//            oldFriend.setLoans(null);
+//        //set myself into new client account
+//        if (friend!=null)
+//            friend.setOwes(Collections.singletonList(this));
         this.friend = friend;
-        //remove from the old client account
-        if (oldFriend!=null)
-//            TODO refactor all this fucking crap with null
-            oldFriend.setLoans(null);
-        //set myself into new client account
-        if (friend!=null)
-            friend.setOwes(Collections.singletonList(this));
     }
 }

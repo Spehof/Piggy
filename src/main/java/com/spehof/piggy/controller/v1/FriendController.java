@@ -40,11 +40,10 @@ public class FriendController {
         return friendService.create(account.getClient(), friend.getName());
     }
 
-    @PutMapping("{clientId}")
+    @PutMapping()
     public Friend updateFriend(@PathVariable(name = "id")Account account,
-                               @PathVariable(name = "clientId") Long oldFriendId,
-                               @RequestBody Friend friend){
-        return friendService.update(account.getClient(), friend, oldFriendId);
+                               @RequestBody Friend newFriend){
+        return friendService.update(account.getClient(), newFriend);
     }
 //    TODO rewrite equals and hash code
     @DeleteMapping
