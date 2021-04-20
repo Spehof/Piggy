@@ -38,8 +38,8 @@ public class CostService {
         costDao.delete(cost);
     }
 
-    public Cost update(Account account, Cost cost, Long oldCostId) {
-        Cost costFromDb = account.getCost(oldCostId);
+    public Cost update(Account account, Cost cost) {
+        Cost costFromDb = account.getCost(cost.getId());
         BeanUtils.copyProperties(cost, costFromDb, "id", "account");
         return costDao.save(costFromDb);
     }

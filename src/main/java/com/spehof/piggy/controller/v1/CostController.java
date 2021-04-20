@@ -40,10 +40,9 @@ public class CostController {
         costService.delete(account, cost);
     }
 
-    @PutMapping("{costId}")
+    @PutMapping()
     public Cost updateCost(@PathVariable(name = "id") Account account,
-                           @PathVariable(name = "costId") Long oldCostId,
-                           @RequestBody Cost cost){
-        return costService.update(account, cost, oldCostId);
+                           @RequestBody Cost newCost){
+        return costService.update(account, newCost);
     }
 }

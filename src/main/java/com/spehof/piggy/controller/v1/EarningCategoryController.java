@@ -14,7 +14,7 @@ import java.util.Set;
  * @created 13/04/2021
  */
 @RestController
-@RequestMapping("/api/v1/account/{id}/earning")
+@RequestMapping("/api/v1/account/{id}/category/earnings")
 public class EarningCategoryController {
 
     private final EarningCategoryService earningCategoryService;
@@ -33,10 +33,10 @@ public class EarningCategoryController {
     }
 
     @PostMapping()
-    public void createNewCategory(@PathVariable(name = "id") Account account,
+    public EarningCategory createNewCategory(@PathVariable(name = "id") Account account,
                                   @RequestBody EarningCategory earningCategory){
         EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategory.getName());
-        moneyMovementCategoryHolderService.addNewEarningCategory(account.getClient(), clientEarningCategory);
+        return moneyMovementCategoryHolderService.addNewEarningCategory(account.getClient(), clientEarningCategory);
     }
 
     @DeleteMapping()

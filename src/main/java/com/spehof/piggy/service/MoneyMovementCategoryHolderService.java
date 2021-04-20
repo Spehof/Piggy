@@ -1,5 +1,6 @@
 package com.spehof.piggy.service;
 
+import com.spehof.piggy.DAO.EarningCategoryDao;
 import com.spehof.piggy.DAO.MoneyMovementCategoryDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.CostCategory;
@@ -22,10 +23,13 @@ import java.util.Set;
 public class MoneyMovementCategoryHolderService {
 
     private final MoneyMovementCategoryDao moneyMovementCategoryDao;
+    private final EarningCategoryDao earningCategoryDao;
 
     @Autowired
-    public MoneyMovementCategoryHolderService(MoneyMovementCategoryDao moneyMovementCategoryDao) {
+    public MoneyMovementCategoryHolderService(MoneyMovementCategoryDao moneyMovementCategoryDao,
+                                              EarningCategoryDao earningCategoryDao) {
         this.moneyMovementCategoryDao = moneyMovementCategoryDao;
+        this.earningCategoryDao = earningCategoryDao;
     }
 
     public MoneyMovementCategoryHolder create(Client client){
@@ -41,15 +45,18 @@ public class MoneyMovementCategoryHolderService {
 
     }
 
-    public void addNewEarningCategory(Client client, EarningCategory earningCategory){
+    public EarningCategory addNewEarningCategory(Client client, EarningCategory newEarningCategory){
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        clientMoneyMovementCategoryHolder.setEarningCategory(earningCategory);
+        clientMoneyMovementCategoryHolder.setEarningCategory(newEarningCategory);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        return newEarningCategory;
     }
 
     public void removeEarningCategory(Client client, EarningCategory earningCategory){
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        clientMoneyMovementCategoryHolder.removeEarningCategory(earningCategory);
+        EarningCategory earningCategoryFromDb = clientMoneyMovementCategoryHolder.getEarningCategory(earningCategory.getId());
+        clientMoneyMovementCategoryHolder.removeEarningCategory(earningCategoryFromDb);
+        earningCategoryDao.delete(earningCategoryFromDb);
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
     }
 

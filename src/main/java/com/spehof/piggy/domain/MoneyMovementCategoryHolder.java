@@ -2,6 +2,7 @@ package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spehof.piggy.exception.EarningCategoryNotFoundException;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "money_movement_categories")
-@EqualsAndHashCode(of = {"id", "name"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 @Setter
 public class MoneyMovementCategoryHolder extends BaseEntity {
@@ -104,5 +105,12 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
 
     public Set<CostCategory> getCostCategories() {
         return costCategories;
+    }
+
+    public EarningCategory getEarningCategory(Long id) {
+        return this.earningCategories.stream()
+                .filter(earningCategory -> earningCategory.getId().equals(id))
+                .findFirst()
+                .orElseThrow(EarningCategoryNotFoundException::new);
     }
 }
