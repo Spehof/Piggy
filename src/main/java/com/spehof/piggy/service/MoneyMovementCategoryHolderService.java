@@ -84,4 +84,12 @@ public class MoneyMovementCategoryHolderService {
         moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
         return costCategoryFromApi;
     }
+
+    public EarningCategory updateEarningCategory(Client client, EarningCategory earningCategoryFromApi) {
+        EarningCategory earningCategoryFromDb = client.getMoneyMovementCategoryHolder().getEarningCategory(earningCategoryFromApi.getId());
+        BeanUtils.copyProperties(earningCategoryFromApi, earningCategoryFromDb, "id", "moneyMovementCategoryHolder");
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        return earningCategoryFromApi;
+    }
 }

@@ -46,5 +46,10 @@ public class EarningCategoryController {
 
         moneyMovementCategoryHolderService.removeEarningCategory(account.getClient(), earningCategory);
     }
-//    TODO update method
+
+    @PutMapping()
+    public EarningCategory updateCategory(@PathVariable(name = "id") Account account,
+                                          @RequestBody EarningCategory earningCategoryFromApi){
+        return moneyMovementCategoryHolderService.updateEarningCategory(account.getClient(), earningCategoryFromApi);
+    }
 }

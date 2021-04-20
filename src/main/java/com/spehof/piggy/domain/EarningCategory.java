@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "earning_categories")
 @Data
-@EqualsAndHashCode(of = {"name"})
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 public class EarningCategory extends BaseEntity {
 
