@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
+import com.spehof.piggy.exception.TradeNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,10 @@ public class BrokerSubAccount extends BaseEntity {
     @JsonIgnore
     List<Portfolio> portfolios = new ArrayList<>();
 
+    @ManyToMany
+    @JsonIgnore
+    List<Trade> trades = new ArrayList<>();
+
     String title;
 
     public void setPortfolio(Portfolio portfolio) {
@@ -57,6 +62,16 @@ public class BrokerSubAccount extends BaseEntity {
         portfolio.setBrokerSubAccount(this);
     }
 
+    public void setTrade(Trade trade) {
+        //prevent endless loop
+        if (this.trades.contains(trade))
+            return ;
+        //add new earning
+        this.trades.add(trade);
+        //set myself into the cost account
+        trade.setBrokerSubAccountWhichTrade(this);
+    }
+
     public void removePortfolio(Portfolio portfolio) {
         //prevent endless loop
         if (!portfolios.contains(portfolio))
@@ -66,6 +81,24 @@ public class BrokerSubAccount extends BaseEntity {
         //remove myself from the twitter account
         portfolio.setBrokerSubAccounts(null);
     }
+
+    public void removeTrade(Trade trade) {
+        //prevent endless loop
+        if (!trades.contains(trade))
+            return ;
+        //remove the account
+        trades.remove(trade);
+        //remove myself from the twitter account
+        trade.setPortfolioWhichTrade(null);
+    }
+
+    public Trade getTrade(Long tradeId) {
+        return this.trades.stream()
+                .filter(trade -> trade.getId().equals(tradeId))
+                .findFirst()
+                .orElseThrow(TradeNotFoundException::new);
+    }
+
 
     public Portfolio getPortfolio(Long portfolioId) {
         return this.portfolios.stream()
