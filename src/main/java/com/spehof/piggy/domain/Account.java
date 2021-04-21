@@ -1,10 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import com.spehof.piggy.exception.BrokerNotFoundException;
-import com.spehof.piggy.exception.CostNotFoundException;
-import com.spehof.piggy.exception.EarningNotFoundException;
-import com.spehof.piggy.exception.MoneyHolderNotFoundException;
+import com.spehof.piggy.exception.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,6 +42,9 @@ public class Account extends BaseEntity {
 
     @OneToMany()
     private List<Broker> brokers = new ArrayList<>();
+
+    @OneToMany()
+    private List<Transaction> transactions = new ArrayList<>();
 
     Integer currency;
 
@@ -100,6 +100,15 @@ public class Account extends BaseEntity {
         earning.setAccount(this);
     }
 
+    public void setTransaction(Transaction transaction) {
+        //prevent endless loop
+        if (this.transactions.contains(transaction))
+            return ;
+        //add new cost
+        this.transactions.add(transaction);
+        transaction.setAccount(this);
+    }
+
     public void removeEarning(Earning earning) {
         //prevent endless loop
         if (!earnings.contains(earning))
@@ -107,6 +116,15 @@ public class Account extends BaseEntity {
         //remove the account
         earnings.remove(earning);
         earning.setAccount(null);
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        //prevent endless loop
+        if (!transactions.contains(transaction))
+            return ;
+        //remove the account
+        transactions.remove(transaction);
+        transaction.setAccount(null);
     }
 
     public void removeCost(Cost cost) {
@@ -142,6 +160,13 @@ public class Account extends BaseEntity {
                 .filter(earning -> earning.getId().equals(earningId))
                 .findFirst()
                 .orElseThrow(EarningNotFoundException::new);
+    }
+
+    public Transaction getTransaction(Long transactionId) {
+        return this.transactions.stream()
+                .filter(transaction -> transaction.getId().equals(transactionId))
+                .findFirst()
+                .orElseThrow(TransactionNotFoundException::new);
     }
 
     public Cost getCost(Long costId) {
