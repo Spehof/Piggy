@@ -46,9 +46,6 @@ public class Account extends BaseEntity {
     @OneToMany()
     private List<Broker> brokers = new ArrayList<>();
 
-    @OneToMany()
-    List<MoneyHolder> moneyHolders = new ArrayList<>();
-
     Integer currency;
 
     public void setCurrency(Integer currency) {
@@ -103,15 +100,6 @@ public class Account extends BaseEntity {
         earning.setAccount(this);
     }
 
-    public void setMoneyHolder(MoneyHolder moneyHolder) {
-        //prevent endless loop
-        if (this.moneyHolders.contains(moneyHolder))
-            return ;
-        //add new earning
-        this.moneyHolders.add(moneyHolder);
-        moneyHolder.setAccount(this);
-    }
-
     public void removeEarning(Earning earning) {
         //prevent endless loop
         if (!earnings.contains(earning))
@@ -119,15 +107,6 @@ public class Account extends BaseEntity {
         //remove the account
         earnings.remove(earning);
         earning.setAccount(null);
-    }
-
-    public void removeMoneyHolder(MoneyHolder moneyHolder) {
-        //prevent endless loop
-        if (!moneyHolders.contains(moneyHolder))
-            return ;
-        //remove the account
-        moneyHolders.remove(moneyHolder);
-        moneyHolder.setAccount(null);
     }
 
     public void removeCost(Cost cost) {
@@ -163,13 +142,6 @@ public class Account extends BaseEntity {
                 .filter(earning -> earning.getId().equals(earningId))
                 .findFirst()
                 .orElseThrow(EarningNotFoundException::new);
-    }
-
-    public MoneyHolder getMoneyHolder(Long moneyHolderId) {
-        return this.moneyHolders.stream()
-                .filter(moneyHolder -> moneyHolder.getId().equals(moneyHolderId))
-                .findFirst()
-                .orElseThrow(MoneyHolderNotFoundException::new);
     }
 
     public Cost getCost(Long costId) {

@@ -20,10 +20,10 @@ import javax.persistence.*;
 @Setter
 public class MoneyHolder extends BaseEntity {
 
-    public MoneyHolder(Account account, MoneyHolderType moneyHolderType, String name){
-        this.account = account;
+    public MoneyHolder(Client client, MoneyHolderType moneyHolderType, String title){
+        this.client = client;
         this.moneyHolderType = moneyHolderType;
-        this.name = name;
+        this.title = title;
     }
 
     @Id
@@ -33,13 +33,13 @@ public class MoneyHolder extends BaseEntity {
 
     @ManyToOne()
     @JoinColumn(name = "id_account")
-    private Account account;
+    private Client client;
 
     @ManyToOne()
     @JoinColumn(name = "id_money_holder_type")
     private MoneyHolderType moneyHolderType;
 
-    private String name;
+    private String title;
 
     public void setMoneyHolderType(MoneyHolderType moneyHolderType) {
         //prevent endless loop

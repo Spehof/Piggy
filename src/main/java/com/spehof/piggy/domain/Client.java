@@ -54,6 +54,9 @@ public class Client extends BaseEntity {
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
     @OneToMany()
+    List<MoneyHolder> moneyHolders = new ArrayList<>();
+
+    @OneToMany()
     private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
 
     @OneToMany()
@@ -123,6 +126,15 @@ public class Client extends BaseEntity {
         this.moneyHolderTypes.add(moneyHolderType);
         //set myself into the cost account
         moneyHolderType.setClient(this);
+    }
+
+    public void setMoneyHolder(MoneyHolder moneyHolder) {
+        //prevent endless loop
+        if (this.moneyHolders.contains(moneyHolder))
+            return ;
+        //add new earning
+        this.moneyHolders.add(moneyHolder);
+        moneyHolder.setClient(this);
     }
 
     public void setFriends(List<Friend> friends){
@@ -199,6 +211,15 @@ public class Client extends BaseEntity {
         moneyHolderType.setClient(null);
     }
 
+    public void removeMoneyHolder(MoneyHolder moneyHolder) {
+        //prevent endless loop
+        if (!moneyHolders.contains(moneyHolder))
+            return ;
+        //remove the account
+        moneyHolders.remove(moneyHolder);
+        moneyHolder.setClient(null);
+    }
+
     public void removeFriend(Friend friend) {
         //prevent endless loop
         if (!friends.contains(friend))
@@ -262,6 +283,13 @@ public class Client extends BaseEntity {
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))
                 .findFirst()
                 .orElseThrow(PortfolioNotFoundException::new);
+    }
+
+    public MoneyHolder getMoneyHolder(Long moneyHolderId) {
+        return this.moneyHolders.stream()
+                .filter(moneyHolder -> moneyHolder.getId().equals(moneyHolderId))
+                .findFirst()
+                .orElseThrow(MoneyHolderNotFoundException::new);
     }
 
     public Notification getNotification(Long notificationId){
