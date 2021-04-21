@@ -18,7 +18,25 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Trade {
+public class Trade extends BaseEntity {
+
+    public Trade(BrokerSubAccount brokerSubAccountWhichTrade,
+                 Asset tradesAsset,
+                 Long amount){
+        this.brokerSubAccountWhichTrade = brokerSubAccountWhichTrade;
+        this.tradesAsset = tradesAsset;
+        this.amount = amount;
+    }
+
+    public Trade(BrokerSubAccount brokerSubAccountWhichTrade,
+                 Asset tradesAsset,
+                 Long amount,
+                 Portfolio portfolioWhichTrade){
+        this.brokerSubAccountWhichTrade = brokerSubAccountWhichTrade;
+        this.tradesAsset = tradesAsset;
+        this.amount = amount;
+        this.portfolioWhichTrade = portfolioWhichTrade;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +46,8 @@ public class Trade {
     @JoinColumn(name="id_trades_asset", referencedColumnName="id_asset")
     @OneToOne
     private Asset tradesAsset;
+
+    Long amount;
 
     @ManyToOne()
     @JoinColumn(name = "id_broker_sub_account_which_trade")

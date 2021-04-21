@@ -25,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Portfolio {
+public class Portfolio extends BaseEntity {
 
     public Portfolio(Client client, String title){
         this.client = client;
