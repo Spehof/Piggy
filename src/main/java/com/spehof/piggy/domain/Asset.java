@@ -71,6 +71,7 @@ public class Asset {
                 .orElseThrow(PortfolioNotFoundException::new);
     }
 
+    // TODO REFACTOR!!!
     public void setNullPortfolioById(Long portfolioId){
         Portfolio portfolioForChange = this.portfolios.stream()
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))

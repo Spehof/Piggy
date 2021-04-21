@@ -1,8 +1,10 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spehof.piggy.exception.EarningNotFoundException;
 import com.spehof.piggy.exception.MoneyHolderNotFoundException;
+import com.spehof.piggy.exception.PortfolioNotFoundException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -38,6 +40,7 @@ public class MoneyHolderType extends BaseEntity {
     Client client;
 
     @OneToMany
+    @JsonIgnore
     List<MoneyHolder> moneyHolders = new ArrayList<>();
 
     String name;
@@ -65,6 +68,14 @@ public class MoneyHolderType extends BaseEntity {
         this.moneyHolders.add(moneyHolder);
         //set myself into the cost account
         moneyHolder.setMoneyHolderType(this);
+    }
+// TODO REFACTOR!!!
+    public void setNullMoneyHolderById(Long moneyHolderId){
+        MoneyHolder moneyHolderForChange = this.moneyHolders.stream()
+                .filter(moneyHolder -> moneyHolder.getId().equals(moneyHolderId))
+                .findFirst()
+                .orElseThrow(MoneyHolderNotFoundException::new);
+        moneyHolderForChange = null;
     }
 
     public void removeMoneyHolder(MoneyHolder moneyHolder) {

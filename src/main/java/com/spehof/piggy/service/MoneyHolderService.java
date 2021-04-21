@@ -43,7 +43,11 @@ public class MoneyHolderService {
 
     public MoneyHolder update(Client client, MoneyHolder moneyHolderFromApi){
         MoneyHolder moneyHolderFromDb = client.getMoneyHolder(moneyHolderFromApi.getId());
-        BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client");
+        if (moneyHolderFromApi.getMoneyHolderType() == null){
+            BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client", "moneyHolderType");
+        } else {
+            BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client");
+        }
         return moneyHolderDao.save(moneyHolderFromDb);
     }
 }

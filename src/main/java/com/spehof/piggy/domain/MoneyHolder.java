@@ -1,6 +1,8 @@
 package com.spehof.piggy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,16 +32,17 @@ public class MoneyHolder extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_money_holder")
     private Long id;
+    private String title;
 
     @ManyToOne()
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "id_client")
+    @JsonIgnore()
     private Client client;
 
     @ManyToOne()
     @JoinColumn(name = "id_money_holder_type")
     private MoneyHolderType moneyHolderType;
 
-    private String title;
 
     public void setMoneyHolderType(MoneyHolderType moneyHolderType) {
         //prevent endless loop

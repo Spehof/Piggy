@@ -4,7 +4,7 @@ import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.EarningCategory;
-import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
+import com.spehof.piggy.domain.MoneyHolderType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +38,7 @@ public class ClientService {
     private final BudgetService budgetService;
     private final NotificationService notificationService;
     private final GoalService goalService;
+    private final MoneyHolderService moneyHolderService;
 
     @Autowired
     public ClientService(ClientDao clientDao,
@@ -49,7 +50,8 @@ public class ClientService {
                          FriendService friendService,
                          BudgetService budgetService,
                          NotificationService notificationService,
-                         GoalService goalService) {
+                         GoalService goalService,
+                         MoneyHolderService moneyHolderService) {
 
         this.clientDao = clientDao;
         this.accountService = accountService;
@@ -61,6 +63,7 @@ public class ClientService {
         this.budgetService = budgetService;
         this.notificationService = notificationService;
         this.goalService = goalService;
+        this.moneyHolderService = moneyHolderService;
     }
 
     /**
@@ -93,9 +96,10 @@ public class ClientService {
         /** Set new cost category clients moneyMovementCategoryHolder */
         moneyMovementCategoryHolderService.addNewCostCategory(client, clientCostCategory);
 
-        for (String s : new String[]{"Money Holder Test 1", "Money Holder Test 2"}) {
-            moneyHolderTypeService.create(client, s);
-        }
+        MoneyHolderType clientMoneyHolderType1 =  moneyHolderTypeService.create(client, "Money Holder Test 1");
+        MoneyHolderType clientMoneyHolderType2 =  moneyHolderTypeService.create(client, "Money Holder Test 2");
+
+        moneyHolderService.create(client, clientMoneyHolderType1, "My test wallet");
 
         friendService.create(client, "Niko");
 
