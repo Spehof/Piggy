@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -52,6 +53,7 @@ public class AccountService {
 
         brokerService.create(account, "My broker name 1");
         brokerService.create(account, "My broker name 2");
+
     }
 
     public Account update(Account accountFromDb, Account accountFromApi){

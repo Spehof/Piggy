@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class ClientService {
     private final NotificationService notificationService;
     private final GoalService goalService;
     private final MoneyHolderService moneyHolderService;
+    private final TransactionService transactionService;
 
     @Autowired
     public ClientService(ClientDao clientDao,
@@ -51,7 +53,8 @@ public class ClientService {
                          BudgetService budgetService,
                          NotificationService notificationService,
                          GoalService goalService,
-                         MoneyHolderService moneyHolderService) {
+                         MoneyHolderService moneyHolderService,
+                         TransactionService transactionService) {
 
         this.clientDao = clientDao;
         this.accountService = accountService;
@@ -64,6 +67,7 @@ public class ClientService {
         this.notificationService = notificationService;
         this.goalService = goalService;
         this.moneyHolderService = moneyHolderService;
+        this.transactionService = transactionService;
     }
 
     /**
@@ -109,6 +113,10 @@ public class ClientService {
 
         goalService.create(client, 1000000L, "For my new car");
 //        TODO end of test data
+
+        transactionService.create(client.getAccount(),
+                client.getMoneyHolder(1L),
+                client.getMoneyHolder(1L), new BigDecimal("100"));
 
         /** Saving created client in DB */
         return clientDao.save(client);

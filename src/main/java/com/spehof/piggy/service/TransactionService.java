@@ -51,6 +51,6 @@ public class TransactionService {
                 "account",
                 "fromMoneyHolderId",
                 "toMoneyHolderId");
-        return transactionFromApi;
+        return transactionDao.save(transactionFromDb);
     }
 }
