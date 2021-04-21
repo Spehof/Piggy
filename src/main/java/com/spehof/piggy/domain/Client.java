@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-//@ToString(exclude = "MoneyMovementCategoryHolder")
 public class Client extends BaseEntity {
 
     public Client(String name, MoneyMovementCategoryHolder moneyMovementCategoryHolder){

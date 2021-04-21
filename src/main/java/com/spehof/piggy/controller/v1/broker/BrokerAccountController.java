@@ -28,9 +28,9 @@ public class BrokerAccountController {
         return brokerService.getAll(account);
     }
 
-    @GetMapping("{brockerId}")
+    @GetMapping("{brokerId}")
     public Broker getOne(@PathVariable(name = "id") Account account,
-                         @PathVariable(name = "brockerId") Broker broker){
+                         @PathVariable(name = "brokerId") Broker broker){
         return brokerService.getOne(account, broker);
     }
 

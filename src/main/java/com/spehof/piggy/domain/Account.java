@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.spehof.piggy.exception.BrokerNotFoundException;
 import com.spehof.piggy.exception.CostNotFoundException;
 import com.spehof.piggy.exception.EarningNotFoundException;
+import com.spehof.piggy.exception.MoneyHolderNotFoundException;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +45,9 @@ public class Account extends BaseEntity {
 
     @OneToMany()
     private List<Broker> brokers = new ArrayList<>();
+
+    @OneToMany()
+    List<MoneyHolder> moneyHolders = new ArrayList<>();
 
     Integer currency;
 
@@ -86,7 +90,6 @@ public class Account extends BaseEntity {
             return ;
         //add new cost
         this.costs.add(cost);
-        //set myself into the cost account
         cost.setAccount(this);
     }
 
@@ -97,8 +100,16 @@ public class Account extends BaseEntity {
             return ;
         //add new earning
         this.earnings.add(earning);
-        //set myself into the cost account
         earning.setAccount(this);
+    }
+
+    public void setMoneyHolder(MoneyHolder moneyHolder) {
+        //prevent endless loop
+        if (this.moneyHolders.contains(moneyHolder))
+            return ;
+        //add new earning
+        this.moneyHolders.add(moneyHolder);
+        moneyHolder.setAccount(this);
     }
 
     public void removeEarning(Earning earning) {
@@ -107,8 +118,16 @@ public class Account extends BaseEntity {
             return ;
         //remove the account
         earnings.remove(earning);
-        // myself from the twitter account
         earning.setAccount(null);
+    }
+
+    public void removeMoneyHolder(MoneyHolder moneyHolder) {
+        //prevent endless loop
+        if (!moneyHolders.contains(moneyHolder))
+            return ;
+        //remove the account
+        moneyHolders.remove(moneyHolder);
+        moneyHolder.setAccount(null);
     }
 
     public void removeCost(Cost cost) {
@@ -117,7 +136,6 @@ public class Account extends BaseEntity {
             return ;
         //remove the account
         costs.remove(cost);
-        //remove myself from the twitter account
         cost.setAccount(null);
     }
 
@@ -127,7 +145,6 @@ public class Account extends BaseEntity {
             return ;
         //remove the account
         brokers.remove(broker);
-        //remove myself from the twitter account
         broker.setAccount(null);
     }
 
@@ -137,26 +154,32 @@ public class Account extends BaseEntity {
             return ;
         //add new earning
         this.brokers.add(broker);
-        //set myself into the cost account
         broker.setAccount(this);
     }
 
 
-    public Earning getEarning(Long oldEarningId) {
+    public Earning getEarning(Long earningId) {
         return this.earnings.stream()
-                .filter(earning -> earning.id.equals(oldEarningId))
+                .filter(earning -> earning.getId().equals(earningId))
                 .findFirst()
                 .orElseThrow(EarningNotFoundException::new);
     }
 
-    public Cost getCost(Long oldCostId) {
+    public MoneyHolder getMoneyHolder(Long moneyHolderId) {
+        return this.moneyHolders.stream()
+                .filter(moneyHolder -> moneyHolder.getId().equals(moneyHolderId))
+                .findFirst()
+                .orElseThrow(MoneyHolderNotFoundException::new);
+    }
+
+    public Cost getCost(Long costId) {
         return this.costs.stream()
-                .filter(cost -> cost.id.equals(oldCostId))
+                .filter(cost -> cost.getId().equals(costId))
                 .findFirst()
                 .orElseThrow(CostNotFoundException::new);
     }
 
-    public Broker getBroker(Long id) {
+    public Broker getBroker(Long brokerId) {
         return this.brokers.stream()
                 .filter(broker -> broker.getId().equals(id))
                 .findFirst()
