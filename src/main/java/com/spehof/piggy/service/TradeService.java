@@ -34,7 +34,7 @@ public class TradeService {
         return brokerSubAccount.getTrades();
     }
 
-    public void create(BrokerSubAccount brokerSubAccount, Trade tradeFromApi){
+    public void delete(BrokerSubAccount brokerSubAccount, Trade tradeFromApi){
         Trade tradeFromDb = brokerSubAccount.getTrade(tradeFromApi.getId());
         brokerSubAccount.removeTrade(tradeFromDb);
         tradeDao.delete(tradeFromDb);
