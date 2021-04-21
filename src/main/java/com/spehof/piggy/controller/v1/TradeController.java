@@ -39,6 +39,9 @@ public class TradeController {
         return tradeService.getAll(brokerSubAccount);
     }
 
+    /**
+     * @param tradeFromApi - trade with assets name and amount
+     * */
     @PostMapping("/subAccounts/{subaccountId}")
     public Trade create(@PathVariable(name = "id") Account account,
                         @PathVariable (name = "subaccountId") BrokerSubAccount brokerSubAccount,

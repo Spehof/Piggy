@@ -1,6 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.BrokerSubAccountDao;
+import com.spehof.piggy.domain.Asset;
 import com.spehof.piggy.domain.Broker;
 import com.spehof.piggy.domain.BrokerSubAccount;
 import org.springframework.beans.BeanUtils;
@@ -17,16 +18,28 @@ import java.util.List;
 public class BrokerSubAccountService {
 
     private final BrokerSubAccountDao brokerSubAccountDao;
+    private final TradeService tradeService;
+    private final AssetService assetService;
 
     @Autowired
-    public BrokerSubAccountService(BrokerSubAccountDao brokerSubAccountDao) {
+    public BrokerSubAccountService(BrokerSubAccountDao brokerSubAccountDao,
+                                   TradeService tradeService,
+                                   AssetService assetService) {
         this.brokerSubAccountDao = brokerSubAccountDao;
+        this.tradeService = tradeService;
+        this.assetService = assetService;
     }
 
     public BrokerSubAccount create(Broker broker, String title){
         BrokerSubAccount brokerSubAccount = new BrokerSubAccount(broker, title);
         broker.setBrokerSubAccount(brokerSubAccount);
-        return brokerSubAccountDao.save(brokerSubAccount);
+        brokerSubAccountDao.save(brokerSubAccount);
+
+//        TODO data for test
+        Asset testAsset = assetService.create("SBER", "250");
+        tradeService.create(brokerSubAccount, testAsset, 1500L);
+        return  brokerSubAccountDao.save(brokerSubAccount);
+
     }
 
     public List<BrokerSubAccount> getAll(Broker broker){

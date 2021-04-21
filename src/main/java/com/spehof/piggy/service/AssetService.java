@@ -34,7 +34,7 @@ public class AssetService {
     }
 
     public Asset addToPortfolio(Portfolio portfolio, Asset assetFromApi){
-        Asset assetFromDb = assetDao.getByName(assetFromApi.getName());
+        Asset assetFromDb = assetDao.getByName(assetFromApi.getName()).orElseThrow(AssetNotFoundException::new);
 //        TODO maybe will be problem with saving new portfolio
         portfolio.setAsset(assetFromDb);
 
@@ -55,6 +55,10 @@ public class AssetService {
         Asset assetFromDb =  assetDao.findById(assetFromApi.getId()).orElseThrow(AssetNotFoundException::new);
         BeanUtils.copyProperties(assetFromApi, assetFromDb, "id");
         return assetDao.save(assetFromDb);
+    }
+
+    public Asset getAssetFromDb(String assetName){
+        return assetDao.getByName(assetName).orElseThrow(AssetNotFoundException::new);
     }
 
     public void delete(Asset asset) {

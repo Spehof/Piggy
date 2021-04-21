@@ -18,14 +18,23 @@ import java.util.List;
 public class TradeService {
 
     private final TradeDao tradeDao;
+    private final AssetService assetService;
 
     @Autowired
-    public TradeService(TradeDao tradeDao) {
+    public TradeService(TradeDao tradeDao,
+                        AssetService assetService) {
         this.tradeDao = tradeDao;
+        this.assetService = assetService;
     }
 
-    public Trade create(BrokerSubAccount brokerSubAccount, Asset asset, Long amount){
-        Trade trade = new Trade(brokerSubAccount, asset, amount);
+    /**
+     * @param brokerSubAccount - broker sub account which buy assets
+     * @param assetFromApi - name of asset
+     * @param amount - amount asset trade
+     * */
+    public Trade create(BrokerSubAccount brokerSubAccount, Asset assetFromApi, Long amount){
+        Asset assetFromDb = assetService.getAssetFromDb(assetFromApi.getName());
+        Trade trade = new Trade(brokerSubAccount, assetFromDb, amount);
         brokerSubAccount.setTrade(trade);
         return tradeDao.save(trade);
     }
