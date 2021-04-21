@@ -32,6 +32,7 @@ public class MoneyHolder extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_money_holder")
     private Long id;
+
     private String title;
 
     @ManyToOne()

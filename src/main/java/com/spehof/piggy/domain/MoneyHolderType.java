@@ -30,7 +30,7 @@ public class MoneyHolderType extends BaseEntity {
      }
 
     @Id
-    @Column(name = "id_money_holder_type")
+    @Column(name = "id_money_holder_types")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
