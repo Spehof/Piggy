@@ -25,24 +25,24 @@ public class NotificationController {
 
     @GetMapping
     public List<Notification> getAll(@PathVariable(name = "id")Account account){
-        return notificationService.getAll(account.getClient());
+        return notificationService.getAll(account.getUser());
     }
 
     @PostMapping
     public Notification createNewNotification(@PathVariable(name = "id")Account account,
                                               @RequestBody Notification notificationFromApi){
-        return notificationService.create(account.getClient(), notificationFromApi.getMessage());
+        return notificationService.create(account.getUser(), notificationFromApi.getMessage());
     }
 
     @DeleteMapping()
     public void deleteNotification(@PathVariable(name = "id") Account account,
                                    @RequestBody Notification notificationFromApi){
-        notificationService.delete(account.getClient(), notificationFromApi);
+        notificationService.delete(account.getUser(), notificationFromApi);
     }
 
     @PutMapping()
     public Notification updateNotification(@PathVariable(name = "id") Account account,
                                            @RequestBody Notification notificationFromApi){
-        return notificationService.update(account.getClient(), notificationFromApi);
+        return notificationService.update(account.getUser(), notificationFromApi);
     }
 }

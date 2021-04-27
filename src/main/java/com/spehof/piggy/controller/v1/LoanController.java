@@ -7,7 +7,6 @@ import com.spehof.piggy.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,27 +27,27 @@ public class LoanController {
     @GetMapping
     public List<Loan> getAll(@PathVariable(name = "idAccount") Account account,
                              @PathVariable(name = "idFriend") Friend friend){
-        return loanService.getAll(account.getClient(), friend);
+        return loanService.getAll(account.getUser(), friend);
     }
 
     @PostMapping
     public Loan createLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
                            @RequestBody Loan loanFromApi){
-        return loanService.create(account.getClient().getFriend(friend.getId()), loanFromApi.getAmount());
+        return loanService.create(account.getUser().getFriend(friend.getId()), loanFromApi.getAmount());
     }
 
     @DeleteMapping
     public void deleteLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
                            @RequestBody Loan loanFromApi) {
-        loanService.delete(account.getClient(), friend, loanFromApi);
+        loanService.delete(account.getUser(), friend, loanFromApi);
     }
 
     @PutMapping
     public Loan updateLoan(@PathVariable(name = "idAccount") Account account,
                            @PathVariable(name = "idFriend") Friend friend,
                            @RequestBody Loan loanFromApi){
-        return loanService.update(account.getClient(), friend, loanFromApi);
+        return loanService.update(account.getUser(), friend, loanFromApi);
     }
 }

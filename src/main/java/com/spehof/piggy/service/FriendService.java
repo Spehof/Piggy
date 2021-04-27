@@ -29,8 +29,8 @@ public class FriendService {
         this.oweService = oweService;
     }
 
-    public Friend create(Client client, String name){
-        Friend friend = new Friend(client, name);
+    public Friend create(User user, String name){
+        Friend friend = new Friend(user, name);
         friendDao.save(friend);
 //        TODO for test!!
         friend.setLoan(loanService.create(friend, 10000L));
@@ -39,27 +39,27 @@ public class FriendService {
 
 
 //        TODO for testing saving friend
-        client.setFriend(friend);
+        user.setFriend(friend);
         return friendDao.save(friend);
     }
 
-    public List<Friend> getAll(Client client) {
-        return client.getFriends();
+    public List<Friend> getAll(User user) {
+        return user.getFriends();
     }
 
-    public Friend getOne(Client client, Long friendId) {
-        return client.getFriend(friendId);
+    public Friend getOne(User user, Long friendId) {
+        return user.getFriend(friendId);
     }
 
-    public Friend update(Client client, Friend friendFromApi) {
-        Friend friendFromDb = client.getFriend(friendFromApi.getId());
+    public Friend update(User user, Friend friendFromApi) {
+        Friend friendFromDb = user.getFriend(friendFromApi.getId());
         BeanUtils.copyProperties(friendFromApi, friendFromDb, "id", "client", "loans", "owes");
         return friendDao.save(friendFromDb);
     }
 
-    public void delete(Client client, Friend friendFromApi) {
-        Friend friendFromDb = client.getFriend((friendFromApi.getId()));
-        client.removeFriend(friendFromDb);
+    public void delete(User user, Friend friendFromApi) {
+        Friend friendFromDb = user.getFriend((friendFromApi.getId()));
+        user.removeFriend(friendFromDb);
         friendDao.delete(friendFromDb);
     }
 }

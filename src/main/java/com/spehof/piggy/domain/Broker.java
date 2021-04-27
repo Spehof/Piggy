@@ -44,7 +44,7 @@ public class Broker extends BaseEntity {
     @Column(name = "title")
     private String brokerTitle;
 
-    @OneToMany(mappedBy = "broker")
+    @OneToMany(mappedBy = "broker", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BrokerAccount> brokerAccounts = new ArrayList<>();
 
 

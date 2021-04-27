@@ -2,7 +2,7 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.BudgetDao;
 import com.spehof.piggy.domain.Budget;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,23 +23,23 @@ public class BudgetService {
         this.budgetDao = budgetDao;
     }
 
-    public Budget create(Client client, Long value){
-        Budget budget = new Budget(client, value);
-        client.setBudget(budget);
+    public Budget create(User user, Long value){
+        Budget budget = new Budget(user, value);
+        user.setBudget(budget);
         return budgetDao.save(budget);
     }
 
-    public List<Budget> getAll(Client client) {
-        return client.getBudgets();
+    public List<Budget> getAll(User user) {
+        return user.getBudgets();
     }
 
-    public void delete(Client client, Budget budgetFromApi) {
-        client.removeBudget(budgetFromApi);
+    public void delete(User user, Budget budgetFromApi) {
+        user.removeBudget(budgetFromApi);
         budgetDao.delete(budgetFromApi);
     }
 
-    public Budget update(Client client, Budget budgetFromApi) {
-        Budget budgetFromDb = client.getBudget(budgetFromApi.getId());
+    public Budget update(User user, Budget budgetFromApi) {
+        Budget budgetFromDb = user.getBudget(budgetFromApi.getId());
         BeanUtils.copyProperties(budgetFromApi, budgetFromDb, "id", "client");
         return budgetDao.save(budgetFromDb);
     }

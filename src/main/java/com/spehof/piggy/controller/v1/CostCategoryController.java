@@ -29,26 +29,26 @@ public class CostCategoryController {
 
     @GetMapping()
     public Set<CostCategory> getAll(@PathVariable(name = "id") Account account){
-        return moneyMovementCategoryHolderService.getCostCategories(account.getClient());
+        return moneyMovementCategoryHolderService.getCostCategories(account.getUser());
     }
 
     @PostMapping()
     public CostCategory createNewCategory(@PathVariable(name = "id") Account account,
                                           @RequestBody CostCategory costCategoryFromApi){
-        CostCategory clientCostCategory = costCategoryService.create(account.getClient(),
+        CostCategory clientCostCategory = costCategoryService.create(account.getUser(),
                 costCategoryFromApi.getTitle());
-        return moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
+        return moneyMovementCategoryHolderService.addNewCostCategory(account.getUser(), clientCostCategory);
     }
 
     @DeleteMapping()
     public void deleteCategory(@PathVariable(name = "id") Account account,
                                @RequestBody CostCategory costCategoryFromApi){
-        moneyMovementCategoryHolderService.removeCostCategory(account.getClient(), costCategoryFromApi);
+        moneyMovementCategoryHolderService.removeCostCategory(account.getUser(), costCategoryFromApi);
     }
 
     @PutMapping
     public CostCategory updateCategory(@PathVariable(name = "id") Account account,
                                        @RequestBody CostCategory costCategoryFromApi){
-        return moneyMovementCategoryHolderService.updateCostCategory(account.getClient(), costCategoryFromApi);
+        return moneyMovementCategoryHolderService.updateCostCategory(account.getUser(), costCategoryFromApi);
     }
 }

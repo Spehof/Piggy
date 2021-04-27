@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.CostCategoryDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.CostCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +29,11 @@ public class CostCategoryService {
      * but created category in this method for now - not binding with no one client
      * just created entity with this category name
      *
-     * @param client with MoneyMovementCategoryHolder will be binding this category
+     * @param user with MoneyMovementCategoryHolder will be binding this category
      * @param categoryName - name of category
      * */
-    public CostCategory create(Client client, String categoryName){
-        CostCategory costCategory = new CostCategory(client.getMoneyMovementCategoryHolder(), categoryName);
+    public CostCategory create(User user, String categoryName){
+        CostCategory costCategory = new CostCategory(user.getMoneyMovementCategoryHolder(), categoryName);
         return costCategoryDao.save(costCategory);
     }
 }

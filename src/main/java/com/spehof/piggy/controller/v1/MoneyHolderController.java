@@ -25,25 +25,25 @@ public class MoneyHolderController {
 
     @GetMapping
     public List<MoneyHolder> getAll(@PathVariable(name = "id") Account account){
-        return moneyHolderService.getAll(account.getClient());
+        return moneyHolderService.getAll(account.getUser());
     }
 
     @PostMapping
     public MoneyHolder create(@PathVariable(name = "id")Account account,
                               @RequestBody MoneyHolder moneyHolderFromApi){
-        return moneyHolderService.create(account.getClient(),
+        return moneyHolderService.create(account.getUser(),
                 moneyHolderFromApi.getTitle());
     }
 
     @DeleteMapping
     public void delete(@PathVariable(name = "id")Account account,
                        @RequestBody MoneyHolder moneyHolderFromApi){
-        moneyHolderService.delete(account.getClient(), moneyHolderFromApi);
+        moneyHolderService.delete(account.getUser(), moneyHolderFromApi);
     }
 
     @PutMapping
     public MoneyHolder update(@PathVariable(name = "id")Account account,
                               @RequestBody MoneyHolder moneyHolderFromApi){
-        return moneyHolderService.update(account.getClient(), moneyHolderFromApi);
+        return moneyHolderService.update(account.getUser(), moneyHolderFromApi);
     }
 }

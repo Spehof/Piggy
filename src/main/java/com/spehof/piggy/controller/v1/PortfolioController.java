@@ -6,7 +6,6 @@ import com.spehof.piggy.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 
 /**
@@ -26,30 +25,30 @@ public class PortfolioController {
 
     @GetMapping
     public List<Portfolio> getAll(@PathVariable(name = "id") Account account){
-        return portfolioService.getAll(account.getClient());
+        return portfolioService.getAll(account.getUser());
     }
 
     @GetMapping("{portfolioId}")
     public Portfolio getOne(@PathVariable(name = "id") Account account,
                             @PathVariable(name = "portfolioId") Portfolio portfolio){
-        return portfolioService.getOne(account.getClient(), portfolio);
+        return portfolioService.getOne(account.getUser(), portfolio);
     }
 
     @PostMapping
     public Portfolio create(@PathVariable(name = "id") Account account,
                             @RequestBody Portfolio portfolioFromApi){
-        return portfolioService.create(account.getClient(), portfolioFromApi.getTitle());
+        return portfolioService.create(account.getUser(), portfolioFromApi.getTitle());
     }
 
     @DeleteMapping
     public void delete(@PathVariable(name = "id") Account account,
                        @RequestBody Portfolio portfolioFromApi){
-        portfolioService.delete(account.getClient(), portfolioFromApi);
+        portfolioService.delete(account.getUser(), portfolioFromApi);
     }
 
     @PutMapping
     public Portfolio update(@PathVariable(name = "id") Account account,
                             @RequestBody Portfolio portfolioFromApi){
-        return portfolioService.update(account.getClient(), portfolioFromApi);
+        return portfolioService.update(account.getUser(), portfolioFromApi);
     }
 }

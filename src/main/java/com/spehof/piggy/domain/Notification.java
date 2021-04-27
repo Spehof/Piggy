@@ -20,8 +20,8 @@ import java.util.Collections;
 @NoArgsConstructor
 public class Notification extends BaseEntity {
 
-    public Notification(Client client, String message){
-        this.client = client;
+    public Notification(User user, String message){
+        this.user = user;
         this.message = message;
     }
 
@@ -33,23 +33,23 @@ public class Notification extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    private Client client;
+    private User user;
 
     @Column(name = "message")
     private String message;
 
-    public void setClient(Client client) {
+    public void setUser(User user) {
         //prevent endless loop
-        if (this.client != null && sameAsFormer(this.client, client))
+        if (this.user != null && sameAsFormer(this.user, user))
             return;
         // set new client account
-        Client oldClient = this.client;
-        this.client = client;
+        User oldUser = this.user;
+        this.user = user;
         //remove from the old client account
-        if (oldClient!=null)
-            oldClient.setAccount(null);
+        if (oldUser !=null)
+            oldUser.setAccount(null);
         //set myself into new client account
-        if (client!=null)
-            client.setNotifications(Collections.singletonList(this));
+        if (user !=null)
+            user.setNotifications(Collections.singletonList(this));
     }
 }

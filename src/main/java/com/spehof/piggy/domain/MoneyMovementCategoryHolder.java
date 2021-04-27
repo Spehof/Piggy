@@ -1,15 +1,12 @@
 package com.spehof.piggy.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spehof.piggy.exception.CostCategoryNotFoundException;
 import com.spehof.piggy.exception.EarningCategoryNotFoundException;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,8 +20,8 @@ import java.util.Set;
 @Setter
 public class MoneyMovementCategoryHolder extends BaseEntity {
 
-    public MoneyMovementCategoryHolder(Client client){
-        this.client = client;
+    public MoneyMovementCategoryHolder(User user){
+        this.user = user;
     }
 
     @Id
@@ -35,14 +32,14 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
     @MapsId
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonManagedReference(value = "client-moneyMovementCategoryHolder")
-    private Client client;
+    private User user;
 
 
-    @OneToMany(mappedBy = "moneyMovementCategoryHolder")
+    @OneToMany(mappedBy = "moneyMovementCategoryHolder", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CostCategory> costCategories = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "moneyMovementCategoryHolder")
+    @OneToMany(mappedBy = "moneyMovementCategoryHolder", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EarningCategory> earningCategories = new HashSet<>();
 
 

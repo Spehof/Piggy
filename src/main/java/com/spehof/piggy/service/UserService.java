@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.ClientDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.DAO.UserDao;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.EarningCategory;
 import org.springframework.beans.BeanUtils;
@@ -26,9 +26,9 @@ import java.util.List;
  *      * GoalService - for create, set or change client Goals in finance.
  */
 @Service
-public class ClientService {
+public class UserService {
 
-    private final ClientDao clientDao;
+    private final UserDao userDao;
     private final AccountService accountService;
     private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
     private final EarningCategoryService earningCategoryService;
@@ -39,21 +39,23 @@ public class ClientService {
     private final GoalService goalService;
     private final MoneyHolderService moneyHolderService;
     private final TransactionService transactionService;
+    private final PortfolioService portfolioService;
 
     @Autowired
-    public ClientService(ClientDao clientDao,
-                         AccountService accountService,
-                         MoneyMovementCategoryHolderService moneyMovementCategoryHolderService,
-                         EarningCategoryService earningCategoryService,
-                         CostCategoryService costCategoryService,
-                         FriendService friendService,
-                         BudgetService budgetService,
-                         NotificationService notificationService,
-                         GoalService goalService,
-                         MoneyHolderService moneyHolderService,
-                         TransactionService transactionService) {
+    public UserService(UserDao userDao,
+                       AccountService accountService,
+                       MoneyMovementCategoryHolderService moneyMovementCategoryHolderService,
+                       EarningCategoryService earningCategoryService,
+                       CostCategoryService costCategoryService,
+                       FriendService friendService,
+                       BudgetService budgetService,
+                       NotificationService notificationService,
+                       GoalService goalService,
+                       MoneyHolderService moneyHolderService,
+                       TransactionService transactionService,
+                       PortfolioService portfolioService) {
 
-        this.clientDao = clientDao;
+        this.userDao = userDao;
         this.accountService = accountService;
         this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
         this.earningCategoryService = earningCategoryService;
@@ -64,68 +66,69 @@ public class ClientService {
         this.goalService = goalService;
         this.moneyHolderService = moneyHolderService;
         this.transactionService = transactionService;
+        this.portfolioService = portfolioService;
     }
 
     /**
      * Create a new Client in system.
-     * @param client - minimal client data from ClientController
+     * @param user - minimal client data from ClientController
      * @return A new minimalistic filled Client class and save it in database
      * */
-    public Client create(Client client){
+    public User create(User user){
         /** Set registration date when creating a new client */
-        client.setRegistrationDate(LocalDateTime.now());
-        clientDao.save(client);
+        user.setRegistrationDate(LocalDateTime.now());
+        user.setMoneyMovementCategoryHolder(moneyMovementCategoryHolderService.create(user));
+        userDao.save(user);
+
+        /** Creating new earning category */
+        EarningCategory clientEarningCategory = earningCategoryService.create(user, "Test Earning Category");
+        /** Set new earning category clients moneyMovementCategoryHolder */
+        moneyMovementCategoryHolderService.addNewEarningCategory(user, clientEarningCategory);
+
+        /** Creating new cost category */
+        CostCategory clientCostCategory = costCategoryService.create(user, "Test cost category");
+        /** Set new cost category clients moneyMovementCategoryHolder */
+        moneyMovementCategoryHolderService.addNewCostCategory(user, clientCostCategory);
+
+        /** Create new money holder for test */
+        moneyHolderService.create(user, "My test wallet");
 
         /** Create client account */
-        accountService.create(client);
+        accountService.create(user);
 
         /** Set MoneyMovementCategoryHolder for holding Earning and Cost clients categories*/
 //        TODO refactor
-        client.setMoneyMovementCategoryHolder(moneyMovementCategoryHolderService.create(client));
-
-        /** Creating new earning category */
-        EarningCategory clientEarningCategory = earningCategoryService.create(client, "Test Earning Category");
-
-//        TODO test data !!!
-        /** Set new earning category clients moneyMovementCategoryHolder */
-        moneyMovementCategoryHolderService.addNewEarningCategory(client, clientEarningCategory);
 
 
-        /** Creating new cost category */
-        CostCategory clientCostCategory = costCategoryService.create(client, "Test cost category");
 
-        /** Set new cost category clients moneyMovementCategoryHolder */
-        moneyMovementCategoryHolderService.addNewCostCategory(client, clientCostCategory);
+        friendService.create(user, "Niko");
 
+        budgetService.create(user, 10000L);
 
-        moneyHolderService.create(client, "My test wallet");
+        notificationService.create(user, "Alarm, it's test notification!");
 
-        friendService.create(client, "Niko");
-
-        budgetService.create(client, 10000L);
-
-        notificationService.create(client, "Alarm, it's test notification!");
-
-        goalService.create(client, 1000000L, "For my new car");
+        goalService.create(user, 1000000L, "For my new car");
 //        TODO end of test data
 
-        transactionService.create(client.getAccount(),
-                client.getMoneyHolder(1L),
-                client.getMoneyHolder(1L), new BigDecimal("100"));
+        transactionService.create(user.getAccount(),
+                user.getMoneyHolder(1L),
+                user.getMoneyHolder(1L), new BigDecimal("100"));
+
+        portfolioService.create(user, "My Test Portfolio");
 
         /** Saving created client in DB */
-        return clientDao.save(client);
+        return userDao.save(user);
     }
 
     /**
      * Update existing client in system.
-     * @param clientFromDb - client data from ClientController which will be changed
-     * @param clientFromApi - current client from database on which to write new data and save again,
+     * @param userFromDb - client data from ClientController which will be changed
+     * @param userFromApi - current client from database on which to write new data and save again,
      *                     after validation and writing
      * @return - save updated client class in database and return it
      * */
-    public Client update(Client clientFromDb, Client clientFromApi){
-        BeanUtils.copyProperties(clientFromApi, clientFromDb,
+    public User update(User userFromDb, User userFromApi){
+        BeanUtils.copyProperties(userFromApi, userFromDb,
                 "id",
                 "registrationDate",
                 "account",
@@ -136,21 +139,21 @@ public class ClientService {
                 "notifications",
                 "goals");
 
-        return clientDao.save(clientFromDb);
+        return userDao.save(userFromDb);
     }
 
     /**
      * Delete existing client account.
-     * @param client - client which need to delete
+     * @param user - client which need to delete
      * */
-    public void delete(Client client){
-        clientDao.delete(client);
+    public void delete(User user){
+        userDao.delete(user);
     }
 
     /**
      * Get and return all client from database.
      * */
-    public List<Client> getAll(){
-        return clientDao.findAll();
+    public List<User> getAll(){
+        return userDao.findAll();
     }
 }

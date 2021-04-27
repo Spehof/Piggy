@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Spehof
  * @created 10/04/2021
  */
-public interface MoneyMovementCategoryDao extends JpaRepository<MoneyMovementCategoryHolder, Long> {
+public interface MoneyMovementCategoryHolderDao extends JpaRepository<MoneyMovementCategoryHolder, Long> {
 }

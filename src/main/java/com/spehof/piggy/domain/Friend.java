@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,8 +25,8 @@ import java.util.List;
 @ToString(of = "name, loans, owes")
 public class Friend extends BaseEntity {
 
-    public Friend(Client client, String name){
-        this.client = client;
+    public Friend(User user, String name){
+        this.user = user;
         this.name = name;
     }
 
@@ -43,7 +41,7 @@ public class Friend extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    private Client client;
+    private User user;
 
     @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
     private List<Loan> loans = new  ArrayList<>();
@@ -53,19 +51,19 @@ public class Friend extends BaseEntity {
     private List<Owe> owes = new ArrayList<>();
 
 //TODO refactor setClient to base entity
-    public void setClient(Client client) {
+    public void setUser(User user) {
         //prevent endless loop
-        if (this.client != null && sameAsFormer(this.client, client))
+        if (this.user != null && sameAsFormer(this.user, user))
             return;
         // set new client account
-        Client oldClient = this.client;
-        this.client = client;
+        User oldUser = this.user;
+        this.user = user;
         //remove from the old client account
-        if (oldClient!=null)
-            oldClient.setAccount(null);
+        if (oldUser !=null)
+            oldUser.setAccount(null);
         //set myself into new client account
-        if (client!=null)
-            client.setFriends(Collections.singletonList(this));
+        if (user !=null)
+            user.setFriends(Collections.singletonList(this));
     }
 
     public void setLoan(Loan loan) {

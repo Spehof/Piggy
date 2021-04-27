@@ -21,11 +21,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Client extends BaseEntity {
+public class User extends BaseEntity {
 
-    public Client(String name, MoneyMovementCategoryHolder moneyMovementCategoryHolder){
+    public User(String name){
         this.name = name;
-        this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
     }
 
     @Id
@@ -43,34 +42,34 @@ public class Client extends BaseEntity {
     @JsonView(ClientViews.IdNameCreationdate.class)
     private LocalDateTime registrationDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     @JoinColumn(name = "account_ID")
     @JsonBackReference(value = "client-account")
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
-    @JoinColumn(name = "money_movement_category_holder_ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//    @JoinColumn(name = "money_movement_category_holder_ID")
     @PrimaryKeyJoinColumn
     @JsonBackReference(value = "client-moneyMovementCategoryHolder")
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<MoneyHolder> moneyHolders = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Budget> budgets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Goal> goals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Portfolio> portfolios = new ArrayList<>();
 
     public void setAccount(Account account) {
@@ -82,10 +81,10 @@ public class Client extends BaseEntity {
         this.account = account;
         //remove from the old client account
         if (oldAccount!=null)
-            oldAccount.setClient(null);
+            oldAccount.setUser(null);
         //set myself into new client account
         if (account!=null)
-            account.setClient(this);
+            account.setUser(this);
     }
 
     public void setRegistrationDate(LocalDateTime registrationDate) {
@@ -104,10 +103,10 @@ public class Client extends BaseEntity {
         this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
         //remove from the old client account
         if (oldMoneyMovementCategoryHolder !=null)
-            oldMoneyMovementCategoryHolder.setClient(null);
+            oldMoneyMovementCategoryHolder.setUser(null);
         //set myself into new client account
         if (moneyMovementCategoryHolder!=null)
-            moneyMovementCategoryHolder.setClient(this);
+            moneyMovementCategoryHolder.setUser(this);
     }
 
 
@@ -117,7 +116,7 @@ public class Client extends BaseEntity {
             return ;
         //add new earning
         this.moneyHolders.add(moneyHolder);
-        moneyHolder.setClient(this);
+        moneyHolder.setUser(this);
     }
 
     public void setFriends(List<Friend> friends){
@@ -133,7 +132,7 @@ public class Client extends BaseEntity {
         //add new earning
         this.friends.add(friend);
         //set myself into the cost account
-        friend.setClient(this);
+        friend.setUser(this);
     }
 
     public void setBudgets(List<Budget> budgets){
@@ -149,7 +148,7 @@ public class Client extends BaseEntity {
         //add new earning
         this.budgets.add(budget);
         //set myself into the cost account
-        budget.setClient(this);
+        budget.setUser(this);
     }
 
     public void setNotifications(List<Notification> notifications){
@@ -165,7 +164,7 @@ public class Client extends BaseEntity {
         //add new earning
         this.notifications.add(notification);
         //set myself into the cost account
-        notification.setClient(this);
+        notification.setUser(this);
     }
 
     public void setGoals(List<Goal> goals){
@@ -181,7 +180,7 @@ public class Client extends BaseEntity {
         //add new earning
         this.goals.add(goal);
         //set myself into the cost account
-        goal.setClient(this);
+        goal.setUser(this);
     }
 
     public void removeMoneyHolder(MoneyHolder moneyHolder) {
@@ -190,7 +189,7 @@ public class Client extends BaseEntity {
             return ;
         //remove the account
         moneyHolders.remove(moneyHolder);
-        moneyHolder.setClient(null);
+        moneyHolder.setUser(null);
     }
 
     public void removeFriend(Friend friend) {
@@ -198,7 +197,7 @@ public class Client extends BaseEntity {
         if (!friends.contains(friend))
             return ;
         friends.remove(friend);
-        friend.setClient(null);
+        friend.setUser(null);
     }
 
     public void removeBudget(Budget budget) {
@@ -208,7 +207,7 @@ public class Client extends BaseEntity {
         //remove the account
         budgets.remove(budget);
         //remove myself from the twitter account
-        budget.setClient(null);
+        budget.setUser(null);
     }
 
     public void removeNotification(Notification notification) {
@@ -218,7 +217,7 @@ public class Client extends BaseEntity {
         //remove the account
         notifications.remove(notification);
         //remove myself from the twitter account
-        notification.setClient(null);
+        notification.setUser(null);
     }
 
     public void removeGoal(Goal goal) {
@@ -228,7 +227,7 @@ public class Client extends BaseEntity {
         //remove the account
         goals.remove(goal);
         //remove myself from the twitter account
-        goal.setClient(null);
+        goal.setUser(null);
     }
 
     public void setPortfolio(Portfolio portfolio) {
@@ -238,7 +237,7 @@ public class Client extends BaseEntity {
         //add new earning
         this.portfolios.add(portfolio);
         //set myself into the cost account
-        portfolio.setClient(this);
+        portfolio.setUser(this);
     }
 
     public void removePortfolio(Portfolio portfolio) {
@@ -248,7 +247,7 @@ public class Client extends BaseEntity {
         //remove the account
         portfolios.remove(portfolio);
         //remove myself from the twitter account
-        portfolio.setClient(null);
+        portfolio.setUser(null);
     }
 
     public Portfolio getPortfolio(Long portfolioId){

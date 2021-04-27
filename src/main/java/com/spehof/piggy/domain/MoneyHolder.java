@@ -1,8 +1,6 @@
 package com.spehof.piggy.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +20,8 @@ import javax.persistence.*;
 @Setter
 public class MoneyHolder extends BaseEntity {
 
-    public MoneyHolder(Client client, String title){
-        this.client = client;
+    public MoneyHolder(User user, String title){
+        this.user = user;
         this.title = title;
     }
 
@@ -38,6 +36,6 @@ public class MoneyHolder extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore()
-    private Client client;
+    private User user;
 
 }

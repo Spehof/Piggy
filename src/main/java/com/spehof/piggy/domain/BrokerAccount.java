@@ -43,7 +43,7 @@ public class BrokerAccount extends BaseEntity {
     @JsonIgnore
     private List<Portfolio> portfolios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "brokerAccountWhichTrade")
+    @OneToMany(mappedBy = "brokerAccountWhichTrade", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Trade> trades = new ArrayList<>();
 

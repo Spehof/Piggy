@@ -25,30 +25,30 @@ public class FriendController {
 
     @GetMapping
     public List<Friend> getAll(@PathVariable(name = "id")Account account){
-        return friendService.getAll(account.getClient());
+        return friendService.getAll(account.getUser());
     }
 
     @GetMapping("{friendId}")
     public Friend getOne(@PathVariable(name = "id")Account account,
                          @PathVariable(name = "friendId") Long friendId){
-        return friendService.getOne(account.getClient(), friendId);
+        return friendService.getOne(account.getUser(), friendId);
     }
 
     @PostMapping
     public Friend createNewFriend(@PathVariable(name = "id")Account account,
                                   @RequestBody Friend friendFromApi){
-        return friendService.create(account.getClient(), friendFromApi.getName());
+        return friendService.create(account.getUser(), friendFromApi.getName());
     }
 
     @PutMapping()
     public Friend updateFriend(@PathVariable(name = "id")Account account,
                                @RequestBody Friend friendFromApi){
-        return friendService.update(account.getClient(), friendFromApi);
+        return friendService.update(account.getUser(), friendFromApi);
     }
 //    TODO rewrite equals and hash code
     @DeleteMapping
     public void deleteFriend(@PathVariable(name = "id")Account account,
                              @RequestBody Friend friendFromApi){
-        friendService.delete(account.getClient(), friendFromApi);
+        friendService.delete(account.getUser(), friendFromApi);
     }
 }

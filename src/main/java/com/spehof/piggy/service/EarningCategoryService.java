@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.EarningCategoryDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.EarningCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +27,11 @@ public class EarningCategoryService {
      * but created category in this method for now - not binding with no one client
      * just created entity with this category name
      *
-     * @param client with MoneyMovementCategoryHolder will be binding this category
+     * @param user with MoneyMovementCategoryHolder will be binding this category
      * @param categoryName - name of category
      * */
-    public EarningCategory create(Client client, String categoryName){
-        EarningCategory earningCategory = new EarningCategory(client.getMoneyMovementCategoryHolder(), categoryName);
+    public EarningCategory create(User user, String categoryName){
+        EarningCategory earningCategory = new EarningCategory(user.getMoneyMovementCategoryHolder(), categoryName);
         return earningCategoryDao.save(earningCategory);
     }
 }

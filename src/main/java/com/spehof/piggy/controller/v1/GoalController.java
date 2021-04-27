@@ -25,24 +25,24 @@ public class GoalController {
 
     @GetMapping
     public List<Goal> getAll(@PathVariable(name = "id") Account account){
-        return goalService.getAll(account.getClient());
+        return goalService.getAll(account.getUser());
     }
 
     @PostMapping
     public Goal createGoal(@PathVariable(name = "id") Account account,
                            @RequestBody Goal goalFromApi){
-        return goalService.create(account.getClient(), goalFromApi.getAmount(), goalFromApi.getTitle());
+        return goalService.create(account.getUser(), goalFromApi.getAmount(), goalFromApi.getTitle());
     }
 
     @DeleteMapping
     public void deleteGoal(@PathVariable(name = "id") Account account,
                            @RequestBody Goal goalFromApi){
-        goalService.delete(account.getClient(), goalFromApi);
+        goalService.delete(account.getUser(), goalFromApi);
     }
 
     @PutMapping()
     public Goal update(@PathVariable(name = "id") Account account,
                        @RequestBody Goal goalFromApi){
-        return goalService.update(account.getClient(), goalFromApi);
+        return goalService.update(account.getUser(), goalFromApi);
     }
 }

@@ -32,7 +32,7 @@ public class BrokerService {
         account.setBroker(broker);
         brokerDao.save(broker);
 
-        BrokerAccount technicalBrokerAccount = brokerAccountService.create(broker, "technical");
+        brokerAccountService.create(broker, "technical");
         return brokerDao.save(broker);
     }
 

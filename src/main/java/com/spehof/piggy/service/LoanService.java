@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.LoanDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Friend;
 import com.spehof.piggy.domain.Loan;
 import org.springframework.beans.BeanUtils;
@@ -30,17 +30,17 @@ public class LoanService {
         return loanDao.save(loan);
     }
 
-    public List<Loan> getAll(Client client, Friend friend) {
+    public List<Loan> getAll(User user, Friend friend) {
         return friend.getLoans();
     }
 
-    public void delete(Client client, Friend friend, Loan loanFromApi) {
-        client.getFriend(friend.getId()).removeLoan(loanFromApi);
+    public void delete(User user, Friend friend, Loan loanFromApi) {
+        user.getFriend(friend.getId()).removeLoan(loanFromApi);
         loanDao.delete(loanFromApi);
     }
 
-    public Loan update(Client client, Friend friend, Loan loanFromApi) {
-        Loan loanFromDb = client.getFriend(friend.getId()).getLoan(loanFromApi.getId());
+    public Loan update(User user, Friend friend, Loan loanFromApi) {
+        Loan loanFromDb = user.getFriend(friend.getId()).getLoan(loanFromApi.getId());
         BeanUtils.copyProperties(loanFromApi, loanFromDb, "id", "friend");
         return loanDao.save(loanFromDb);
     }

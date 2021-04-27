@@ -1,8 +1,8 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.EarningCategoryDao;
-import com.spehof.piggy.DAO.MoneyMovementCategoryDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.DAO.MoneyMovementCategoryHolderDao;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.EarningCategory;
 import com.spehof.piggy.domain.MoneyMovementCategoryHolder;
@@ -23,73 +23,73 @@ import java.util.Set;
 @Service
 public class MoneyMovementCategoryHolderService {
 
-    private final MoneyMovementCategoryDao moneyMovementCategoryDao;
+    private final MoneyMovementCategoryHolderDao moneyMovementCategoryHolderDao;
     private final EarningCategoryDao earningCategoryDao;
 
     @Autowired
-    public MoneyMovementCategoryHolderService(MoneyMovementCategoryDao moneyMovementCategoryDao,
+    public MoneyMovementCategoryHolderService(MoneyMovementCategoryHolderDao moneyMovementCategoryHolderDao,
                                               EarningCategoryDao earningCategoryDao) {
-        this.moneyMovementCategoryDao = moneyMovementCategoryDao;
+        this.moneyMovementCategoryHolderDao = moneyMovementCategoryHolderDao;
         this.earningCategoryDao = earningCategoryDao;
     }
 
-    public MoneyMovementCategoryHolder create(Client client){
-        MoneyMovementCategoryHolder moneyMovementCategoryHolder = new MoneyMovementCategoryHolder(client);
-        return moneyMovementCategoryDao.save(moneyMovementCategoryHolder);
+    public MoneyMovementCategoryHolder create(User user){
+        MoneyMovementCategoryHolder moneyMovementCategoryHolder = new MoneyMovementCategoryHolder(user);
+        return moneyMovementCategoryHolderDao.save(moneyMovementCategoryHolder);
     }
 
-    public CostCategory addNewCostCategory(Client client, CostCategory costCategory){
+    public CostCategory addNewCostCategory(User user, CostCategory costCategory){
 //        TODO refactor same row
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
         clientMoneyMovementCategoryHolder.setCostCategory(costCategory);
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
         return costCategory;
 
     }
 
-    public EarningCategory addNewEarningCategory(Client client, EarningCategory newEarningCategory){
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+    public EarningCategory addNewEarningCategory(User user, EarningCategory newEarningCategory){
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
         clientMoneyMovementCategoryHolder.setEarningCategory(newEarningCategory);
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
         return newEarningCategory;
     }
 
-    public void removeEarningCategory(Client client, EarningCategory earningCategoryFromApi){
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+    public void removeEarningCategory(User user, EarningCategory earningCategoryFromApi){
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
         EarningCategory earningCategoryFromDb = clientMoneyMovementCategoryHolder.getEarningCategory(earningCategoryFromApi.getId());
         clientMoneyMovementCategoryHolder.removeEarningCategory(earningCategoryFromDb);
         earningCategoryDao.delete(earningCategoryFromDb);
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
     }
 
-    public void removeCostCategory(Client client, CostCategory costCategoryFromApi){
-        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
+    public void removeCostCategory(User user, CostCategory costCategoryFromApi){
+        CostCategory costCategoryFromDb = user.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
         clientMoneyMovementCategoryHolder.removeCostCategory(costCategoryFromDb);
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
     }
 
-    public Set<CostCategory> getCostCategories(Client client){
-        return client.getMoneyMovementCategoryHolder().getCostCategories();
+    public Set<CostCategory> getCostCategories(User user){
+        return user.getMoneyMovementCategoryHolder().getCostCategories();
     }
 
-    public Set<EarningCategory> getEarningCategories(Client client){
-        return client.getMoneyMovementCategoryHolder().getEarningCategories();
+    public Set<EarningCategory> getEarningCategories(User user){
+        return user.getMoneyMovementCategoryHolder().getEarningCategories();
     }
 
-    public CostCategory updateCostCategory(Client client, CostCategory costCategoryFromApi) {
-        CostCategory costCategoryFromDb = client.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
+    public CostCategory updateCostCategory(User user, CostCategory costCategoryFromApi) {
+        CostCategory costCategoryFromDb = user.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
         BeanUtils.copyProperties(costCategoryFromApi, costCategoryFromDb, "id", "moneyMovementCategoryHolder");
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
         return costCategoryFromApi;
     }
 
-    public EarningCategory updateEarningCategory(Client client, EarningCategory earningCategoryFromApi) {
-        EarningCategory earningCategoryFromDb = client.getMoneyMovementCategoryHolder().getEarningCategory(earningCategoryFromApi.getId());
+    public EarningCategory updateEarningCategory(User user, EarningCategory earningCategoryFromApi) {
+        EarningCategory earningCategoryFromDb = user.getMoneyMovementCategoryHolder().getEarningCategory(earningCategoryFromApi.getId());
         BeanUtils.copyProperties(earningCategoryFromApi, earningCategoryFromDb, "id", "moneyMovementCategoryHolder");
-        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = client.getMoneyMovementCategoryHolder();
-        moneyMovementCategoryDao.save(clientMoneyMovementCategoryHolder);
+        MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
+        moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
         return earningCategoryFromApi;
     }
 }

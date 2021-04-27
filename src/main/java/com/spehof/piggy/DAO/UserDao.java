@@ -1,6 +1,6 @@
 package com.spehof.piggy.DAO;
 
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author Spehof
  * @created 07/04/2021
  */
-public interface ClientDao extends JpaRepository<Client, Long> {
+public interface UserDao extends JpaRepository<User, Long> {
 
-    public Optional<Client> getByName(String name);
+    public Optional<User> getByName(String name);
 }

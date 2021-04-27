@@ -25,24 +25,24 @@ public class BudgetController {
 
     @GetMapping
     public List<Budget> findAll(@PathVariable(name = "id") Account account){
-        return budgetService.getAll(account.getClient());
+        return budgetService.getAll(account.getUser());
     }
 
     @PostMapping
     public Budget createBudget(@PathVariable(name = "id") Account account,
                                @RequestBody Budget budgetFromApi){
-        return budgetService.create(account.getClient(), budgetFromApi.getValue());
+        return budgetService.create(account.getUser(), budgetFromApi.getValue());
     }
 
     @DeleteMapping
     public void deleteBudget(@PathVariable(name = "id") Account account,
                              @RequestBody Budget budgetFromApi){
-        budgetService.delete(account.getClient(), budgetFromApi);
+        budgetService.delete(account.getUser(), budgetFromApi);
     }
 
     @PutMapping()
     public Budget updateBudget(@PathVariable(name = "id") Account account,
                                @RequestBody Budget newBudget){
-        return budgetService.update(account.getClient(), newBudget);
+        return budgetService.update(account.getUser(), newBudget);
     }
 }

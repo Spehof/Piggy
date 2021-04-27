@@ -2,13 +2,12 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.PortfolioDao;
 import com.spehof.piggy.domain.Asset;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Portfolio;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.PublicKey;
 import java.util.List;
 
 /**
@@ -25,18 +24,18 @@ public class PortfolioService {
         this.portfolioDao = portfolioDao;
     }
 
-    public Portfolio create(Client client, String title){
-        Portfolio portfolio = new Portfolio(client, title);
-        client.setPortfolio(portfolio);
+    public Portfolio create(User user, String title){
+        Portfolio portfolio = new Portfolio(user, title);
+        user.setPortfolio(portfolio);
         return portfolioDao.save(portfolio);
     }
 
-    public List<Portfolio> getAll(Client client){
-        return client.getPortfolios();
+    public List<Portfolio> getAll(User user){
+        return user.getPortfolios();
     }
 
-    public Portfolio getOne(Client client, Portfolio portfolioFromApi){
-        return client.getPortfolio(portfolioFromApi.getId());
+    public Portfolio getOne(User user, Portfolio portfolioFromApi){
+        return user.getPortfolio(portfolioFromApi.getId());
     }
 
     public Portfolio addToPortfolio(Portfolio portfolio, Asset asset){
@@ -44,13 +43,13 @@ public class PortfolioService {
         return portfolioDao.save(portfolio);
     }
 
-    public void delete(Client client, Portfolio portfolioFromApi){
-        client.removePortfolio(portfolioFromApi);
+    public void delete(User user, Portfolio portfolioFromApi){
+        user.removePortfolio(portfolioFromApi);
         portfolioDao.delete(portfolioFromApi);
     }
 
-    public Portfolio update(Client client, Portfolio portfolioFromApi){
-        Portfolio portfolioFromDb = client.getPortfolio(portfolioFromApi.getId());
+    public Portfolio update(User user, Portfolio portfolioFromApi){
+        Portfolio portfolioFromDb = user.getPortfolio(portfolioFromApi.getId());
         BeanUtils.copyProperties(portfolioFromApi, portfolioFromDb, "id", "client");
         return portfolioDao.save(portfolioFromDb);
     }

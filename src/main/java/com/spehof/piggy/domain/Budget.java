@@ -20,8 +20,8 @@ import java.util.Collections;
 @NoArgsConstructor
 public class Budget extends BaseEntity {
 
-    public Budget(Client client, Long value){
-        this.client = client;
+    public Budget(User user, Long value){
+        this.user = user;
         this.value = value;
     }
 
@@ -33,24 +33,24 @@ public class Budget extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "client_ID")
     @JsonIgnore
-    private Client client;
+    private User user;
 
     @Column(name = "value")
     private Long value;
 
-    public void setClient(Client client) {
+    public void setUser(User user) {
         //prevent endless loop
-        if (sameAsFormer(this.client, client))
+        if (sameAsFormer(this.user, user))
             return ;
         //set new owner
-        Client oldClient = this.client;
-        this.client = client;
+        User oldUser = this.user;
+        this.user = user;
         //remove from the old owner
-        if (oldClient!=null)
-            oldClient.removeBudget(this);
+        if (oldUser !=null)
+            oldUser.removeBudget(this);
         //set myself into new owner
-        if (client!=null)
-            client.setBudgets(Collections.singletonList(this));
+        if (user !=null)
+            user.setBudgets(Collections.singletonList(this));
     }
 
 }

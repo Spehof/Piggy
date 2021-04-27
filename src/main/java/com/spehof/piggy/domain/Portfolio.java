@@ -24,8 +24,8 @@ import java.util.List;
 @Setter
 public class Portfolio extends BaseEntity {
 
-    public Portfolio(Client client, String title){
-        this.client = client;
+    public Portfolio(User user, String title){
+        this.user = user;
         this.title = title;
     }
 
@@ -34,10 +34,13 @@ public class Portfolio extends BaseEntity {
     @Column(name = "portfolio_ID")
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
     @ManyToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    private Client client;
+    private User user;
 
     @ManyToMany()
     @JoinTable(name = "portfolios_broker_accounts",
@@ -51,9 +54,6 @@ public class Portfolio extends BaseEntity {
             joinColumns = @JoinColumn(name = "portfolio_portfolio_ID", referencedColumnName = "portfolio_ID"),
             inverseJoinColumns = @JoinColumn(name = "asset_asset_ID", referencedColumnName = "asset_ID"))
     private List<Asset> assets = new ArrayList<>();
-
-    @Column(name = "title")
-    private String title;
 
     public void setBrokerSubAccount(BrokerAccount brokerAccount) {
         //prevent endless loop

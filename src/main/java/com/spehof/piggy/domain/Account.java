@@ -32,18 +32,18 @@ public class Account extends BaseEntity {
     @OneToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonManagedReference(value = "client-account")
-    private Client client;
+    private User user;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Earning> earnings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cost> costs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Broker> brokers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
 
     @Column(name = "currency")
@@ -55,19 +55,19 @@ public class Account extends BaseEntity {
         this.currency = currency;
     }
 
-    public void setClient(Client client) {
+    public void setUser(User user) {
         //prevent endless loop
-        if (this.client != null && sameAsFormer(this.client, client))
+        if (this.user != null && sameAsFormer(this.user, user))
             return;
 //        set new client account
-        Client oldClient = this.client;
-        this.client = client;
+        User oldUser = this.user;
+        this.user = user;
         //remove from the old client account
-        if (oldClient!=null)
-            oldClient.setAccount(null);
+        if (oldUser !=null)
+            oldUser.setAccount(null);
         //set myself into new client account
-        if (client!=null)
-            client.setAccount(this);
+        if (user !=null)
+            user.setAccount(this);
     }
 
     public void setCosts(List<Cost> costs){

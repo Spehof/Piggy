@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.OweDao;
-import com.spehof.piggy.domain.Client;
+import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Friend;
 import com.spehof.piggy.domain.Owe;
 import org.springframework.beans.BeanUtils;
@@ -30,17 +30,17 @@ public class OweService {
         return oweDao.save(owe);
     }
 
-    public List<Owe> getAll(Client client, Friend friend) {
-        return client.getFriend(friend.getId()).getOwes();
+    public List<Owe> getAll(User user, Friend friend) {
+        return user.getFriend(friend.getId()).getOwes();
     }
 
-    public void delete(Client client, Friend friend, Owe oweFromApi) {
-        client.getFriend(friend.getId()).removeOwe(oweFromApi);
+    public void delete(User user, Friend friend, Owe oweFromApi) {
+        user.getFriend(friend.getId()).removeOwe(oweFromApi);
         oweDao.delete(oweFromApi);
     }
 
-    public Owe update(Client client, Friend friend, Owe oweFromApi) {
-        Owe oweFromDb = client.getFriend(friend.getId()).getOwe(oweFromApi.getId());
+    public Owe update(User user, Friend friend, Owe oweFromApi) {
+        Owe oweFromDb = user.getFriend(friend.getId()).getOwe(oweFromApi.getId());
         BeanUtils.copyProperties(oweFromApi, oweFromDb, "id", "friend");
         return oweDao.save(oweFromDb);
     }
