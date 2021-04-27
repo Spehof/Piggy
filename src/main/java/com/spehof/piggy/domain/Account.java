@@ -167,7 +167,7 @@ public class Account extends BaseEntity {
         return this.transactions.stream()
                 .filter(transaction -> transaction.getId().equals(transactionId))
                 .findFirst()
-                .orElseThrow(TransactionNotFoundException::new);
+                .orElseThrow(() -> new TransactionNotFoundException("Transaction with ID " + transactionId + " not found"));
     }
 
     public Cost getCost(Long costId) {
