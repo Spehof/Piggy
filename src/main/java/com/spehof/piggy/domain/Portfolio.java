@@ -40,14 +40,16 @@ public class Portfolio extends BaseEntity {
     private Client client;
 
     @ManyToMany(mappedBy = "portfolios")
-    @JoinTable(name = "portfolios_broker_accounts", joinColumns =
-        @JoinColumn(name = "portfolio_ID"), inverseJoinColumns = @JoinColumn(name = "broker_account_ID"))
+    @JoinTable(name = "portfolios_broker_accounts",
+            joinColumns = @JoinColumn(name = "portfolio_ID"),
+            inverseJoinColumns = @JoinColumn(name = "broker_account_ID"))
     @JsonIgnore
     private List<BrokerAccount> brokerAccounts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "portfolios")
-    @JoinTable(name = "portfolios_assets", joinColumns =
-        @JoinColumn(name = "portfolio_ID"), inverseJoinColumns = @JoinColumn(name = "asset_ID"))
+    @JoinTable(name = "portfolios_assets",
+            joinColumns = @JoinColumn(name = "portfolio_ID"),
+            inverseJoinColumns = @JoinColumn(name = "asset_ID"))
     private List<Asset> assets = new ArrayList<>();
 
     @Column(name = "title")
