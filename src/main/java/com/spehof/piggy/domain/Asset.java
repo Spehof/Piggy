@@ -40,9 +40,6 @@ public class Asset {
     private String price;
 
     @ManyToMany(mappedBy = "assets")
-    @JoinTable(name = "portfolios_assets",
-            joinColumns = @JoinColumn(name = "asset_ID"),
-            inverseJoinColumns = @JoinColumn(name = "portfolio_ID"))
     @JsonIgnore
     private List<Portfolio> portfolios = new ArrayList<>();
 

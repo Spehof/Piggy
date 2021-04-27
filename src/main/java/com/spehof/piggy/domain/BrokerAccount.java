@@ -39,10 +39,7 @@ public class BrokerAccount extends BaseEntity {
     @JsonIgnore
     private Broker broker;
 
-    @ManyToMany()
-    @JoinTable(name = "portfolios_broker_accounts",
-            joinColumns = @JoinColumn(name = "broker_account_ID"),
-            inverseJoinColumns = @JoinColumn(name = "portfolio_ID"))
+    @ManyToMany(mappedBy = "brokerAccounts")
     @JsonIgnore
     private List<Portfolio> portfolios = new ArrayList<>();
 
