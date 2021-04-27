@@ -25,6 +25,7 @@ public class Account extends BaseEntity {
     }
 
     @Id
+//    TODO rename to client_ID
     @Column(name = "id_client")
     Long id;
 
