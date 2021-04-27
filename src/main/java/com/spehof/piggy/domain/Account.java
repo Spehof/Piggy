@@ -181,6 +181,6 @@ public class Account extends BaseEntity {
         return this.brokers.stream()
                 .filter(broker -> broker.getId().equals(id))
                 .findFirst()
-                .orElseThrow(BrokerNotFoundException::new);
+                .orElseThrow(() -> new BrokerNotFoundException("Broker with ID " + brokerId + " not found"));
     }
 }
