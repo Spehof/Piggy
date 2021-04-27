@@ -289,7 +289,7 @@ public class User extends BaseEntity {
         return this.goals.stream()
                 .filter(goal -> goal.getId().equals(oldGoalId))
                 .findFirst()
-                .orElseThrow(GoalNotFoundException::new);
+                .orElseThrow(() -> new GoalNotFoundException("Goal with ID " + oldGoalId + " not found"));
     }
 
     public Budget getBudget(Long oldBudgetId) {
