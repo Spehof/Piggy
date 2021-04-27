@@ -112,10 +112,25 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
                 .orElseThrow(EarningCategoryNotFoundException::new);
     }
 
+    public EarningCategory getEarningCategory(String categoryTitle){
+        return this.earningCategories.stream()
+                .filter(earningCategory -> earningCategory.getTitle().equals(categoryTitle))
+                .findFirst()
+                .orElseThrow(EarningCategoryNotFoundException::new);
+    }
+
     public CostCategory getCostCategory(Long id) {
         return this.costCategories.stream()
                 .filter(costCategory -> costCategory.getId().equals(id))
                 .findFirst()
                 .orElseThrow(CostCategoryNotFoundException::new);
     }
+
+    public CostCategory getCostCategory(String categoryTitle){
+        return this.costCategories.stream()
+                .filter(costCategory -> costCategory.getTitle().equals(categoryTitle))
+                .findFirst()
+                .orElseThrow(CostCategoryNotFoundException::new);
+    }
+
 }

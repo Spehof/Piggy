@@ -42,7 +42,12 @@ public class CostService {
 
     public Cost update(Account account, Cost costFromApi) {
         Cost costFromDb = account.getCost(costFromApi.getId());
-        BeanUtils.copyProperties(costFromApi, costFromDb, "id", "account");
+        //        TODO write logic if moneyHolder of earningCategory not set for changing
+        BeanUtils.copyProperties(costFromApi, costFromDb,
+                "id",
+                "account",
+                "moneyHolder",
+                "earningCategory");
         return costDao.save(costFromDb);
     }
 }

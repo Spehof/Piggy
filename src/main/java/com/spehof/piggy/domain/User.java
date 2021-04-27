@@ -264,6 +264,13 @@ public class User extends BaseEntity {
                 .orElseThrow(MoneyHolderNotFoundException::new);
     }
 
+    public MoneyHolder getMoneyHolder(String moneyHolderTitle) {
+        return this.moneyHolders.stream()
+                .filter(moneyHolder -> moneyHolder.getTitle().equals(moneyHolderTitle))
+                .findFirst()
+                .orElseThrow(MoneyHolderNotFoundException::new);
+    }
+
     public Notification getNotification(Long notificationId){
         return this.notifications.stream()
                 .filter(notification -> notification.getId().equals(notificationId))

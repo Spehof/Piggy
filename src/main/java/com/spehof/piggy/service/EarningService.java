@@ -25,8 +25,13 @@ public class EarningService {
         this.earningDao = earningDao;
     }
 
-    public Earning create(Account account, EarningCategory earningCategory, MoneyHolder moneyHolder, Long amount){
-        Earning earning = new Earning(account,earningCategory ,moneyHolder, amount);
+    public Earning create(Account account,
+                          EarningCategory earningCategoryFromApi,
+                          MoneyHolder moneyHolderFromApi,
+                          Long amount){
+        EarningCategory earningCategoryFromDb = account.getUser().getMoneyMovementCategoryHolder().getEarningCategory(earningCategoryFromApi.getTitle());
+        MoneyHolder moneyHolderFromDb = account.getUser().getMoneyHolder(moneyHolderFromApi.getTitle());
+        Earning earning = new Earning(account,earningCategoryFromDb ,moneyHolderFromDb, amount);
         account.setEarning(earning);
         return earningDao.save(earning);
     }
@@ -42,7 +47,12 @@ public class EarningService {
 
     public Earning update(Account account, Earning earningFromApi) {
         Earning earningFromDb = account.getEarning(earningFromApi.getId());
-        BeanUtils.copyProperties(earningFromApi, earningFromDb, "id", "account");
+//        TODO write logic if moneyHolder of earningCategory not set for changing
+        BeanUtils.copyProperties(earningFromApi, earningFromDb,
+                "id",
+                "account",
+                "moneyHolder",
+                "earningCategory");
         return earningDao.save(earningFromDb);
     }
 }
