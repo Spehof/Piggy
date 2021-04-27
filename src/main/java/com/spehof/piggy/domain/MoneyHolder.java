@@ -14,7 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "money_holders")
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = {"title"})
 @NoArgsConstructor
 @Getter
 @Setter
