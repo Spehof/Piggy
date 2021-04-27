@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class BudgetNotFoundException extends RuntimeException {
+
+    public BudgetNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }

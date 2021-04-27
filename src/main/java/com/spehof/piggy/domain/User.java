@@ -296,6 +296,6 @@ public class User extends BaseEntity {
         return this.budgets.stream()
                 .filter(budget -> budget.getId().equals(oldBudgetId))
                 .findFirst()
-                .orElseThrow(BudgetNotFoundException::new);
+                .orElseThrow(() -> new BudgetNotFoundException("Budget with ID " + oldBudgetId + " not found"));
     }
 }
