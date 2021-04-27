@@ -94,7 +94,7 @@ public class BrokerAccount extends BaseEntity {
         return this.trades.stream()
                 .filter(trade -> trade.getId().equals(tradeId))
                 .findFirst()
-                .orElseThrow(TradeNotFoundException::new);
+                .orElseThrow(() -> new TradeNotFoundException("Trade with ID " + tradeId + " not found"));
     }
 
 
