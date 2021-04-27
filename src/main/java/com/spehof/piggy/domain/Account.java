@@ -160,7 +160,7 @@ public class Account extends BaseEntity {
         return this.earnings.stream()
                 .filter(earning -> earning.getId().equals(earningId))
                 .findFirst()
-                .orElseThrow(EarningNotFoundException::new);
+                .orElseThrow(() -> new EarningNotFoundException("Earning category with ID " + earningId + " not found"));
     }
 
     public Transaction getTransaction(Long transactionId) {

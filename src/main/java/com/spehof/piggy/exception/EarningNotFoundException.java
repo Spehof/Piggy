@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class EarningNotFoundException extends RuntimeException {
+
+    public EarningNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }
