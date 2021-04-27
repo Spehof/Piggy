@@ -2,4 +2,4 @@
 
 ERD
 
-![Piggy_Database_Structure.png](images/Piggy_Database_Structure.png)
+![Piggy_Database_Structure.png](images/Puggy_Database_structure.png)
