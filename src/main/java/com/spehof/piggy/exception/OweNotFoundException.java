@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class OweNotFoundException extends RuntimeException {
+
+    public OweNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }

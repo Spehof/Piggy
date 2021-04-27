@@ -117,7 +117,7 @@ public class Friend extends BaseEntity {
         return this.owes.stream()
                 .filter(owe -> owe.getId().equals(id))
                 .findFirst()
-                .orElseThrow(OweNotFoundException::new);
+                .orElseThrow(() -> new OweNotFoundException("Owe with ID " + id + " not found"));
     }
 }
 
