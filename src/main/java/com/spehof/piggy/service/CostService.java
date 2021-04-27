@@ -3,6 +3,8 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.CostDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Cost;
+import com.spehof.piggy.domain.CostCategory;
+import com.spehof.piggy.domain.MoneyHolder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,8 @@ public class CostService {
         this.costDao = costDao;
     }
 
-    public Cost create(Account account, Long amount){
-        Cost cost = new Cost(account, amount);
+    public Cost create(Account account, CostCategory costCategory, MoneyHolder moneyHolder, Long amount){
+        Cost cost = new Cost(account, costCategory, moneyHolder, amount);
         account.setCost(cost);
         return costDao.save(cost);
     }

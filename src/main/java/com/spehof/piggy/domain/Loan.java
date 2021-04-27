@@ -26,14 +26,15 @@ public class Loan extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_loan")
+    @Column(name = "loan_ID")
     private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_friend")
+    @JoinColumn(name = "friend_ID", referencedColumnName = "friend_ID")
     @JsonIgnore
     private Friend friend;
 
+    @Column(name = "amount")
     private Long amount;
 
     public void setFriend(Friend friend) {

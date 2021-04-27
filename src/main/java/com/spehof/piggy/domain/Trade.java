@@ -20,19 +20,19 @@ import javax.persistence.*;
 @Setter
 public class Trade extends BaseEntity {
 
-    public Trade(BrokerSubAccount brokerSubAccountWhichTrade,
+    public Trade(BrokerAccount brokerAccountWhichTrade,
                  Asset tradesAsset,
                  Long amount){
-        this.brokerSubAccountWhichTrade = brokerSubAccountWhichTrade;
+        this.brokerAccountWhichTrade = brokerAccountWhichTrade;
         this.tradesAsset = tradesAsset;
         this.amount = amount;
     }
 
-    public Trade(BrokerSubAccount brokerSubAccountWhichTrade,
+    public Trade(BrokerAccount brokerAccountWhichTrade,
                  Asset tradesAsset,
                  Long amount,
                  Portfolio portfolioWhichTrade){
-        this.brokerSubAccountWhichTrade = brokerSubAccountWhichTrade;
+        this.brokerAccountWhichTrade = brokerAccountWhichTrade;
         this.tradesAsset = tradesAsset;
         this.amount = amount;
         this.portfolioWhichTrade = portfolioWhichTrade;
@@ -40,22 +40,23 @@ public class Trade extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_trade")
+    @Column(name = "trade_ID")
     private Long id;
 
-    @JoinColumn(name="id_trades_asset", referencedColumnName="id_asset")
     @OneToOne
+    @JoinColumn(name="trades_asset_ID", referencedColumnName="asset_ID")
     private Asset tradesAsset;
 
-    Long amount;
+    @Column(name = "amount")
+    private Long amount;
 
     @ManyToOne()
-    @JoinColumn(name = "id_broker_sub_account_which_trade")
+    @JoinColumn(name = "broker_account_ID")
     @JsonIgnore
-    private BrokerSubAccount brokerSubAccountWhichTrade;
+    private BrokerAccount brokerAccountWhichTrade;
 
-    @JoinColumn(name="id_portfolio_which_trade", referencedColumnName="id_portfolio")
     @OneToOne
+    @JoinColumn(name="portfolio_ID", referencedColumnName="portfolio_ID")
     private Portfolio portfolioWhichTrade;
 
 }

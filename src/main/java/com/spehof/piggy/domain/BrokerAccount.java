@@ -1,9 +1,6 @@
 package com.spehof.piggy.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spehof.piggy.exception.EarningNotFoundException;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
 import com.spehof.piggy.exception.TradeNotFoundException;
 import lombok.EqualsAndHashCode;
@@ -20,37 +17,40 @@ import java.util.List;
  * @created 20/04/2021
  */
 @Entity
-@Table(name = "broker_sub_accounts")
+@Table(name = "broker_accounts")
 @EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 @Getter
 @Setter
-public class BrokerSubAccount extends BaseEntity {
+public class BrokerAccount extends BaseEntity {
 
-    public BrokerSubAccount(Broker broker, String title){
+    public BrokerAccount(Broker broker, String title){
         this.broker = broker;
         this.title = title;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_broker_sub_account")
-    Long id;
+    @Column(name = "broker_account_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_broker")
+    @JoinColumn(name = "broker_ID", referencedColumnName = "broker_ID")
     @JsonIgnore
-    Broker broker;
+    private Broker broker;
 
-    @ManyToMany
+    @ManyToMany()
+    @JoinTable(name = "portfolios_broker_accounts", joinColumns =
+        @JoinColumn(name = "broker_account_ID"), inverseJoinColumns = @JoinColumn(name = "portfolio_ID"))
     @JsonIgnore
-    List<Portfolio> portfolios = new ArrayList<>();
+    private List<Portfolio> portfolios = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "brokerAccountWhichTrade")
     @JsonIgnore
-    List<Trade> trades = new ArrayList<>();
+    private List<Trade> trades = new ArrayList<>();
 
-    String title;
+    @Column(name = "title")
+    private String title;
 
     public void setPortfolio(Portfolio portfolio) {
         //prevent endless loop
@@ -69,7 +69,7 @@ public class BrokerSubAccount extends BaseEntity {
         //add new earning
         this.trades.add(trade);
         //set myself into the cost account
-        trade.setBrokerSubAccountWhichTrade(this);
+        trade.setBrokerAccountWhichTrade(this);
     }
 
     public void removePortfolio(Portfolio portfolio) {
@@ -79,7 +79,7 @@ public class BrokerSubAccount extends BaseEntity {
         //remove the account
         portfolios.remove(portfolio);
         //remove myself from the twitter account
-        portfolio.setBrokerSubAccounts(null);
+        portfolio.setBrokerAccounts(null);
     }
 
     public void removeTrade(Trade trade) {

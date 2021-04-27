@@ -44,11 +44,11 @@ public class AccountService {
         accountDao.save(account);
 //        TODO for test!!
         for (long l : new long[]{124553L, 1234543L}) {
-            costService.create(account, l);
+            costService.create(account, client.getMoneyMovementCategoryHolder().getCostCategory(1L), client.getMoneyHolder(1L), l);
         }
 //        TODO for test!!
         for (long l : new long[]{22445L, 1265L}) {
-            earningService.create(account, l);
+            earningService.create(account,client.getMoneyMovementCategoryHolder().getEarningCategory(1L), client.getMoneyHolder(1L), l);
         }
 
         brokerService.create(account, "My broker name 1");

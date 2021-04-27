@@ -1,11 +1,11 @@
 package com.spehof.piggy.DAO;
 
-import com.spehof.piggy.domain.BrokerSubAccount;
+import com.spehof.piggy.domain.BrokerAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Spehof
  * @created 20/04/2021
  */
-public interface BrokerSubAccountDao extends JpaRepository<BrokerSubAccount, Long> {
+public interface BrokerAccountDao extends JpaRepository<BrokerAccount, Long> {
 }

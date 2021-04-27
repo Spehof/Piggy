@@ -19,22 +19,33 @@ import java.util.Collections;
 @NoArgsConstructor
 public class Cost extends BaseEntity{
 
-    public Cost(Account account, Long amount){
+    public Cost(Account account,CostCategory costCategory, MoneyHolder moneyHolder, Long amount){
         this.account = account;
+        this.costCategory = costCategory;
+        this.moneyHolder = moneyHolder;
         this.amount = amount;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cost")
-    Long id;
+    @Column(name = "cost_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account_ID")
     @JsonIgnore
-    Account account;
+    private Account account;
 
-    Long amount;
+    @OneToOne
+    @JoinColumn(name = "money_holder_ID", referencedColumnName = "money_holder_ID")
+    private MoneyHolder moneyHolder;
+
+    @OneToOne
+    @JoinColumn(name = "cost_category_ID", referencedColumnName = "cost_category_ID")
+    private CostCategory costCategory;
+
+    @Column(name = "amount")
+    private Long amount;
 
     public void setAccount(Account account) {
         //prevent endless loop
@@ -49,5 +60,13 @@ public class Cost extends BaseEntity{
         //set myself into new owner
         if (account!=null)
             account.setCosts(Collections.singletonList(this));
+    }
+
+    public void setCostCategory(CostCategory costCategory) {
+        this.costCategory = costCategory;
+    }
+
+    public void setMoneyHolder(MoneyHolder moneyHolder) {
+        this.moneyHolder = moneyHolder;
     }
 }

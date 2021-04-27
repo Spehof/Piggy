@@ -20,21 +20,34 @@ import java.util.Collections;
 public class Earning extends BaseEntity{
 
     public Earning(Account account,
+                   EarningCategory earningCategory,
+                   MoneyHolder moneyHolder,
                    Long amount){
         this.account = account;
+        this.moneyHolder = moneyHolder;
+        this.earningCategory = earningCategory;
         this.amount = amount;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_earning")
-    Long id;
+    @Column(name = "earning_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account_ID")
     @JsonIgnore
     private Account account;
 
+    @OneToOne
+    @JoinColumn(name = "money_holder_ID", referencedColumnName = "money_holder_ID")
+    private MoneyHolder moneyHolder;
+
+    @OneToOne
+    @JoinColumn(name = "earning_category_ID", referencedColumnName = "earning_category_ID")
+    private EarningCategory earningCategory;
+
+    @Column(name = "amount")
     private Long amount;
 
     public void setAccount(Account account) {

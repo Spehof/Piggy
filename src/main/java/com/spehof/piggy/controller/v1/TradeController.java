@@ -27,16 +27,16 @@ public class TradeController {
     @GetMapping
     public List<Trade> getAll(@PathVariable(name = "id") Account account){
          return account.getBrokers().stream()
-                 .flatMap(broker -> broker.getBrokerSubAccounts().stream())
-                 .map(BrokerSubAccount::getTrades)
+                 .flatMap(broker -> broker.getBrokerAccounts().stream())
+                 .map(BrokerAccount::getTrades)
                  .flatMap(Collection::stream)
                  .collect(Collectors.toList());
     }
 
     @GetMapping("/subAccounts/{subAccountId}")
     public List<Trade> getFromSubAccount(@PathVariable(name = "id") Account account,
-                                         @PathVariable (name = "subAccountId") BrokerSubAccount brokerSubAccount){
-        return tradeService.getAll(brokerSubAccount);
+                                         @PathVariable (name = "subAccountId") BrokerAccount brokerAccount){
+        return tradeService.getAll(brokerAccount);
     }
 
     /**
@@ -44,22 +44,22 @@ public class TradeController {
      * */
     @PostMapping("/subAccounts/{subaccountId}")
     public Trade create(@PathVariable(name = "id") Account account,
-                        @PathVariable (name = "subaccountId") BrokerSubAccount brokerSubAccount,
+                        @PathVariable (name = "subaccountId") BrokerAccount brokerAccount,
                         @RequestBody Trade tradeFromApi){
-        return tradeService.create(brokerSubAccount, tradeFromApi.getTradesAsset(), tradeFromApi.getAmount());
+        return tradeService.create(brokerAccount, tradeFromApi.getTradesAsset(), tradeFromApi.getAmount());
     }
 
     @DeleteMapping("/subAccounts/{subaccountId}")
     public void delete(@PathVariable(name = "id") Account account,
-                       @PathVariable (name = "subaccountId") BrokerSubAccount brokerSubAccount,
+                       @PathVariable (name = "subaccountId") BrokerAccount brokerAccount,
                        @RequestBody Trade tradeFromApi){
-        tradeService.delete(brokerSubAccount, tradeFromApi);
+        tradeService.delete(brokerAccount, tradeFromApi);
     }
 
     @PutMapping("/subAccounts/{subaccountId}")
     public Trade update(@PathVariable(name = "id") Account account,
-                        @PathVariable (name = "subaccountId") BrokerSubAccount brokerSubAccount,
+                        @PathVariable (name = "subaccountId") BrokerAccount brokerAccount,
                         @RequestBody Trade tradeFromApi){
-        return tradeService.update(brokerSubAccount, tradeFromApi);
+        return tradeService.update(brokerAccount, tradeFromApi);
     }
 }

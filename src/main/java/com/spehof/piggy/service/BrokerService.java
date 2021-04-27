@@ -3,7 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.BrokerDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Broker;
-import com.spehof.piggy.domain.BrokerSubAccount;
+import com.spehof.piggy.domain.BrokerAccount;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ import java.util.List;
 public class BrokerService {
 
     private final BrokerDao brokerDao;
-    private final BrokerSubAccountService brokerSubAccountService;
+    private final BrokerAccountService brokerAccountService;
 
     @Autowired
     public BrokerService(BrokerDao brokerDao,
-                         BrokerSubAccountService brokerSubAccountService) {
+                         BrokerAccountService brokerAccountService) {
         this.brokerDao = brokerDao;
-        this.brokerSubAccountService = brokerSubAccountService;
+        this.brokerAccountService = brokerAccountService;
     }
 
     public Broker create(Account account, String brokerName){
@@ -32,7 +32,7 @@ public class BrokerService {
         account.setBroker(broker);
         brokerDao.save(broker);
 
-        BrokerSubAccount technicalBrokerSubAccount = brokerSubAccountService.create(broker, "technical");
+        BrokerAccount technicalBrokerAccount = brokerAccountService.create(broker, "technical");
         return brokerDao.save(broker);
     }
 

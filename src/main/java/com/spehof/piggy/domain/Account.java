@@ -25,28 +25,29 @@ public class Account extends BaseEntity {
     }
 
     @Id
-    @Column(name = "id_client")
-    Long id;
+    @Column(name = "client_ID")
+    private Long id;
 
-    @OneToOne()
+    @OneToOne(mappedBy = "account")
     @MapsId
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonManagedReference(value = "client-account")
-    Client client;
+    private Client client;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "account")
     private List<Earning> earnings = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "account")
     private List<Cost> costs = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "account")
     private List<Broker> brokers = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "account")
     private List<Transaction> transactions = new ArrayList<>();
 
-    Integer currency;
+    @Column(name = "currency")
+    private Integer currency;
 
     public void setCurrency(Integer currency) {
 //        if (this.currency.equals(currency))

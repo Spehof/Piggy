@@ -4,7 +4,6 @@ import com.spehof.piggy.DAO.ClientDao;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.CostCategory;
 import com.spehof.piggy.domain.EarningCategory;
-import com.spehof.piggy.domain.MoneyHolderType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,6 @@ public class ClientService {
     private final MoneyMovementCategoryHolderService moneyMovementCategoryHolderService;
     private final EarningCategoryService earningCategoryService;
     private final CostCategoryService costCategoryService;
-    private final MoneyHolderTypeService moneyHolderTypeService;
     private final FriendService friendService;
     private final BudgetService budgetService;
     private final NotificationService notificationService;
@@ -48,7 +46,6 @@ public class ClientService {
                          MoneyMovementCategoryHolderService moneyMovementCategoryHolderService,
                          EarningCategoryService earningCategoryService,
                          CostCategoryService costCategoryService,
-                         MoneyHolderTypeService moneyHolderTypeService,
                          FriendService friendService,
                          BudgetService budgetService,
                          NotificationService notificationService,
@@ -61,7 +58,6 @@ public class ClientService {
         this.moneyMovementCategoryHolderService = moneyMovementCategoryHolderService;
         this.earningCategoryService = earningCategoryService;
         this.costCategoryService = costCategoryService;
-        this.moneyHolderTypeService = moneyHolderTypeService;
         this.friendService = friendService;
         this.budgetService = budgetService;
         this.notificationService = notificationService;
@@ -100,10 +96,8 @@ public class ClientService {
         /** Set new cost category clients moneyMovementCategoryHolder */
         moneyMovementCategoryHolderService.addNewCostCategory(client, clientCostCategory);
 
-        MoneyHolderType clientMoneyHolderType1 =  moneyHolderTypeService.create(client, "Money Holder Test 1");
-        MoneyHolderType clientMoneyHolderType2 =  moneyHolderTypeService.create(client, "Money Holder Test 2");
 
-        moneyHolderService.create(client, clientMoneyHolderType1, "My test wallet");
+        moneyHolderService.create(client, "My test wallet");
 
         friendService.create(client, "Niko");
 

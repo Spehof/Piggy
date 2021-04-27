@@ -19,24 +19,26 @@ import java.util.Collections;
 @NoArgsConstructor
 public class Goal extends BaseEntity {
 
-    public Goal(Client client, Long amount, String text){
+    public Goal(Client client, Long amount, String title){
         this.client = client;
         this.amount = amount;
-        this.text = text;
+        this.title = title;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_goal")
-    Long id;
+    @Column(name = "goal_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    Client client;
+    private Client client;
 
-    String text;
+    @Column(name = "title")
+    private String title;
 
+    @Column(name = "amount")
     Long amount;
 
     public void setClient(Client client) {

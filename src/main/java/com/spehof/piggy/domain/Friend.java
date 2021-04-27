@@ -34,21 +34,23 @@ public class Friend extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_friend")
-    Long id;
+    @Column(name = "friend_ID")
+    private Long id;
 
-    String name;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    Client client;
+    private Client client;
 
     @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
-    List<Loan> loans = new  ArrayList<>();
+    private List<Loan> loans = new  ArrayList<>();
 
+//    TODO maybe this will be problem
     @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
-    List<Owe> owes = new ArrayList<>();
+    private List<Owe> owes = new ArrayList<>();
 
 //TODO refactor setClient to base entity
     public void setClient(Client client) {

@@ -26,15 +26,16 @@ public class Owe extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_owe")
-    Long id;
+    @Column(name = "owe_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_friend")
+    @JoinColumn(name = "friend_ID", referencedColumnName = "friend_ID")
     @JsonIgnore
-    Friend friend;
+    private Friend friend;
 
-    Long amount;
+    @Column(name = "amount")
+    private Long amount;
 
     public void setFriend(Friend friend) {
 //        //prevent endless loop

@@ -30,7 +30,7 @@ public class Client extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "client_ID")
     @JsonView(ClientViews.IdName.class)
     private Long id;
 
@@ -43,35 +43,35 @@ public class Client extends BaseEntity {
     @JsonView(ClientViews.IdNameCreationdate.class)
     private LocalDateTime registrationDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
+    @Column(name = "account_ID")
     @PrimaryKeyJoinColumn
     @JsonBackReference(value = "client-account")
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "client")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
+    @Column(name = "money_movement_category_holder_ID")
     @PrimaryKeyJoinColumn
     @JsonBackReference(value = "client-moneyMovementCategoryHolder")
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "client")
     List<MoneyHolder> moneyHolders = new ArrayList<>();
 
-    @OneToMany()
-    private List<MoneyHolderType> moneyHolderTypes = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "client")
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "client")
     private List<Budget> budgets = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "client")
     private List<Notification> notifications = new ArrayList<>();
 
-    @OneToMany()
+    @OneToMany(mappedBy = "client")
     private List<Goal> goals = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<Portfolio> portfolios = new ArrayList<>();
 
     public void setAccount(Account account) {
@@ -111,22 +111,6 @@ public class Client extends BaseEntity {
             moneyMovementCategoryHolder.setClient(this);
     }
 
-
-    public void setMoneyHolderTypes(List<MoneyHolderType> moneyHolderTypes){
-        for (MoneyHolderType moneyHolderType : moneyHolderTypes) {
-            this.setMoneyHolderType(moneyHolderType);
-        }
-    }
-
-    public void setMoneyHolderType(MoneyHolderType moneyHolderType) {
-        //prevent endless loop
-        if (this.moneyHolderTypes.contains(moneyHolderType))
-            return ;
-        //add new earning
-        this.moneyHolderTypes.add(moneyHolderType);
-        //set myself into the cost account
-        moneyHolderType.setClient(this);
-    }
 
     public void setMoneyHolder(MoneyHolder moneyHolder) {
         //prevent endless loop
@@ -199,16 +183,6 @@ public class Client extends BaseEntity {
         this.goals.add(goal);
         //set myself into the cost account
         goal.setClient(this);
-    }
-
-    public void removeMoneyHolderType(MoneyHolderType moneyHolderType) {
-        //prevent endless loop
-        if (!moneyHolderTypes.contains(moneyHolderType))
-            return ;
-        //remove the account
-        moneyHolderTypes.remove(moneyHolderType);
-        //remove myself from the twitter account
-        moneyHolderType.setClient(null);
     }
 
     public void removeMoneyHolder(MoneyHolder moneyHolder) {
@@ -304,13 +278,6 @@ public class Client extends BaseEntity {
                 .filter(friend -> friend.getId().equals(friendId))
                 .findFirst()
                 .orElseThrow(FriendNotFoundException::new);
-    }
-
-    public MoneyHolderType getMoneyHolderType(Long moneyHolderTypeId){
-        return this.moneyHolderTypes.stream()
-                .filter(moneyHolderType -> moneyHolderType.getId().equals(moneyHolderTypeId))
-                .findFirst()
-                .orElseThrow(MoneyHolderTypeNotFoundException::new);
     }
 
     public Goal getGoal(Long oldGoalId) {

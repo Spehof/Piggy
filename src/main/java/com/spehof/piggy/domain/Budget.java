@@ -27,16 +27,16 @@ public class Budget extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_budget")
-    Long id;
+    @Column(name = "budget_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID")
     @JsonIgnore
-    Client client;
+    private Client client;
 
-
-    Long value;
+    @Column(name = "value")
+    private Long value;
 
     public void setClient(Client client) {
         //prevent endless loop

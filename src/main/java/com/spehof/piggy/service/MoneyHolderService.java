@@ -1,10 +1,8 @@
 package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.MoneyHolderDao;
-import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.Client;
 import com.spehof.piggy.domain.MoneyHolder;
-import com.spehof.piggy.domain.MoneyHolderType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +23,8 @@ public class MoneyHolderService {
         this.moneyHolderDao = moneyHolderDao;
     }
 
-    public MoneyHolder create(Client client, MoneyHolderType moneyHolderType, String title){
-        MoneyHolder moneyHolder = new MoneyHolder(client, moneyHolderType, title);
+    public MoneyHolder create(Client client, String title){
+        MoneyHolder moneyHolder = new MoneyHolder(client, title);
         client.setMoneyHolder(moneyHolder);
         return moneyHolderDao.save(moneyHolder);
     }
@@ -43,8 +41,8 @@ public class MoneyHolderService {
 
     public MoneyHolder update(Client client, MoneyHolder moneyHolderFromApi){
         MoneyHolder moneyHolderFromDb = client.getMoneyHolder(moneyHolderFromApi.getId());
-        if (moneyHolderFromApi.getMoneyHolderType() == null){
-            BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client", "moneyHolderType");
+        if (moneyHolderFromApi.getTitle() == null){
+            BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client");
         } else {
             BeanUtils.copyProperties(moneyHolderFromApi, moneyHolderFromDb, "id", "client");
         }

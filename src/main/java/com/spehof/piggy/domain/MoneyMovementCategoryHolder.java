@@ -28,21 +28,21 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
     }
 
     @Id
-    @Column(name = "id_client")
-    Long id;
+    @Column(name = "client_ID")
+    private Long id;
 
     @OneToOne()
     @MapsId
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonManagedReference(value = "client-moneyMovementCategoryHolder")
     private Client client;
 
 
-    @OneToMany()
+    @OneToMany(mappedBy = "moneyMovementCategoryHolder")
     private Set<CostCategory> costCategories = new HashSet<>();
 
 
-    @OneToMany()
+    @OneToMany(mappedBy = "moneyMovementCategoryHolder")
     private Set<EarningCategory> earningCategories = new HashSet<>();
 
 

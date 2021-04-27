@@ -22,38 +22,22 @@ import javax.persistence.*;
 @Setter
 public class MoneyHolder extends BaseEntity {
 
-    public MoneyHolder(Client client, MoneyHolderType moneyHolderType, String title){
+    public MoneyHolder(Client client, String title){
         this.client = client;
-        this.moneyHolderType = moneyHolderType;
         this.title = title;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_money_holder")
+    @Column(name = "money_holder_ID")
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore()
     private Client client;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_money_holder_type")
-    private MoneyHolderType moneyHolderType;
-
-
-    public void setMoneyHolderType(MoneyHolderType moneyHolderType) {
-        //prevent endless loop
-        if (sameAsFormer(this.moneyHolderType, moneyHolderType))
-            return;
-        MoneyHolderType oldMoneyHolderType = this.moneyHolderType;
-        this.moneyHolderType = moneyHolderType;
-        if (oldMoneyHolderType!=null)
-            oldMoneyHolderType.setMoneyHolder(null);
-        if (moneyHolderType!=null)
-            moneyHolderType.setMoneyHolder(this);
-    }
 }

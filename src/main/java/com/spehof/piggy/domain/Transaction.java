@@ -33,23 +33,24 @@ public class Transaction extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_transaction")
+    @Column(name = "transaction_ID")
     private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account_ID")
     @JsonIgnore
     private Account account;
 
 
-    @JoinColumn(name="from_money_holder_id", referencedColumnName="id_money_holder")
     @OneToOne
+    @JoinColumn(name = "from_money_holder_ID", referencedColumnName="money_holder_ID")
     private MoneyHolder fromMoneyHolderId;
 
 
-    @JoinColumn(name="to_money_holder_id", referencedColumnName="id_money_holder")
     @OneToOne
+    @JoinColumn(name="to_money_holder_ID", referencedColumnName="money_holder_ID")
     private MoneyHolder toMoneyHolderId;
 
+    @Column(name = "amount")
     private BigDecimal amount;
 }

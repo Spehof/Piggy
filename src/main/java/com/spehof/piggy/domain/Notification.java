@@ -27,15 +27,16 @@ public class Notification extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_notification")
-    Long id;
+    @Column(name = "notification_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    Client client;
+    private Client client;
 
-    String message;
+    @Column(name = "message")
+    private String message;
 
     public void setClient(Client client) {
         //prevent endless loop

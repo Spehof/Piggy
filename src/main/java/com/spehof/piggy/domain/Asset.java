@@ -1,7 +1,6 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,15 +30,20 @@ public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_asset")
-    Long id;
+    @Column(name = "asset_ID")
+    private Long id;
 
-    String name;
-    String price;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToMany
+    @Column(name = "price")
+    private String price;
+
+    @ManyToMany(mappedBy = "assets")
+    @JoinTable(name = "portfolios_assets", joinColumns =
+        @JoinColumn(name = "asset_ID"), inverseJoinColumns = @JoinColumn(name = "portfolio_ID"))
     @JsonIgnore
-    List<Portfolio> portfolios = new ArrayList<>();
+    private List<Portfolio> portfolios = new ArrayList<>();
 
     public void setPortfolio(Portfolio portfolio) {
         if (portfolio == null) {

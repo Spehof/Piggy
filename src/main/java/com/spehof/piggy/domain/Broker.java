@@ -1,8 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
-import com.spehof.piggy.exception.BudgetNotFoundException;
+import com.spehof.piggy.exception.BrokerAccountNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,26 +24,28 @@ import java.util.List;
 @Setter
 public class Broker extends BaseEntity {
 
-    public Broker(Account account, String brokerName){
+    public Broker(Account account, String brokerTitle){
         this.account = account;
-        this.brokerName = brokerName;
+        this.brokerTitle = brokerTitle;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_broker")
-    Long id;
+    @Column(name = "broker_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account_ID", referencedColumnName = "account_ID")
     @JsonIgnore
-    Account account;
+    private Account account;
 
 //    BrokerType brokerType;
-    private String brokerName;
 
-    @OneToMany()
-    private List<BrokerSubAccount> brokerSubAccounts = new ArrayList<>();
+    @Column(name = "title")
+    private String brokerTitle;
+
+    @OneToMany(mappedBy = "broker")
+    private List<BrokerAccount> brokerAccounts = new ArrayList<>();
 
 
     public void setAccount(Account account) {
@@ -62,28 +63,28 @@ public class Broker extends BaseEntity {
             account.setBrokers(Collections.singletonList(this));
     }
 
-    public void setBrokerSubAccount(BrokerSubAccount brokerSubAccount) {
+    public void setBrokerAccount(BrokerAccount brokerAccount) {
         //prevent endless loop
-        if (this.brokerSubAccounts.contains(brokerSubAccount))
+        if (this.brokerAccounts.contains(brokerAccount))
             return ;
         //add new brokerSubAccount
-        this.brokerSubAccounts.add(brokerSubAccount);
+        this.brokerAccounts.add(brokerAccount);
         //set myself into the brokerSubAccount account
-        brokerSubAccount.setBroker(this);
+        brokerAccount.setBroker(this);
     }
 
-    public void removeBrokerSubAccount(BrokerSubAccount brokerSubAccount) {
+    public void removeBrokerSubAccount(BrokerAccount brokerAccount) {
         //prevent endless loop
-        if (!brokerSubAccounts.contains(brokerSubAccount))
+        if (!brokerAccounts.contains(brokerAccount))
             return ;
-        brokerSubAccounts.remove(brokerSubAccount);
-        brokerSubAccount.setBroker(null);
+        brokerAccounts.remove(brokerAccount);
+        brokerAccount.setBroker(null);
     }
 
-    public BrokerSubAccount getBrokerSubAccount(Long brokerSubAccountId) {
-        return this.brokerSubAccounts.stream()
-                .filter(brokerSubAccount -> brokerSubAccount.id.equals(brokerSubAccountId))
+    public BrokerAccount getBrokerAccount(Long brokerAccountId) {
+        return this.brokerAccounts.stream()
+                .filter(brokerAccount -> brokerAccount.getId().equals(brokerAccountId))
                 .findFirst()
-                .orElseThrow(BrokerSubAccountNotFoundException::new);
+                .orElseThrow(BrokerAccountNotFoundException::new);
     }
 }

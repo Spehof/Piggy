@@ -20,20 +20,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class CostCategory extends BaseEntity {
 
-    public CostCategory(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String name){
+    public CostCategory(MoneyMovementCategoryHolder moneyMovementCategoryHolder, String title){
         this.moneyMovementCategoryHolder = moneyMovementCategoryHolder;
-        this.name = name;
+        this.title = title;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cost_category")
-    Long id;
+    @Column(name = "cost_category_ID")
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_money_movement_category")
+    @JoinColumn(name = "money_movement_category_holder_ID")
     @JsonIgnore
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;
 
-    private String name;
+    @Column(name = "title")
+    private String title;
 }

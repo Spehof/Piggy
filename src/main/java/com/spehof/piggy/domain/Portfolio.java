@@ -1,11 +1,8 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spehof.piggy.exception.AssetNotFoundException;
-import com.spehof.piggy.exception.BrokerSubAccountNotFoundException;
-import com.spehof.piggy.exception.EarningNotFoundException;
-import com.spehof.piggy.exception.PortfolioNotFoundException;
+import com.spehof.piggy.exception.BrokerAccountNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,49 +31,53 @@ public class Portfolio extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_portfolio")
-    Long id;
+    @Column(name = "portfolio_ID")
+    private Long id;
 
     @ManyToOne()
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonIgnore
-    Client client;
+    private Client client;
 
-    @ManyToMany
-    @JoinColumn(name = "id_portfolio")
+    @ManyToMany(mappedBy = "portfolios")
+    @JoinTable(name = "portfolios_broker_accounts", joinColumns =
+        @JoinColumn(name = "portfolio_ID"), inverseJoinColumns = @JoinColumn(name = "broker_account_ID"))
     @JsonIgnore
-    List<BrokerSubAccount> brokerSubAccounts = new ArrayList<>();
+    private List<BrokerAccount> brokerAccounts = new ArrayList<>();
 
-    @ManyToMany
-    List<Asset> assets = new ArrayList<>();
+    @ManyToMany(mappedBy = "portfolios")
+    @JoinTable(name = "portfolios_assets", joinColumns =
+        @JoinColumn(name = "portfolio_ID"), inverseJoinColumns = @JoinColumn(name = "asset_ID"))
+    private List<Asset> assets = new ArrayList<>();
 
-    String title;
+    @Column(name = "title")
+    private String title;
 
-    public void setBrokerSubAccount(BrokerSubAccount brokerSubAccount) {
+    public void setBrokerSubAccount(BrokerAccount brokerAccount) {
         //prevent endless loop
-        if (this.brokerSubAccounts.contains(brokerSubAccount))
+        if (this.brokerAccounts.contains(brokerAccount))
             return ;
         //add new earning
-        this.brokerSubAccounts.add(brokerSubAccount);
+        this.brokerAccounts.add(brokerAccount);
         //set myself into the cost account
-        brokerSubAccount.setPortfolio(this);
+        brokerAccount.setPortfolio(this);
     }
 
-    public void removeBrokerSubAccount(BrokerSubAccount brokerSubAccount) {
+    public void removeBrokerSubAccount(BrokerAccount brokerAccount) {
         //prevent endless loop
-        if (!brokerSubAccounts.contains(brokerSubAccount))
+        if (!brokerAccounts.contains(brokerAccount))
             return ;
         //remove the account
-        brokerSubAccounts.remove(brokerSubAccount);
+        brokerAccounts.remove(brokerAccount);
         //remove myself from the twitter account
-        brokerSubAccount.setPortfolio(null);
+        brokerAccount.setPortfolio(null);
     }
 
-    public BrokerSubAccount getBrokerSubAccount(Long brokerSubAccountId) {
-        return this.brokerSubAccounts.stream()
+    public BrokerAccount getBrokerSubAccount(Long brokerSubAccountId) {
+        return this.brokerAccounts.stream()
                 .filter(brokerSubAccount -> brokerSubAccount.getId().equals(brokerSubAccountId))
                 .findFirst()
-                .orElseThrow(BrokerSubAccountNotFoundException::new);
+                .orElseThrow(BrokerAccountNotFoundException::new);
     }
 
     public void setAsset(Asset asset) {
