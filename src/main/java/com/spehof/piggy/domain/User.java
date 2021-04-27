@@ -254,7 +254,7 @@ public class User extends BaseEntity {
         return this.portfolios.stream()
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))
                 .findFirst()
-                .orElseThrow(PortfolioNotFoundException::new);
+                .orElseThrow(() -> new PortfolioNotFoundException("Portfolio with ID " + portfolioId + " not found"));
     }
 
     public MoneyHolder getMoneyHolder(Long moneyHolderId) {

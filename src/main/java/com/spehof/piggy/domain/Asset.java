@@ -70,7 +70,7 @@ public class Asset {
         return this.portfolios.stream()
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))
                 .findFirst()
-                .orElseThrow(PortfolioNotFoundException::new);
+                .orElseThrow(() -> new PortfolioNotFoundException("Portfolio with ID " + portfolioId + " not found"));
     }
 
     // TODO REFACTOR!!!
@@ -78,7 +78,7 @@ public class Asset {
         Portfolio portfolioForChange = this.portfolios.stream()
                 .filter(portfolio -> portfolio.getId().equals(portfolioId))
                 .findFirst()
-                .orElseThrow(PortfolioNotFoundException::new);
+                .orElseThrow(() -> new PortfolioNotFoundException("Portfolio with ID " + portfolioId + " not found"));
         portfolioForChange = null;
     }
 }
