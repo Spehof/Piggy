@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 // TODO write
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class CostCategoryNotFoundException extends RuntimeException{
+
+    public CostCategoryNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }
