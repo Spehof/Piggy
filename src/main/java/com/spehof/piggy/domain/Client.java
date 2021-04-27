@@ -44,13 +44,12 @@ public class Client extends BaseEntity {
     private LocalDateTime registrationDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
-    @Column(name = "account_ID")
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "account_ID")
     @JsonBackReference(value = "client-account")
     private Account account;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
-    @Column(name = "money_movement_category_holder_ID")
+    @JoinColumn(name = "money_movement_category_holder_ID")
     @PrimaryKeyJoinColumn
     @JsonBackReference(value = "client-moneyMovementCategoryHolder")
     private MoneyMovementCategoryHolder moneyMovementCategoryHolder;

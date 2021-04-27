@@ -31,7 +31,7 @@ public class GoalController {
     @PostMapping
     public Goal createGoal(@PathVariable(name = "id") Account account,
                            @RequestBody Goal goalFromApi){
-        return goalService.create(account.getClient(), goalFromApi.getAmount(), goalFromApi.getText());
+        return goalService.create(account.getClient(), goalFromApi.getAmount(), goalFromApi.getTitle());
     }
 
     @DeleteMapping

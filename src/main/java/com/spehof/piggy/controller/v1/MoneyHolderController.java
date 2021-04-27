@@ -32,7 +32,6 @@ public class MoneyHolderController {
     public MoneyHolder create(@PathVariable(name = "id")Account account,
                               @RequestBody MoneyHolder moneyHolderFromApi){
         return moneyHolderService.create(account.getClient(),
-                moneyHolderFromApi.getMoneyHolderType(),
                 moneyHolderFromApi.getTitle());
     }
 

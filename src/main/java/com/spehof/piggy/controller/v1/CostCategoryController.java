@@ -35,7 +35,8 @@ public class CostCategoryController {
     @PostMapping()
     public CostCategory createNewCategory(@PathVariable(name = "id") Account account,
                                           @RequestBody CostCategory costCategoryFromApi){
-        CostCategory clientCostCategory = costCategoryService.create(account.getClient(), costCategoryFromApi.getName());
+        CostCategory clientCostCategory = costCategoryService.create(account.getClient(),
+                costCategoryFromApi.getTitle());
         return moneyMovementCategoryHolderService.addNewCostCategory(account.getClient(), clientCostCategory);
     }
 

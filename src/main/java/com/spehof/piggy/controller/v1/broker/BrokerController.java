@@ -14,12 +14,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/account/{id}/brokers")
-public class BrokerAccountController {
+public class BrokerController {
 
     private final BrokerService brokerService;
 
     @Autowired
-    public BrokerAccountController(BrokerService brokerService) {
+    public BrokerController(BrokerService brokerService) {
         this.brokerService = brokerService;
     }
 

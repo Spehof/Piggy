@@ -35,7 +35,7 @@ public class EarningCategoryController {
     @PostMapping()
     public EarningCategory createNewCategory(@PathVariable(name = "id") Account account,
                                   @RequestBody EarningCategory earningCategoryFromApi){
-        EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategoryFromApi.getName());
+        EarningCategory clientEarningCategory =  earningCategoryService.create(account.getClient(), earningCategoryFromApi.getTitle());
         return moneyMovementCategoryHolderService.addNewEarningCategory(account.getClient(), clientEarningCategory);
     }
 

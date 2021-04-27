@@ -25,11 +25,11 @@ public class Account extends BaseEntity {
     }
 
     @Id
-    @Column(name = "client_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_ID")
     private Long id;
 
-    @OneToOne(mappedBy = "account")
-    @MapsId
+    @OneToOne()
     @JoinColumn(name = "client_ID", referencedColumnName = "client_ID")
     @JsonManagedReference(value = "client-account")
     private Client client;

@@ -31,7 +31,10 @@ public class CostController {
     @PostMapping
     public Cost createCost(@PathVariable(name = "id") Account account,
                            @RequestBody Cost costFromApi){
-        return costService.create(account, costFromApi.getAmount());
+        return costService.create(account,
+                costFromApi.getCostCategory(),
+                costFromApi.getMoneyHolder(),
+                costFromApi.getAmount());
     }
 
     @DeleteMapping

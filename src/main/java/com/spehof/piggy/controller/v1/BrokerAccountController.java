@@ -14,7 +14,7 @@ import java.util.List;
  * @created 20/04/2021
  */
 @RestController
-@RequestMapping("/api/v1/account/{id}/brokers/{brokerId}/subaccounts")
+@RequestMapping("/api/v1/account/{id}/brokers/{brokerId}/accounts")
 public class BrokerAccountController {
 
     private final BrokerAccountService brokerAccountService;

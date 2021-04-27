@@ -74,6 +74,7 @@ public class ClientService {
     public Client create(Client client){
         /** Set registration date when creating a new client */
         client.setRegistrationDate(LocalDateTime.now());
+        clientDao.save(client);
 
         /** Create client account */
         accountService.create(client);

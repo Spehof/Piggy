@@ -31,7 +31,10 @@ public class EarningController {
     @PostMapping
     public Earning createEarning(@PathVariable(name = "id") Account account,
                                  @RequestBody Earning earningFromApi){
-        return earningService.create(account, earningFromApi.getAmount());
+        return earningService.create(account,
+                earningFromApi.getEarningCategory(),
+                earningFromApi.getMoneyHolder(),
+                earningFromApi.getAmount());
     }
 
 //    TODO deleting across ID or something else
