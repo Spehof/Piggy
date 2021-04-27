@@ -75,11 +75,11 @@ public class Portfolio extends BaseEntity {
         brokerAccount.setPortfolio(null);
     }
 
-    public BrokerAccount getBrokerSubAccount(Long brokerSubAccountId) {
+    public BrokerAccount getBrokerSubAccount(Long brokerAccountId) {
         return this.brokerAccounts.stream()
-                .filter(brokerSubAccount -> brokerSubAccount.getId().equals(brokerSubAccountId))
+                .filter(brokerSubAccount -> brokerSubAccount.getId().equals(brokerAccountId))
                 .findFirst()
-                .orElseThrow(BrokerAccountNotFoundException::new);
+                .orElseThrow(() -> new BrokerAccountNotFoundException("BrokerAccount with ID " + brokerAccountId + " not found"));
     }
 
     public void setAsset(Asset asset) {

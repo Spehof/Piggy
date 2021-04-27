@@ -9,4 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class BrokerAccountNotFoundException extends RuntimeException {
+
+    public BrokerAccountNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }
+
