@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class FriendNotFoundException extends RuntimeException {
+
+    public FriendNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }

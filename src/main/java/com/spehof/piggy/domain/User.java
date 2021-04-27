@@ -282,7 +282,7 @@ public class User extends BaseEntity {
         return this.friends.stream()
                 .filter(friend -> friend.getId().equals(friendId))
                 .findFirst()
-                .orElseThrow(FriendNotFoundException::new);
+                .orElseThrow(() -> new FriendNotFoundException("Friend with ID " + friendId + " not found"));
     }
 
     public Goal getGoal(Long oldGoalId) {
