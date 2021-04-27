@@ -40,7 +40,7 @@ public class GoalService {
 
     public Goal update(User user, Goal goalFromApi) {
         Goal goalFromDb = user.getGoal(goalFromApi.getId());
-        BeanUtils.copyProperties(goalFromApi, goalFromDb, "id", "client");
+        BeanUtils.copyProperties(goalFromApi, goalFromDb, "id", "user");
         return goalDao.save(goalFromDb);
     }
 }

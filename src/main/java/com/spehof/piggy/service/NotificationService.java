@@ -41,7 +41,7 @@ public class NotificationService {
     public Notification update(User user,
                                Notification notificationFromApi){
         Notification notificationFromDb = user.getNotification(notificationFromApi.getId());
-        BeanUtils.copyProperties(notificationFromApi, notificationFromDb, "id", "client");
+        BeanUtils.copyProperties(notificationFromApi, notificationFromDb, "id", "user");
         return notificationDao.save(notificationFromDb);
     }
 }

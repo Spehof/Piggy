@@ -59,9 +59,12 @@ public class AccountService {
     public Account update(Account accountFromDb, Account accountFromApi){
         BeanUtils.copyProperties(accountFromApi, accountFromDb,
                 "id",
-                "client",
+                "user",
                 "earnings",
-                "costs");
+                "costs",
+                "brokers",
+                "transactions"
+        );
         return accountDao.save(accountFromDb);
     }
 

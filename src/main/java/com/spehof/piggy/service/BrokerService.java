@@ -54,7 +54,7 @@ public class BrokerService {
         BeanUtils.copyProperties(brokerFromApi, brokerFromDb,
                 "id",
                 "account",
-                "brokerSubAccounts");
+                "brokerAccounts");
 
         return brokerDao.save(brokerFromDb);
     }

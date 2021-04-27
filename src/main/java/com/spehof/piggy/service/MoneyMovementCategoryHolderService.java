@@ -54,6 +54,9 @@ public class MoneyMovementCategoryHolderService {
         return newEarningCategory;
     }
 
+    // TODO refactor this to category service
+//    TODO if user delete cost category but this category set existing costs = we not deleting category
+//    TODO or if associated just dont deleting
     public void removeEarningCategory(User user, EarningCategory earningCategoryFromApi){
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();
         EarningCategory earningCategoryFromDb = clientMoneyMovementCategoryHolder.getEarningCategory(earningCategoryFromApi.getId());
@@ -61,7 +64,9 @@ public class MoneyMovementCategoryHolderService {
         earningCategoryDao.delete(earningCategoryFromDb);
         moneyMovementCategoryHolderDao.save(clientMoneyMovementCategoryHolder);
     }
-
+// TODO refactor this to category service
+//    TODO if user delete cost category but this category set existing costs = we not deleting category
+//    TODO or if associated just dont deleting
     public void removeCostCategory(User user, CostCategory costCategoryFromApi){
         CostCategory costCategoryFromDb = user.getMoneyMovementCategoryHolder().getCostCategory(costCategoryFromApi.getId());
         MoneyMovementCategoryHolder clientMoneyMovementCategoryHolder = user.getMoneyMovementCategoryHolder();

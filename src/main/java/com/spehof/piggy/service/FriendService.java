@@ -53,7 +53,7 @@ public class FriendService {
 
     public Friend update(User user, Friend friendFromApi) {
         Friend friendFromDb = user.getFriend(friendFromApi.getId());
-        BeanUtils.copyProperties(friendFromApi, friendFromDb, "id", "client", "loans", "owes");
+        BeanUtils.copyProperties(friendFromApi, friendFromDb, "id", "user", "loans", "owes");
         return friendDao.save(friendFromDb);
     }
 

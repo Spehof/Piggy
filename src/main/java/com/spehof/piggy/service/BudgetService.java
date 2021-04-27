@@ -40,7 +40,7 @@ public class BudgetService {
 
     public Budget update(User user, Budget budgetFromApi) {
         Budget budgetFromDb = user.getBudget(budgetFromApi.getId());
-        BeanUtils.copyProperties(budgetFromApi, budgetFromDb, "id", "client");
+        BeanUtils.copyProperties(budgetFromApi, budgetFromDb, "id", "user");
         return budgetDao.save(budgetFromDb);
     }
 }
