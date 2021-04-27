@@ -261,21 +261,21 @@ public class User extends BaseEntity {
         return this.moneyHolders.stream()
                 .filter(moneyHolder -> moneyHolder.getId().equals(moneyHolderId))
                 .findFirst()
-                .orElseThrow(MoneyHolderNotFoundException::new);
+                .orElseThrow(() -> new MoneyHolderNotFoundException("Money holder with ID " + moneyHolderId + " not found"));
     }
 
     public MoneyHolder getMoneyHolder(String moneyHolderTitle) {
         return this.moneyHolders.stream()
                 .filter(moneyHolder -> moneyHolder.getTitle().equals(moneyHolderTitle))
                 .findFirst()
-                .orElseThrow(MoneyHolderNotFoundException::new);
+                .orElseThrow(() -> new MoneyHolderNotFoundException("Money holder with title " + moneyHolderTitle + " not found"));
     }
 
     public Notification getNotification(Long notificationId){
         return this.notifications.stream()
                 .filter(notification -> notification.getId().equals(notificationId))
                 .findFirst()
-                .orElseThrow(NotificationNotFoundException::new);
+                .orElseThrow(() -> new NotificationNotFoundException("Notification with ID " + notificationId + " not found"));
     }
 
     public Friend getFriend(Long friendId){

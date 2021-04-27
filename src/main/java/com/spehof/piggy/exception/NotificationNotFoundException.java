@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class NotificationNotFoundException extends RuntimeException {
+
+    public NotificationNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 }
