@@ -110,7 +110,7 @@ public class Friend extends BaseEntity {
         return this.loans.stream()
                 .filter(loan -> loan.getId().equals(id))
                 .findFirst()
-                .orElseThrow(LoanNotFoundException::new);
+                .orElseThrow(() -> new LoanNotFoundException("Loan with ID " + id + " not found"));
     }
 
     public Owe getOwe(Long id) {
