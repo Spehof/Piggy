@@ -109,14 +109,14 @@ public class MoneyMovementCategoryHolder extends BaseEntity {
         return this.earningCategories.stream()
                 .filter(earningCategory -> earningCategory.getId().equals(id))
                 .findFirst()
-                .orElseThrow(EarningCategoryNotFoundException::new);
+                .orElseThrow(() -> new EarningCategoryNotFoundException("Earning category with ID " + id + " not found"));
     }
 
     public EarningCategory getEarningCategory(String categoryTitle){
         return this.earningCategories.stream()
                 .filter(earningCategory -> earningCategory.getTitle().equals(categoryTitle))
                 .findFirst()
-                .orElseThrow(EarningCategoryNotFoundException::new);
+                .orElseThrow(() -> new EarningCategoryNotFoundException("Earning category with title " + categoryTitle + " not found"));
     }
 
     public CostCategory getCostCategory(Long id) {
