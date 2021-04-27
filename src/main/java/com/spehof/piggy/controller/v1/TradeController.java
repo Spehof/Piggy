@@ -26,7 +26,6 @@ public class TradeController {
 
     @GetMapping
     public List<Trade> getAll(@PathVariable(name = "id") Account account){
-//        TODO move to service
          return account.getBrokers().stream()
                  .flatMap(broker -> broker.getBrokerSubAccounts().stream())
                  .map(BrokerSubAccount::getTrades)
