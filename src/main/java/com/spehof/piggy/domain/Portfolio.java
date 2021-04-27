@@ -106,7 +106,7 @@ public class Portfolio extends BaseEntity {
         Asset assetForChange = this.assets.stream()
                 .filter(asset -> asset.getId().equals(assetId))
                 .findFirst()
-                .orElseThrow(AssetNotFoundException::new);
+                .orElseThrow(() -> new AssetNotFoundException("Asset with this id " + assetId + " not found"));
         assetForChange = null;
     }
 
@@ -114,6 +114,6 @@ public class Portfolio extends BaseEntity {
         return this.assets.stream()
                 .filter(asset -> asset.getId().equals(assetId))
                 .findFirst()
-                .orElseThrow(AssetNotFoundException::new);
+                .orElseThrow(() -> new AssetNotFoundException("Asset with this id " + assetId + " not found"));
     }
 }

@@ -9,4 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class AssetNotFoundException extends RuntimeException {
+
+    public AssetNotFoundException(String errorMessage){
+        super(errorMessage);
+
+    }
 }
