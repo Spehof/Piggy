@@ -57,7 +57,16 @@ public class BrokerAccountService {
 
     public BrokerAccount update(Broker broker, BrokerAccount brokerAccountFromApi){
         BrokerAccount brokerAccountFromDb = broker.getBrokerAccount(brokerAccountFromApi.getId());
-        BeanUtils.copyProperties(brokerAccountFromApi, brokerAccountFromDb, "id", "broker");
+        if (brokerAccountFromApi.getAssets() != null) {
+            BeanUtils.copyProperties(brokerAccountFromApi, brokerAccountFromDb,
+                    "id",
+                    "broker");
+        } else {
+            BeanUtils.copyProperties(brokerAccountFromApi, brokerAccountFromDb,
+                    "id",
+                    "broker",
+                    "assets");
+        }
         return brokerAccountDao.save(brokerAccountFromDb);
     }
 }
