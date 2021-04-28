@@ -3,7 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.AssetDao;
 import com.spehof.piggy.domain.Asset;
 import com.spehof.piggy.domain.Portfolio;
-import com.spehof.piggy.exception.AssetConflictException;
+import com.spehof.piggy.exception.AssetConflictTickerException;
 import com.spehof.piggy.exception.AssetNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class AssetService {
 
     public Asset create(String title, String price){
         if (assetDao.getByTitle(title).isPresent())
-            throw new AssetConflictException("Asset with name " + title + " already exist");
+            throw new AssetConflictTickerException("Asset with name " + title + " already exist");
         Asset asset = new Asset(title, price);
         return assetDao.save(asset);
     }
@@ -57,7 +57,10 @@ public class AssetService {
 
     public Asset update(Asset assetFromApi){
         Asset assetFromDb =  assetDao.findById(assetFromApi.getId())
-                .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetFromApi.getId() + " not found"));
+                .orElseThrow(() -> new AssetNotFoundException("Asset with this ID " + assetFromApi.getId() + " not found"));
+        if (assetFromApi.getTitle() != null && assetDao.getByTitle(assetFromApi.getTitle()).isPresent())
+            throw new AssetConflictTickerException("Asset with name " + assetFromApi.getTitle() + " already exist");
+
         BeanUtils.copyProperties(assetFromApi, assetFromDb, "id");
         return assetDao.save(assetFromDb);
     }
