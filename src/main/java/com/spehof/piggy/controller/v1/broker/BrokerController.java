@@ -1,8 +1,8 @@
 package com.spehof.piggy.controller.v1.broker;
 
 import com.spehof.piggy.domain.Account;
-import com.spehof.piggy.domain.Broker;
-import com.spehof.piggy.service.BrokerService;
+import com.spehof.piggy.domain.trading.Broker;
+import com.spehof.piggy.service.trading.BrokerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

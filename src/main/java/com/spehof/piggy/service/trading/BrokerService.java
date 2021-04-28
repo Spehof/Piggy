@@ -1,9 +1,8 @@
-package com.spehof.piggy.service;
+package com.spehof.piggy.service.trading;
 
 import com.spehof.piggy.DAO.BrokerDao;
 import com.spehof.piggy.domain.Account;
-import com.spehof.piggy.domain.Broker;
-import com.spehof.piggy.domain.BrokerAccount;
+import com.spehof.piggy.domain.trading.Broker;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

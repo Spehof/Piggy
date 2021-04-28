@@ -55,4 +55,10 @@ public class EarningService {
                 "earningCategory");
         return earningDao.save(earningFromDb);
     }
+
+    public boolean checkUsing(MoneyHolder moneyHolderFromDb) {
+        Boolean isUsing = moneyHolderFromDb.getUser().getAccount().getEarnings().stream()
+                .anyMatch(earning -> earning.getMoneyHolder().equals(moneyHolderFromDb));
+        return isUsing;
+    }
 }

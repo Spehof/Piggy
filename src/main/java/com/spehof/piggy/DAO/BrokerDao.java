@@ -1,6 +1,6 @@
 package com.spehof.piggy.DAO;
 
-import com.spehof.piggy.domain.Broker;
+import com.spehof.piggy.domain.trading.Broker;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

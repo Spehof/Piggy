@@ -1,6 +1,7 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.domain.trading.Portfolio;
 import com.spehof.piggy.exception.*;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;

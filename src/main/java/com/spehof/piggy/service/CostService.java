@@ -52,4 +52,10 @@ public class CostService {
                 "costCategory");
         return costDao.save(costFromDb);
     }
+
+    public boolean checkUsing(MoneyHolder moneyHolderFromDb) {
+        Boolean isUsing = moneyHolderFromDb.getUser().getAccount().getCosts().stream()
+                .anyMatch(cost -> cost.getMoneyHolder().equals(moneyHolderFromDb));
+        return isUsing;
+    }
 }

@@ -1,8 +1,8 @@
 package com.spehof.piggy.controller.v1;
 
 import com.spehof.piggy.domain.Account;
-import com.spehof.piggy.domain.Portfolio;
-import com.spehof.piggy.service.PortfolioService;
+import com.spehof.piggy.domain.trading.Portfolio;
+import com.spehof.piggy.service.trading.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

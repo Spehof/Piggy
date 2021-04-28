@@ -4,6 +4,7 @@ import com.spehof.piggy.DAO.AccountDao;
 import com.spehof.piggy.DAO.UserDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.User;
+import com.spehof.piggy.service.trading.BrokerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

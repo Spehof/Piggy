@@ -1,6 +1,8 @@
-package com.spehof.piggy.domain;
+package com.spehof.piggy.domain.trading;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spehof.piggy.domain.Account;
+import com.spehof.piggy.domain.BaseEntity;
 import com.spehof.piggy.exception.BrokerAccountNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

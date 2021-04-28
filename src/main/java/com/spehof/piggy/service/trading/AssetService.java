@@ -1,8 +1,8 @@
-package com.spehof.piggy.service;
+package com.spehof.piggy.service.trading;
 
 import com.spehof.piggy.DAO.AssetDao;
-import com.spehof.piggy.domain.Asset;
-import com.spehof.piggy.domain.Portfolio;
+import com.spehof.piggy.domain.trading.Asset;
+import com.spehof.piggy.domain.trading.Portfolio;
 import com.spehof.piggy.exception.AssetConflictTickerException;
 import com.spehof.piggy.exception.AssetNotFoundException;
 import org.springframework.beans.BeanUtils;
