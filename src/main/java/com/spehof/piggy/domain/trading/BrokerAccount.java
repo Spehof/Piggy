@@ -2,8 +2,8 @@ package com.spehof.piggy.domain.trading;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spehof.piggy.domain.BaseEntity;
-import com.spehof.piggy.exception.PortfolioNotFoundException;
-import com.spehof.piggy.exception.TradeNotFoundException;
+import com.spehof.piggy.exception.trading.PortfolioNotFoundException;
+import com.spehof.piggy.exception.trading.TradeNotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,8 +2,13 @@ package com.spehof.piggy.service;
 
 import com.spehof.piggy.DAO.UserDao;
 import com.spehof.piggy.domain.User;
-import com.spehof.piggy.domain.CostCategory;
-import com.spehof.piggy.domain.EarningCategory;
+import com.spehof.piggy.domain.category.CostCategory;
+import com.spehof.piggy.domain.category.EarningCategory;
+import com.spehof.piggy.service.category.CostCategoryService;
+import com.spehof.piggy.service.category.EarningCategoryService;
+import com.spehof.piggy.service.category.MoneyMovementCategoryHolderService;
+import com.spehof.piggy.service.moneymovement.MoneyHolderService;
+import com.spehof.piggy.service.moneymovement.TransactionService;
 import com.spehof.piggy.service.trading.PortfolioService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,14 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.domain.moneymovement.Cost;
+import com.spehof.piggy.domain.moneymovement.Earning;
+import com.spehof.piggy.domain.moneymovement.Transaction;
 import com.spehof.piggy.domain.trading.Broker;
-import com.spehof.piggy.exception.*;
+import com.spehof.piggy.exception.moneymovement.CostNotFoundException;
+import com.spehof.piggy.exception.moneymovement.EarningNotFoundException;
+import com.spehof.piggy.exception.moneymovement.TransactionNotFoundException;
+import com.spehof.piggy.exception.trading.BrokerNotFoundException;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.trading;
 
-import com.spehof.piggy.DAO.BrokerAccountDao;
+import com.spehof.piggy.DAO.trading.BrokerAccountDao;
 import com.spehof.piggy.domain.trading.Asset;
 import com.spehof.piggy.domain.trading.Broker;
 import com.spehof.piggy.domain.trading.BrokerAccount;

@@ -1,8 +1,12 @@
 package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.spehof.piggy.domain.category.MoneyMovementCategoryHolder;
+import com.spehof.piggy.domain.moneymovement.MoneyHolder;
 import com.spehof.piggy.domain.trading.Portfolio;
 import com.spehof.piggy.exception.*;
+import com.spehof.piggy.exception.moneymovement.MoneyHolderNotFoundException;
+import com.spehof.piggy.exception.trading.PortfolioNotFoundException;
 import com.spehof.piggy.utils.ClientViews;
 import lombok.*;
 
