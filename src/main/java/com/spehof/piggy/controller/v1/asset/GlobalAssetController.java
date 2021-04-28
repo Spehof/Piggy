@@ -29,7 +29,7 @@ public class GlobalAssetController {
 
     @PostMapping
     public Asset create(@RequestBody Asset assetFromApi){
-        return assetService.create(assetFromApi.getTitle(), assetFromApi.getPrice());
+        return assetService.create(assetFromApi.getTicker(), assetFromApi.getPrice());
     }
 
     @DeleteMapping

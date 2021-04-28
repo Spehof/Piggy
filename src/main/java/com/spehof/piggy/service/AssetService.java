@@ -26,7 +26,7 @@ public class AssetService {
     }
 
     public Asset create(String title, String price){
-        if (assetDao.getByTitle(title).isPresent())
+        if (assetDao.getByTicker(title).isPresent())
             throw new AssetConflictTickerException("Asset with name " + title + " already exist");
         Asset asset = new Asset(title, price);
         return assetDao.save(asset);
@@ -37,8 +37,8 @@ public class AssetService {
     }
 
     public Asset addToPortfolio(Portfolio portfolio, Asset assetFromApi){
-        Asset assetFromDb = assetDao.getByTitle(assetFromApi.getTitle())
-                .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetFromApi.getTitle() + " not found"));
+        Asset assetFromDb = assetDao.getByTicker(assetFromApi.getTicker())
+                .orElseThrow(() -> new AssetNotFoundException("Asset with this ticker " + assetFromApi.getTicker() + " not found"));
 //        TODO maybe will be problem with saving new portfolio
         portfolio.setAsset(assetFromDb);
 
@@ -58,15 +58,15 @@ public class AssetService {
     public Asset update(Asset assetFromApi){
         Asset assetFromDb =  assetDao.findById(assetFromApi.getId())
                 .orElseThrow(() -> new AssetNotFoundException("Asset with this ID " + assetFromApi.getId() + " not found"));
-        if (assetFromApi.getTitle() != null && assetDao.getByTitle(assetFromApi.getTitle()).isPresent())
-            throw new AssetConflictTickerException("Asset with name " + assetFromApi.getTitle() + " already exist");
+        if (assetFromApi.getTicker() != null && assetDao.getByTicker(assetFromApi.getTicker()).isPresent())
+            throw new AssetConflictTickerException("Asset with ticker " + assetFromApi.getTicker() + " already exist");
 
         BeanUtils.copyProperties(assetFromApi, assetFromDb, "id");
         return assetDao.save(assetFromDb);
     }
 
     public Asset getAssetFromDb(String assetName){
-        return assetDao.getByTitle(assetName)
+        return assetDao.getByTicker(assetName)
                 .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetName + " not found"));
     }
 

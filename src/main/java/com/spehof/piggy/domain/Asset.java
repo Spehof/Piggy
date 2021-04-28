@@ -2,7 +2,6 @@ package com.spehof.piggy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spehof.piggy.exception.PortfolioNotFoundException;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,14 +16,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "assets")
-//@EqualsAndHashCode(of = {"title"})
+//@EqualsAndHashCode(of = {"ticker"})
 @NoArgsConstructor
 @Getter
 @Setter
 public class Asset {
 
-    public Asset(String title, String price){
-        this.title = title;
+    public Asset(String ticker, String price){
+        this.ticker = ticker;
         this.price = price;
     }
 
@@ -34,8 +33,8 @@ public class Asset {
     private Long id;
 
 
-    @Column(name = "title", unique = true)
-    private String title;
+    @Column(name = "ticker", unique = true)
+    private String ticker;
 
     @Column(name = "price")
     private String price;
@@ -90,16 +89,16 @@ public class Asset {
 
         Asset other = (Asset)o;
 
-        if (title == other.getTitle()) return true;
-        if (title == null) return false;
+        if (ticker == other.getTicker()) return true;
+        if (ticker == null) return false;
 
         // equivalence by title
-        return title.equals(other.getTitle());
+        return ticker.equals(other.getTicker());
     }
 
     public int hashCode() {
-        if (title != null) {
-            return title.hashCode();
+        if (ticker != null) {
+            return ticker.hashCode();
         } else {
             return super.hashCode();
         }
