@@ -47,6 +47,12 @@ public class BrokerAccount extends BaseEntity {
     @JsonIgnore
     private List<Trade> trades = new ArrayList<>();
 
+    @OneToMany()
+    @JoinTable(name = "broker_accounts_assets",
+            joinColumns = @JoinColumn(name = "broker_account_broker_account_ID", referencedColumnName = "broker_account_ID"),
+            inverseJoinColumns = @JoinColumn(name = "asset_asset_ID", referencedColumnName = "asset_ID"))
+    private List<Asset> assets = new ArrayList<>();
+
     @Column(name = "title")
     private String title;
 

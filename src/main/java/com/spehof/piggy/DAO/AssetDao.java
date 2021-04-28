@@ -11,5 +11,5 @@ import java.util.Optional;
  */
 public interface AssetDao extends JpaRepository<Asset, Long> {
 
-    Optional<Asset> getByName(String name);
+    Optional<Asset> getByTitle(String name);
 }

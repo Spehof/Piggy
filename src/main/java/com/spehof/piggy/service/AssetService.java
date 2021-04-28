@@ -3,6 +3,7 @@ package com.spehof.piggy.service;
 import com.spehof.piggy.DAO.AssetDao;
 import com.spehof.piggy.domain.Asset;
 import com.spehof.piggy.domain.Portfolio;
+import com.spehof.piggy.exception.AssetConflictException;
 import com.spehof.piggy.exception.AssetNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,10 @@ public class AssetService {
         this.assetDao = assetDao;
     }
 
-    public Asset create(String name, String price){
-        Asset asset = new Asset(name, price);
+    public Asset create(String title, String price){
+        if (assetDao.getByTitle(title).isPresent())
+            throw new AssetConflictException("Asset with name " + title + " already exist");
+        Asset asset = new Asset(title, price);
         return assetDao.save(asset);
     }
 
@@ -34,8 +37,8 @@ public class AssetService {
     }
 
     public Asset addToPortfolio(Portfolio portfolio, Asset assetFromApi){
-        Asset assetFromDb = assetDao.getByName(assetFromApi.getName())
-                .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetFromApi.getName() + " not found"));
+        Asset assetFromDb = assetDao.getByTitle(assetFromApi.getTitle())
+                .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetFromApi.getTitle() + " not found"));
 //        TODO maybe will be problem with saving new portfolio
         portfolio.setAsset(assetFromDb);
 
@@ -60,7 +63,7 @@ public class AssetService {
     }
 
     public Asset getAssetFromDb(String assetName){
-        return assetDao.getByName(assetName)
+        return assetDao.getByTitle(assetName)
                 .orElseThrow(() -> new AssetNotFoundException("Asset with this name " + assetName + " not found"));
     }
 

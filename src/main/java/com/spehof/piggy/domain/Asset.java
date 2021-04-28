@@ -17,14 +17,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "assets")
-@EqualsAndHashCode(of = {"id"})
+//@EqualsAndHashCode(of = {"title"})
 @NoArgsConstructor
 @Getter
 @Setter
 public class Asset {
 
-    public Asset(String name, String price){
-        this.name = name;
+    public Asset(String title, String price){
+        this.title = title;
         this.price = price;
     }
 
@@ -33,8 +33,9 @@ public class Asset {
     @Column(name = "asset_ID")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+
+    @Column(name = "title", unique = true)
+    private String title;
 
     @Column(name = "price")
     private String price;
@@ -80,5 +81,27 @@ public class Asset {
                 .findFirst()
                 .orElseThrow(() -> new PortfolioNotFoundException("Portfolio with ID " + portfolioId + " not found"));
         portfolioForChange = null;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Asset))
+            return false;
+
+        Asset other = (Asset)o;
+
+        if (title == other.getTitle()) return true;
+        if (title == null) return false;
+
+        // equivalence by title
+        return title.equals(other.getTitle());
+    }
+
+    public int hashCode() {
+        if (title != null) {
+            return title.hashCode();
+        } else {
+            return super.hashCode();
+        }
     }
 }

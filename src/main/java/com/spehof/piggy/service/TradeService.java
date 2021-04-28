@@ -33,7 +33,7 @@ public class TradeService {
      * @param amount - amount asset trade
      * */
     public Trade create(BrokerAccount brokerAccount, Asset assetFromApi, Long amount){
-        Asset assetFromDb = assetService.getAssetFromDb(assetFromApi.getName());
+        Asset assetFromDb = assetService.getAssetFromDb(assetFromApi.getTitle());
         Trade trade = new Trade(brokerAccount, assetFromDb, amount);
         brokerAccount.setTrade(trade);
         return tradeDao.save(trade);
