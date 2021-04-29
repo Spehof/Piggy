@@ -1,7 +1,7 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.AccountDao;
-import com.spehof.piggy.DAO.UserDao;
+import com.spehof.piggy.dao.AccountDao;
+import com.spehof.piggy.dao.UserDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.service.moneymovement.CostService;

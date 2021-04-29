@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.trading;
 
-import com.spehof.piggy.DAO.trading.AssetDao;
+import com.spehof.piggy.dao.trading.AssetDao;
 import com.spehof.piggy.domain.trading.Asset;
 import com.spehof.piggy.domain.trading.Portfolio;
 import com.spehof.piggy.exception.trading.AssetConflictTickerException;

@@ -1,7 +1,7 @@
 package com.spehof.piggy.service.category;
 
-import com.spehof.piggy.DAO.category.EarningCategoryDao;
-import com.spehof.piggy.DAO.category.MoneyMovementCategoryHolderDao;
+import com.spehof.piggy.dao.category.EarningCategoryDao;
+import com.spehof.piggy.dao.category.MoneyMovementCategoryHolderDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.category.CostCategory;
 import com.spehof.piggy.domain.category.EarningCategory;

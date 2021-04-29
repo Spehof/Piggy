@@ -1,6 +1,6 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.UserDao;
+import com.spehof.piggy.dao.UserDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.category.CostCategory;
 import com.spehof.piggy.domain.category.EarningCategory;

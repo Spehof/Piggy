@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.moneymovement;
 
-import com.spehof.piggy.DAO.moneymovement.CostDao;
+import com.spehof.piggy.dao.moneymovement.CostDao;
 import com.spehof.piggy.domain.*;
 import com.spehof.piggy.domain.category.CostCategory;
 import com.spehof.piggy.domain.moneymovement.Cost;

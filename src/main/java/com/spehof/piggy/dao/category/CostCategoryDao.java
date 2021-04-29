@@ -1,4 +1,4 @@
-package com.spehof.piggy.DAO.category;
+package com.spehof.piggy.dao.category;
 
 import com.spehof.piggy.domain.category.CostCategory;
 import org.springframework.data.jpa.repository.JpaRepository;

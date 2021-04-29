@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.moneymovement;
 
-import com.spehof.piggy.DAO.moneymovement.TransactionDao;
+import com.spehof.piggy.dao.moneymovement.TransactionDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.moneymovement.MoneyHolder;
 import com.spehof.piggy.domain.moneymovement.Transaction;

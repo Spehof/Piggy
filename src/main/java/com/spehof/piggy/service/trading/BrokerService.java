@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.trading;
 
-import com.spehof.piggy.DAO.trading.BrokerDao;
+import com.spehof.piggy.dao.trading.BrokerDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.trading.Broker;
 import org.springframework.beans.BeanUtils;

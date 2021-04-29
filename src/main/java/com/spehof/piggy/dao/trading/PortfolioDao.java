@@ -1,4 +1,4 @@
-package com.spehof.piggy.DAO.trading;
+package com.spehof.piggy.dao.trading;
 
 import com.spehof.piggy.domain.trading.Portfolio;
 import org.springframework.data.jpa.repository.JpaRepository;

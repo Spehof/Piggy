@@ -1,4 +1,4 @@
-package com.spehof.piggy.DAO;
+package com.spehof.piggy.dao;
 
 import com.spehof.piggy.domain.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;

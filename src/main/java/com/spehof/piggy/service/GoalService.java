@@ -1,6 +1,6 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.GoalDao;
+import com.spehof.piggy.dao.GoalDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Goal;
 import org.springframework.beans.BeanUtils;

@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.category;
 
-import com.spehof.piggy.DAO.category.EarningCategoryDao;
+import com.spehof.piggy.dao.category.EarningCategoryDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.category.EarningCategory;
 import org.springframework.beans.factory.annotation.Autowired;

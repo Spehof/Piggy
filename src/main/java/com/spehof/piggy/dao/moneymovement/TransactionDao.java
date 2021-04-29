@@ -1,4 +1,4 @@
-package com.spehof.piggy.DAO.moneymovement;
+package com.spehof.piggy.dao.moneymovement;
 
 import com.spehof.piggy.domain.moneymovement.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;

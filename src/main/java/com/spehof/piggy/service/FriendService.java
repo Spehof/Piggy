@@ -1,6 +1,6 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.FriendDao;
+import com.spehof.piggy.dao.FriendDao;
 import com.spehof.piggy.domain.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

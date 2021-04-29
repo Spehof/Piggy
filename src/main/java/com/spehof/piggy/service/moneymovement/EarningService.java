@@ -1,6 +1,6 @@
 package com.spehof.piggy.service.moneymovement;
 
-import com.spehof.piggy.DAO.moneymovement.EarningDao;
+import com.spehof.piggy.dao.moneymovement.EarningDao;
 import com.spehof.piggy.domain.Account;
 import com.spehof.piggy.domain.moneymovement.Earning;
 import com.spehof.piggy.domain.category.EarningCategory;

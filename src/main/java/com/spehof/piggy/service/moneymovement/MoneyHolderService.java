@@ -1,11 +1,9 @@
 package com.spehof.piggy.service.moneymovement;
 
-import com.spehof.piggy.DAO.moneymovement.MoneyHolderDao;
+import com.spehof.piggy.dao.moneymovement.MoneyHolderDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.moneymovement.MoneyHolder;
 import com.spehof.piggy.exception.moneymovement.MoneyHolderStillUseException;
-import com.spehof.piggy.service.moneymovement.CostService;
-import com.spehof.piggy.service.moneymovement.EarningService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.LoanDao;
+import com.spehof.piggy.dao.LoanDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Friend;
 import com.spehof.piggy.domain.Loan;

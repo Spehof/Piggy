@@ -1,6 +1,6 @@
 package com.spehof.piggy.service;
 
-import com.spehof.piggy.DAO.NotificationDao;
+import com.spehof.piggy.dao.NotificationDao;
 import com.spehof.piggy.domain.User;
 import com.spehof.piggy.domain.Notification;
 import org.springframework.beans.BeanUtils;
